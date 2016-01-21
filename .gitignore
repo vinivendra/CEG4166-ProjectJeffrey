@@ -1,0 +1,10 @@
+.metadata
+RemoteSystemsTempFiles
+CEG4166RTS_TestLib/*
+CEG4166_RTS_Lib/*
+FreeRTOS801/*
+NewProject/Release
+NewProject/.*
+
+
+
