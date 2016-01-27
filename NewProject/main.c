@@ -20,6 +20,12 @@
 /* serial interface include file. */
 #include "usartserial.h"
 
+/* Project files */
+#include "temperatureTask.h"
+#include "temperatureHandler.h"
+#include "LCDHandler.h"
+#include "LEDHandler.h"
+
 
 /*-----------------------------------------------------------*/
 /* Create a handle for the serial port. */
