@@ -8,6 +8,6 @@
 #ifndef TEMPERATURETASK_H_
 #define TEMPERATURETASK_H_
 
-void TemperatureTask(void *pvParameters);
+void temperatureTask(void *pvParameters);
 
 #endif /* TEMPERATURETASK_H_ */
