@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['setuplcd',['setupLCD',['../_l_c_d_handler_8c.html#a90528caab2c5dc2c32f19333b016ae00',1,'setupLCD():&#160;LCDHandler.c'],['../_l_c_d_handler_8h.html#a90528caab2c5dc2c32f19333b016ae00',1,'setupLCD():&#160;LCDHandler.c']]],
-  ['setupled',['setupLED',['../_l_e_d_handler_8c.html#a769d1dacfe53490335b09588ec128c5a',1,'setupLED():&#160;LEDHandler.c'],['../_l_e_d_handler_8h.html#a769d1dacfe53490335b09588ec128c5a',1,'setupLED():&#160;LEDHandler.c']]],
-  ['shutdownlcd',['shutdownLCD',['../_l_c_d_handler_8c.html#aa2cbe94416b83db208a58f467df0cb26',1,'shutdownLCD():&#160;LCDHandler.c'],['../_l_c_d_handler_8h.html#aa2cbe94416b83db208a58f467df0cb26',1,'shutdownLCD():&#160;LCDHandler.c']]]
+  ['temperaturetask',['temperatureTask',['../temperature_task_8c.html#a96c361e8ae7194173d6843a3b9a2fb73',1,'temperatureTask(void *pvParameters):&#160;temperatureTask.c'],['../temperature_task_8h.html#a96c361e8ae7194173d6843a3b9a2fb73',1,'temperatureTask(void *pvParameters):&#160;temperatureTask.c']]]
 ];

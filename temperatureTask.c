@@ -1,29 +1,30 @@
 
 #include "FreeRTOS.h"
 
-#include "temperatureTask.h"
-#include "LEDHandler.h"
 #include "LCDHandler.h"
+#include "LEDHandler.h"
 #include "temperatureHandler.h"
+#include "temperatureTask.h"
 
-void temperatureTask(void *pvParameters) {
-    TickType_t xLastWakeTime;
+void temperatureTask(void *pvParameters)
+{
+  TickType_t xLastWakeTime;
 
-    setupLED();
-    setupLCD();
+  setupLED();
+  setupLCD();
 
-    xLastWakeTime = xTaskGetTickCount();
+  xLastWakeTime = xTaskGetTickCount();
 
-    while(1){
+  while (1)
+  {
+    // Clear and refresh display of LCD
+    int temperature = getAverageTemperature();
 
-        //Clear and refresh display of LCD
-        int temperature = getAverageTemperature();
+    displayTemperatureInLED(temperature);
+    displayTemperatureInLCD(temperature);
 
-        displayTemperatureInLED(temperature);
-        displayTemperatureInLCD(temperature);
+    vTaskDelayUntil(&xLastWakeTime, (40 / portTICK_PERIOD_MS));
+  }
 
-        vTaskDelayUntil( &xLastWakeTime, ( 40 / portTICK_PERIOD_MS ) );
-    }
-
-    shutdownLCD();
+  shutdownLCD();
 }

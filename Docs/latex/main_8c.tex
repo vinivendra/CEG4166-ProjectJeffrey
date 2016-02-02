@@ -1,14 +1,14 @@
 \hypertarget{main_8c}{}\section{main.\+c File Reference}
 \label{main_8c}\index{main.\+c@{main.\+c}}
-{\ttfamily \#include $<$stdlib.\+h$>$}\\*
-{\ttfamily \#include $<$stdbool.\+h$>$}\\*
-{\ttfamily \#include $<$string.\+h$>$}\\*
-{\ttfamily \#include $<$stdio.\+h$>$}\\*
 {\ttfamily \#include $<$avr/io.\+h$>$}\\*
+{\ttfamily \#include $<$stdbool.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
 {\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}task.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}semphr.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}task.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}temperature\+Task.\+h\char`\"{}}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -16,11 +16,6 @@
 int \hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
 \item 
 void \hyperlink{main_8c_a2e0defe473604c1bd4c5a11aed724078}{v\+Application\+Stack\+Overflow\+Hook} (Task\+Handle\+\_\+t x\+Task, port\+C\+H\+AR $\ast$pc\+Task\+Name)
-\end{DoxyCompactItemize}
-\subsection*{Variables}
-\begin{DoxyCompactItemize}
-\item 
-int \hyperlink{main_8c_ac77728f253c55ea9156a03df49e2186c}{usartfd}
 \end{DoxyCompactItemize}
 
 
@@ -40,9 +35,12 @@ int \hyperlink{main_8c_ac77728f253c55ea9156a03df49e2186c}{usartfd}
 \item[{port\+C\+H\+AR $\ast$}]{pc\+Task\+Name}
 \end{DoxyParamCaption}
 )}\hypertarget{main_8c_a2e0defe473604c1bd4c5a11aed724078}{}\label{main_8c_a2e0defe473604c1bd4c5a11aed724078}
+Do we really need this?
 
 
-\subsection{Variable Documentation}
-\index{main.\+c@{main.\+c}!usartfd@{usartfd}}
-\index{usartfd@{usartfd}!main.\+c@{main.\+c}}
-\subsubsection[{\texorpdfstring{usartfd}{usartfd}}]{\setlength{\rightskip}{0pt plus 5cm}int usartfd}\hypertarget{main_8c_ac77728f253c55ea9156a03df49e2186c}{}\label{main_8c_ac77728f253c55ea9156a03df49e2186c}
+\begin{DoxyParams}{Parameters}
+{\em x\+Task} & $<$\#x\+Task description\#$>$ \\
+\hline
+{\em pc\+Task\+Name} & $<$\#pc\+Task\+Name description\#$>$ \\
+\hline
+\end{DoxyParams}
