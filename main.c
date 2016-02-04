@@ -13,20 +13,28 @@
 
 #include "temperatureTask.h"
 
-
-int main(void)
+/**
+ *  main function of the program here
+ *  Creates the task and starts the scheduler
+ *
+ */
+int main()
 {
     xTaskCreate(temperatureTask, (const portCHAR *)"", 256, NULL, 3, NULL);
 
     vTaskStartScheduler();
 }
 
+
+/**
+ *  This function needs to be there.
+ *
+ *  @param xTask
+ *  @param pcTaskName
+ *
+ */
 void vApplicationStackOverflowHook(TaskHandle_t xTask, portCHAR *pcTaskName)
 {
-
-    DDRB |= _BV(DDB7);
-    PORTB |= _BV(PORTB7); // main (red PB7) LED on. Mega main LED on and die.
-
     while (1)
         ;
 }

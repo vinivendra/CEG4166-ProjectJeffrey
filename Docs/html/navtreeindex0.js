@@ -24,7 +24,7 @@ var NAVTREEINDEX0 =
 "index.html":[],
 "main_8c.html":[0,0,4],
 "main_8c.html#a2e0defe473604c1bd4c5a11aed724078":[0,0,4,1],
-"main_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[0,0,4,0],
+"main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4":[0,0,4,0],
 "pages.html":[],
 "temperature_handler_8c.html":[0,0,5],
 "temperature_handler_8c.html#a6d7862720702fcd8a6b1e1771cb22e27":[0,0,5,0],
