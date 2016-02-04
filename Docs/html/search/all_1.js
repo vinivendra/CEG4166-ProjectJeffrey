@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['getaveragetemperature',['getAverageTemperature',['../temperature_handler_8c.html#a3d9c40f039c0ec980f8f77ada25d2a91',1,'getAverageTemperature():&#160;temperatureHandler.c'],['../temperature_handler_8h.html#a3d9c40f039c0ec980f8f77ada25d2a91',1,'getAverageTemperature():&#160;temperatureHandler.c']]],
-  ['getpixeltemperature',['getPixelTemperature',['../temperature_handler_8c.html#afc4abf4c3aff6f58b3fb60e0c32a2235',1,'getPixelTemperature(int index):&#160;temperatureHandler.c'],['../temperature_handler_8h.html#a1013a0d786602e60e8335f4932c9bae5',1,'getPixelTemperature(int pixelIndex):&#160;temperatureHandler.c']]]
+  ['displaytemperatureinlcd',['displayTemperatureInLCD',['../_l_c_d_handler_8c.html#aded460328c3e3c0caa0c1c07970abf9a',1,'displayTemperatureInLCD():&#160;LCDHandler.c'],['../_l_c_d_handler_8h.html#aded460328c3e3c0caa0c1c07970abf9a',1,'displayTemperatureInLCD():&#160;LCDHandler.c']]],
+  ['displaytemperatureinled',['displayTemperatureInLED',['../_l_e_d_handler_8c.html#a2cdbd2d40344eac5992c568802420b37',1,'displayTemperatureInLED(int temperature):&#160;LEDHandler.c'],['../_l_e_d_handler_8h.html#a2cdbd2d40344eac5992c568802420b37',1,'displayTemperatureInLED(int temperature):&#160;LEDHandler.c']]]
 ];

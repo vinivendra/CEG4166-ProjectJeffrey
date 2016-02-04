@@ -1,5 +1,7 @@
 var temperature_handler_8h =
 [
-    [ "getAverageTemperature", "temperature_handler_8h.html#a3d9c40f039c0ec980f8f77ada25d2a91", null ],
-    [ "getPixelTemperature", "temperature_handler_8h.html#a1013a0d786602e60e8335f4932c9bae5", null ]
+    [ "updateTemperatures", "temperature_handler_8h.html#a8845f0daa44e7ee778246ae2cd214e2d", null ],
+    [ "ambiantTemperature", "temperature_handler_8h.html#a72a49318bb1a7e909cc968c719da5027", null ],
+    [ "averageTemperature", "temperature_handler_8h.html#a72455407df06ed5f9c09683f6a9e5789", null ],
+    [ "pixelTemperatures", "temperature_handler_8h.html#aafa23f1ed84ba49a435b7149edd941ec", null ]
 ];

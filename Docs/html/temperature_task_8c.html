@@ -107,7 +107,17 @@ $(document).ready(function(){initNavTree('temperature_task_8c.html','');});
 <div class="title">temperatureTask.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;FreeRTOS.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;avr/io.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;FreeRTOS.h&quot;</code><br />
+<code>#include &quot;i2cMultiMaster.h&quot;</code><br />
+<code>#include &quot;queue.h&quot;</code><br />
+<code>#include &quot;semphr.h&quot;</code><br />
+<code>#include &quot;serial.h&quot;</code><br />
+<code>#include &quot;task.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="_l_c_d_handler_8h_source.html">LCDHandler.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_l_e_d_handler_8h_source.html">LEDHandler.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="temperature_handler_8h_source.html">temperatureHandler.h</a>&quot;</code><br />
@@ -132,7 +142,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>&lt;#Description#&gt;</p>
+<p>&lt;Add description="" here&gt;=""&gt;</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pvParameters</td><td>&lt;#pvParameters description#&gt; </td></tr>

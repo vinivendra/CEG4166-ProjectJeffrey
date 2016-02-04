@@ -20,13 +20,13 @@ BreakConstructorInitializersBeforeComma: true
 ColumnLimit: 80
 #CommentPragmas(std::string) -> regex detailing comments to ignore
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
-ConstructorInitializerIndentWidth: 2
-ContinuationIndentWidth: 2
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
 DerivePointerAlignment: true
 DisableFormat: false
 IndentCaseLabels: false
-IndentWidth: 2
+IndentWidth: 4
 IndentWrappedFunctionNames: true
 MaxEmptyLinesToKeep: 2
 NamespaceIndentation: None
@@ -51,7 +51,7 @@ SpacesInContainerLiterals: true
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard: Auto
-TabWidth: 2
+TabWidth: 4
 UseTab: Never
 
 

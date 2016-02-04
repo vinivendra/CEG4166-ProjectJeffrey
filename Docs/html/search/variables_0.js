@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['xserial1port',['xSerial1Port',['../_l_c_d_handler_8c.html#a813c27256edbf0c83973a874ddb7f6e3',1,'LCDHandler.c']]]
+  ['ambianttemperature',['ambiantTemperature',['../temperature_handler_8h.html#a72a49318bb1a7e909cc968c719da5027',1,'temperatureHandler.h']]],
+  ['averagetemperature',['averageTemperature',['../temperature_handler_8h.html#a72455407df06ed5f9c09683f6a9e5789',1,'temperatureHandler.h']]]
 ];

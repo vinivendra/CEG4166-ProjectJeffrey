@@ -3,19 +3,18 @@
 #define TEMPERATUREHANDLER_H_
 
 /**
- *  <#Description#>
- *
- *  @param pixelIndex <#pixelIndex description#>
- *
- *  @return <#return value description#>
+ *  <Add description here>
  */
-int getPixelTemperature(int pixelIndex);
-
+int pixelTemperatures[8];
 /**
- *  <#Description#>
- *
- *  @return <#return value description#>
+ *  <Add description here>
  */
-int getAverageTemperature();
+int ambiantTemperature;
+/**
+ *  <Add description here>
+ */
+int averageTemperature;
+
+void updateTemperatures();
 
 #endif /* TEMPERATUREHANDLER_H_ */
