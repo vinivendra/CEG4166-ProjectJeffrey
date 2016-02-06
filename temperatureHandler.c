@@ -10,11 +10,12 @@
 #include <avr/io.h>
 
 /**
- *  <Add description here>
+ *  getPixelTemperature function
+ *  @param index - The index of pixel to read the temperature from
+ *  @return int - The temperature value of the pixel in degrees celcius
  *
- *  @param index <Describe the index parameter here>
- *
- *  @return <Describe the return value parameter here>
+ *  Send a message to the thermal sensor using I2C to read from the register
+ *  corresponding to the pixel index. Return the value that is read as an integer.
  */
 int getPixelTemperature(int index)
 {
@@ -38,7 +39,14 @@ int getPixelTemperature(int index)
 }
 
 /**
- *  <Add description here>
+ *  getPixelAverageTemperature function
+ *  @params none
+ *  @return void
+ *
+ *  Calls the getPixelTemperature method for each pixel, then calculates the
+ *  average of those values and stores the result in the averageTemperature variable.
+ *  The pixelTemperatures array is also populated with the values returned from the
+ *  getPixelTemperature function calls.
  */
 void getPixelAverageTemperature()
 {
@@ -55,7 +63,13 @@ void getPixelAverageTemperature()
 }
 
 /**
- *  <Add description here>
+ *  getAmbientTemperature function
+ *  @params none
+ *  @return void
+ *
+ *  Send a message to the thermal sensor using I2C to read from register 1
+ *  which contains the abient temperature from the thermal sensor. Then the
+ *  result is stored in the ambiantTemperature variable.
  */
 void getAmbientTemperature()
 {
@@ -76,7 +90,13 @@ void getAmbientTemperature()
 }
 
 /**
- *  <Add description here>
+ *  updateTemperatures function
+ *  @params none
+ *  @return void
+ *
+ *  Calls the getPixelAverageTemperature and getAmbientTemperature functions.
+ *  This updates the values stored in the ambiantTemperature and averageTemperature
+ *  variables, and the individual pixel values stored in the pixelTemperatures array.
  */
 void updateTemperatures()
 {
