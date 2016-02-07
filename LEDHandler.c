@@ -4,7 +4,14 @@
 #include "serial.h"
 
 /**
- *  <Add description here>
+ *  setupLED function
+ *  @params none
+ *  @return void
+ *
+ *  Loads the micro-controller’s registers with associated 
+ *  input/output ports for each LED. Each bit in the DDRx registers 
+ *  can be either 1 or 0 : a bit of DDRx at 1 configures the pin 
+ *  as output and putting it at 0 will configure the pin as an input.
  */
 void setupLED()
 {
@@ -15,9 +22,14 @@ void setupLED()
 }
 
 /**
- *  <Add description here>
+ *  displayTemperatureInLED function
+ *  @param temperature - The temperature value of the pixel in degrees (celcius)
+ *  @return void
  *
- *  @param temperature <Describe the temperature parameter here>
+ *  Loads the micro-controller’s registers with associated 
+ *  input/output ports for each LED. Each bit in the DDRx registers 
+ *  can be either 1 or 0 : a bit of DDRx at 1 configures the pin as output and putting 
+ *  it at 0 will configure the pin as an input.
  */
 void displayTemperatureInLED(int temperature)
 {
@@ -31,12 +43,13 @@ void displayTemperatureInLED(int temperature)
     {
         PORTE &= ~_BV(PORTE3); // GREEN ON
         PORTE |= _BV(PORTE5);  // BLUE OFF
-        PORTH |= _BV(PORTH3);  // RED OFF*/
+        PORTH |= _BV(PORTH3);  // RED OFF
     }
+    //If temperature is equals or higher than 40 degrees
     else
     {
         PORTE |= _BV(PORTE3);  // GREEN OFF
-        PORTE |= _BV(PORTE5);  // BLUE ON
-        PORTH &= ~_BV(PORTH3); // RED OFF
+        PORTE |= _BV(PORTE5);  // BLUE OFF
+        PORTH &= ~_BV(PORTH3); // RED ON
     }
 }
