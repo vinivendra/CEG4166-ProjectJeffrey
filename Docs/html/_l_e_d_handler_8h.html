@@ -131,10 +131,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>&lt;Add description="" here&gt;=""&gt;</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Changes the color of the LED to reflect the given temperature value. Temperatures less then <code>30</code> cause the LED to be blue; from <code>30</code> to <code>40</code>, green; and from <code>40</code> up, red. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">temperature</td><td>&lt;Describe the="" temperature="" parameter="" here&gt;=""&gt; </td></tr>
+    <tr><td class="paramname">temperature</td><td>The temperature value to use for changing the LED color, in Celsius. </td></tr>
   </table>
   </dd>
 </dl>
@@ -153,7 +152,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>&lt;Add description="" here&gt;=""&gt; </p>
+<p>Loads the micro-controller’s registers with associated input/output ports for each LED. Each bit in the <code>DDRx</code> registers can be either <code>1</code> or <code>0</code> : a bit of <code>DDRx</code> at <code>1</code> configures the pin as output and putting it at <code>0</code> will configure the pin as an input. </p>
 
 </div>
 </div>

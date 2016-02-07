@@ -139,7 +139,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>&lt;Add description="" here&gt;=""&gt; </p>
+<p>Send a message to the thermal sensor using <code>I2C</code> to read from register <code>1</code> which contains the abient temperature from the thermal sensor. Then the result is stored in the <code>ambiantTemperature</code> variable. </p>
 
 </div>
 </div>
@@ -155,7 +155,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>&lt;Add description="" here&gt;=""&gt; </p>
+<p>Calls the <code>getPixelTemperature</code> function for each pixel, then calculates the average of those values and stores the result in the <code>averageTemperature</code> variable. The <code>pixelTemperatures</code> array is also populated with the values returned from the <code>getPixelTemperature</code> function calls. </p>
 
 </div>
 </div>
@@ -172,14 +172,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>&lt;Add description="" here&gt;=""&gt;</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>&lt;Describe the="" index="" parameter="" here&gt;=""&gt;</td></tr>
+    <tr><td class="paramname">index</td><td>The index of pixel to read the temperature from </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>&lt;Describe the="" return="" value="" parameter="" here&gt;=""&gt; </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int The temperature value of the pixel in degrees Celcius</dd></dl>
+<p>Send a message to the thermal sensor using <code>I2C</code> to read from the register corresponding to the pixel index. Return the value that is read as an integer. </p>
 
 </div>
 </div>
@@ -195,7 +195,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>&lt;Add description="" here&gt;=""&gt; </p>
+<p>Calls the <code>getPixelAverageTemperature</code> and <code>getAmbientTemperature</code> functions. This updates the values stored in the <code>ambiantTemperature</code> and <code>averageTemperature</code> variables, and the individual pixel values stored in the <code>pixelTemperatures</code> array. </p>
 
 </div>
 </div>

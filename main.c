@@ -16,7 +16,6 @@
 /**
  *  main function of the program here
  *  Creates the task and starts the scheduler
- *
  */
 int main()
 {
@@ -27,11 +26,10 @@ int main()
 
 
 /**
- *  This function needs to be there.
+ *  This function needs to be here.
  *
  *  @param xTask
  *  @param pcTaskName
- *
  */
 void vApplicationStackOverflowHook(TaskHandle_t xTask, portCHAR *pcTaskName)
 {

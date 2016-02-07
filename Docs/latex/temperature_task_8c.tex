@@ -30,10 +30,10 @@ void \hyperlink{temperature_task_8c_a96c361e8ae7194173d6843a3b9a2fb73}{temperatu
 \item[{void $\ast$}]{pv\+Parameters}
 \end{DoxyParamCaption}
 )}\hypertarget{temperature_task_8c_a96c361e8ae7194173d6843a3b9a2fb73}{}\label{temperature_task_8c_a96c361e8ae7194173d6843a3b9a2fb73}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$
+Function to be given to the program\textquotesingle{}s scheduler to handle monitoring thermal sensors and displaying temperature in the L\+CD and L\+ED displays. This task handles all relevant setup and shutdown procedures as well as calling for regular updates. The task sleeps for 1 second between each update in order to avoid flickering in the output and give the user time to read the displayed information.
 
 
 \begin{DoxyParams}{Parameters}
-{\em pv\+Parameters} & $<$\#pv\+Parameters description\#$>$ \\
+{\em pv\+Parameters} & This parameter is present only so the function conforms with the required signature. It is ignored. \\
 \hline
 \end{DoxyParams}

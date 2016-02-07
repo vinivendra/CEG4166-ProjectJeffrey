@@ -4,14 +4,10 @@
 #include "serial.h"
 
 /**
- *  setupLED function
- *  @params none
- *  @return void
- *
- *  Loads the micro-controller’s registers with associated 
- *  input/output ports for each LED. Each bit in the DDRx registers 
- *  can be either 1 or 0 : a bit of DDRx at 1 configures the pin 
- *  as output and putting it at 0 will configure the pin as an input.
+ * Loads the micro-controller’s registers with associated
+ * input/output ports for each LED. Each bit in the `DDRx` registers
+ * can be either `1` or `0` : a bit of `DDRx` at `1` configures the pin
+ * as output and putting it at `0` will configure the pin as an input.
  */
 void setupLED()
 {
@@ -22,14 +18,11 @@ void setupLED()
 }
 
 /**
- *  displayTemperatureInLED function
- *  @param temperature - The temperature value of the pixel in degrees (celcius)
- *  @return void
- *
- *  Loads the micro-controller’s registers with associated 
- *  input/output ports for each LED. Each bit in the DDRx registers 
- *  can be either 1 or 0 : a bit of DDRx at 1 configures the pin as output and putting 
- *  it at 0 will configure the pin as an input.
+ * Changes the color of the LED to reflect the given temperature value.
+ * Temperatures less then `30` cause the LED to be blue; from `30` to `40`,
+ * green; and from `40` up, red.
+ * @param temperature The temperature value to use for changing the LED
+ * color, in Celsius.
  */
 void displayTemperatureInLED(int temperature)
 {
@@ -45,7 +38,7 @@ void displayTemperatureInLED(int temperature)
         PORTE |= _BV(PORTE5);  // BLUE OFF
         PORTH |= _BV(PORTH3);  // RED OFF
     }
-    //If temperature is equals or higher than 40 degrees
+    // If temperature is equals or higher than 40 degrees
     else
     {
         PORTE |= _BV(PORTE3);  // GREEN OFF

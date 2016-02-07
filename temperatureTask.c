@@ -20,9 +20,15 @@
 #include "temperatureTask.h"
 
 /**
- *  <Add description here>
+ * Function to be given to the program's scheduler to handle monitoring thermal
+ * sensors and displaying temperature in the LCD and LED displays. This task
+ * handles all relevant setup and shutdown procedures as well as calling for
+ * regular updates. The task sleeps for 1 second between each update in order to
+ * avoid flickering in the output and give the user time to read the displayed
+ * information.
  *
- *  @param pvParameters <#pvParameters description#>
+ * @param pvParameters This parameter is present only so the function conforms
+ * with the required signature. It is ignored.
  */
 void temperatureTask(void *pvParameters)
 {

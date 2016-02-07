@@ -24,16 +24,16 @@ int \hyperlink{temperature_handler_8h_a72455407df06ed5f9c09683f6a9e5789}{average
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{temperature_handler_8h_a8845f0daa44e7ee778246ae2cd214e2d}{}\label{temperature_handler_8h_a8845f0daa44e7ee778246ae2cd214e2d}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ 
+Calls the {\ttfamily get\+Pixel\+Average\+Temperature} and {\ttfamily get\+Ambient\+Temperature} functions. This updates the values stored in the {\ttfamily ambiant\+Temperature} and {\ttfamily average\+Temperature} variables, and the individual pixel values stored in the {\ttfamily pixel\+Temperatures} array. 
 
 \subsection{Variable Documentation}
 \index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!ambiant\+Temperature@{ambiant\+Temperature}}
 \index{ambiant\+Temperature@{ambiant\+Temperature}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
 \subsubsection[{\texorpdfstring{ambiant\+Temperature}{ambiantTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int ambiant\+Temperature}\hypertarget{temperature_handler_8h_a72a49318bb1a7e909cc968c719da5027}{}\label{temperature_handler_8h_a72a49318bb1a7e909cc968c719da5027}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ \index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!average\+Temperature@{average\+Temperature}}
+Stores the ambient temperature as read by the last call to the {\ttfamily update\+Temperatures} function. \index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!average\+Temperature@{average\+Temperature}}
 \index{average\+Temperature@{average\+Temperature}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
 \subsubsection[{\texorpdfstring{average\+Temperature}{averageTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int average\+Temperature}\hypertarget{temperature_handler_8h_a72455407df06ed5f9c09683f6a9e5789}{}\label{temperature_handler_8h_a72455407df06ed5f9c09683f6a9e5789}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ \index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!pixel\+Temperatures@{pixel\+Temperatures}}
+Stores the average of the 8 pixel temperatures, as read by the last call to the {\ttfamily update\+Temperatures} function. \index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!pixel\+Temperatures@{pixel\+Temperatures}}
 \index{pixel\+Temperatures@{pixel\+Temperatures}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
 \subsubsection[{\texorpdfstring{pixel\+Temperatures}{pixelTemperatures}}]{\setlength{\rightskip}{0pt plus 5cm}int pixel\+Temperatures\mbox{[}8\mbox{]}}\hypertarget{temperature_handler_8h_aafa23f1ed84ba49a435b7149edd941ec}{}\label{temperature_handler_8h_aafa23f1ed84ba49a435b7149edd941ec}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ 
+Stores the 8 pixel temperatures as read by the last call to the {\ttfamily update\+Temperatures} function. 

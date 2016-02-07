@@ -28,35 +28,33 @@ void \hyperlink{temperature_handler_8c_a8845f0daa44e7ee778246ae2cd214e2d}{update
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{temperature_handler_8c_a6d7862720702fcd8a6b1e1771cb22e27}{}\label{temperature_handler_8c_a6d7862720702fcd8a6b1e1771cb22e27}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Pixel\+Average\+Temperature@{get\+Pixel\+Average\+Temperature}}
+Send a message to the thermal sensor using {\ttfamily I2C} to read from register {\ttfamily 1} which contains the abient temperature from the thermal sensor. Then the result is stored in the {\ttfamily ambiant\+Temperature} variable. \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Pixel\+Average\+Temperature@{get\+Pixel\+Average\+Temperature}}
 \index{get\+Pixel\+Average\+Temperature@{get\+Pixel\+Average\+Temperature}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
 \subsubsection[{\texorpdfstring{get\+Pixel\+Average\+Temperature()}{getPixelAverageTemperature()}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Pixel\+Average\+Temperature (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{temperature_handler_8c_a736851e57b063b61f25a47f477d38e19}{}\label{temperature_handler_8c_a736851e57b063b61f25a47f477d38e19}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Pixel\+Temperature@{get\+Pixel\+Temperature}}
+Calls the {\ttfamily get\+Pixel\+Temperature} function for each pixel, then calculates the average of those values and stores the result in the {\ttfamily average\+Temperature} variable. The {\ttfamily pixel\+Temperatures} array is also populated with the values returned from the {\ttfamily get\+Pixel\+Temperature} function calls. \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Pixel\+Temperature@{get\+Pixel\+Temperature}}
 \index{get\+Pixel\+Temperature@{get\+Pixel\+Temperature}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
 \subsubsection[{\texorpdfstring{get\+Pixel\+Temperature(int index)}{getPixelTemperature(int index)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Pixel\+Temperature (
 \begin{DoxyParamCaption}
 \item[{int}]{index}
 \end{DoxyParamCaption}
 )}\hypertarget{temperature_handler_8c_afc4abf4c3aff6f58b3fb60e0c32a2235}{}\label{temperature_handler_8c_afc4abf4c3aff6f58b3fb60e0c32a2235}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$
-
 
 \begin{DoxyParams}{Parameters}
-{\em index} & $<$\+Describe the=\char`\"{}\char`\"{} index=\char`\"{}\char`\"{} parameter=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$\\
+{\em index} & The index of pixel to read the temperature from \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-$<$\+Describe the=\char`\"{}\char`\"{} return=\char`\"{}\char`\"{} value=\char`\"{}\char`\"{} parameter=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ 
+int The temperature value of the pixel in degrees Celcius
 \end{DoxyReturn}
-\index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!update\+Temperatures@{update\+Temperatures}}
+Send a message to the thermal sensor using {\ttfamily I2C} to read from the register corresponding to the pixel index. Return the value that is read as an integer. \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!update\+Temperatures@{update\+Temperatures}}
 \index{update\+Temperatures@{update\+Temperatures}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
 \subsubsection[{\texorpdfstring{update\+Temperatures()}{updateTemperatures()}}]{\setlength{\rightskip}{0pt plus 5cm}void update\+Temperatures (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{temperature_handler_8c_a8845f0daa44e7ee778246ae2cd214e2d}{}\label{temperature_handler_8c_a8845f0daa44e7ee778246ae2cd214e2d}
-$<$\+Add description=\char`\"{}\char`\"{} here$>$=\char`\"{}\char`\"{}$>$ 
+Calls the {\ttfamily get\+Pixel\+Average\+Temperature} and {\ttfamily get\+Ambient\+Temperature} functions. This updates the values stored in the {\ttfamily ambiant\+Temperature} and {\ttfamily average\+Temperature} variables, and the individual pixel values stored in the {\ttfamily pixel\+Temperatures} array. 

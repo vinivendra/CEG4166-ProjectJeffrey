@@ -10,13 +10,9 @@
 extern xComPortHandle xSerial1Port;
 
 /**
- * setupLCD method 
- * @return void
- * @params none
- *
  * Initialise the LCD screen
  * Set Baud rate to the default (9600bps)
- * Setup the necessary ports 
+ * Setup the necessary ports
  */
 void setupLCD()
 {
@@ -27,10 +23,6 @@ void setupLCD()
 }
 
 /**
- * displayTemperatureInLCD method
- * @return void
- * @params none
- *
  * Refresh the LCD screen, then make sure it is clear
  * Print the necessary temperatures to the LCD
  * Flush the commands to the LCD
@@ -52,11 +44,7 @@ void displayTemperatureInLCD()
 }
 
 /**
- * shutDownLCD method
- * @return void
- * @params none
- *
- * Shuts down the LCD screen and frees the allocated memory 
+ * Shuts down the LCD screen and frees the allocated memory
  */
 void shutdownLCD()
 {
