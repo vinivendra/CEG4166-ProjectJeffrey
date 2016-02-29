@@ -12,17 +12,22 @@
 #include "task.h"
 
 #include "temperatureTask.h"
+#include "motionTask.h"
+#include "decoderTask.h"
 
 /**
  *  main function of the program here
  *  Creates the task and starts the scheduler
  */
+
 int main()
 {
-    xTaskCreate(temperatureTask, (const portCHAR *)"", 256, NULL, 3, NULL);
-
-    vTaskStartScheduler();
+	//xTaskCreate(temperatureTask, (const portCHAR *)"", 256, NULL, 3, NULL);
+	xTaskCreate(motionTask, (const portCHAR *)"", 256, NULL, 3, NULL);
+	xTaskCreate(decoderTask, (const portCHAR *)"", 256, NULL, 3, NULL);
+    //vTaskStartScheduler();
 }
+
 
 
 /**

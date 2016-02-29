@@ -4,6 +4,7 @@
 
 void setupLCD();
 void displayTemperatureInLCD();
+void displaySpeedInLCD(float leftSpeed, float rightSpeed);
 void shutdownLCD();
 
 #endif /* LCDHANDLER_H_ */

@@ -43,6 +43,20 @@ void displayTemperatureInLCD()
     xSerialFlush(&xSerial1Port); // Flush commands to LCD
 }
 
+
+
+
+void displaySpeedInLCD(float leftSpeed, float rightSpeed)
+{
+    avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0xFE); // Refresh display
+    avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0x01); // Clear display
+
+    // Print the temperature
+    avrSerialxPrintf_P(&xSerial1Port, PSTR("Speed: %f"),rightSpeed);
+
+    xSerialFlush(&xSerial1Port); // Flush commands to LCD
+}
+
 /**
  * Shuts down the LCD screen and frees the allocated memory
  */
