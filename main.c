@@ -53,17 +53,17 @@ void vTaskMoveChico(void *pvParameters)
 		motionForward();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 
-//		motionBackward();
-//		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
-//
-//		motionSpinLeft();
-//		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
-//
-//		motionSpinRight();
-//		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
-//
-//		motionStop();
-//		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+		motionBackward();
+		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+
+		motionSpinLeft();
+		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+
+		motionSpinRight();
+		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+
+		motionStop();
+		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 	}
 }
 
@@ -74,7 +74,7 @@ void vTaskDecoder(void *pvParameters)
 
 	while (1)
 	{
-		decoder();
+		decoderTask();
 	}
 }
 
