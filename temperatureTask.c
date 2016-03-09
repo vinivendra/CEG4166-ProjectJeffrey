@@ -30,7 +30,7 @@
  * @param pvParameters This parameter is present only so the function conforms
  * with the required signature. It is ignored.
  */
-void temperatureTask(void *pvParameters)
+void temperatureTask()
 {
     I2C_Master_Initialise(0xBA);
     TickType_t xLastWakeTime;

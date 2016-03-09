@@ -20,6 +20,8 @@
  *  Creates the task and starts the scheduler
  */
 
+void vTaskMoveChico(void *pvParameters);
+
 int main()
 {
 	//xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
@@ -30,7 +32,6 @@ int main()
 
 void vTaskTemperature(void *pvParameters)
 {
-	(void) *pvParameters;
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 
@@ -42,32 +43,32 @@ void vTaskTemperature(void *pvParameters)
 
 void vTaskMoveChico(void *pvParameters)
 {
-	(void) *pvParameters;
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
+
+	motionInit();
 
 	while (1)
 	{
 		motionForward();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 
-		motionBackward();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
-
-		motionSpinLeft();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
-
-		motionSpinRight();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
-
-		motionStop();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+//		motionBackward();
+//		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+//
+//		motionSpinLeft();
+//		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+//
+//		motionSpinRight();
+//		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+//
+//		motionStop();
+//		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 	}
 }
 
 void vTaskDecoder(void *pvParameters)
 {
-	(void) *pvParameters;
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 
