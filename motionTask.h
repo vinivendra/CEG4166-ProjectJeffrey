@@ -7,5 +7,8 @@ void motionBackward(void *pvParameters);
 void motionSpinLeft(void *pvParameters);
 void motionSpinRight(void *pvParameters);
 void motionStop(void *pvParameters);
+void motionThermoSensorRight();
+void motionThermoSensorLeft();
+void motionThermoSensorStop();
 
 #endif /* MOTIONTASK_H_ */

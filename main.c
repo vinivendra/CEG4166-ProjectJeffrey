@@ -20,11 +20,15 @@
  *  main function of the program here
  *  Creates the task and starts the scheduler
  */
+ 
+ static bool thermoSensorFlag = false; 
 
 int main()
 {
 	//xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
 	xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
+	xTaskCreate(vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, NULL);
+
 	//xTaskCreate(vTaskDecoder, (const portCHAR *)"", 256, NULL, 3, NULL);
     vTaskStartScheduler();
 }
@@ -41,6 +45,23 @@ void vTaskTemperature(void *pvParameters)
 	}
 }
 
+void vTaskMoveThermoSensor(void *pvParameters) {
+	
+	(void) *pvParameters;
+	TickType_t xLastWakeTime;
+	xLastWakeTime = xTaskGetTickCount();
+
+	motion_init();
+	
+	while(thermoSensorFlag) {
+		motionThermoSensorRight();
+		vTaskDelayUntil(&xLastWakeTime, (200 / portTICK_PERIOD_MS));
+		motionThermoSensorLeft();
+	}
+	motionThermoSensorStop();
+	
+}
+
 void vTaskMoveChico(void *pvParameters)
 {
 	(void) *pvParameters;
@@ -52,6 +73,7 @@ void vTaskMoveChico(void *pvParameters)
 	while (1)
 	{
 		motionForward();
+		thermoSensorFlag = true;
 		displayGreenLED();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 
@@ -59,6 +81,7 @@ void vTaskMoveChico(void *pvParameters)
 		displayRedLED();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 
+		thermoSensorFlag = false;
 		motionSpinLeft();
 		displayBlueLED();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
