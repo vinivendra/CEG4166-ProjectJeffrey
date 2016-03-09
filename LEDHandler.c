@@ -1,4 +1,3 @@
-
 #include "FreeRTOS.h"
 #include "LEDHandler.h"
 #include "serial.h"
@@ -18,31 +17,48 @@ void setupLED()
 }
 
 /**
- * Changes the color of the LED to reflect the given temperature value.
- * Temperatures less then `30` cause the LED to be blue; from `30` to `40`,
- * green; and from `40` up, red.
- * @param temperature The temperature value to use for changing the LED
- * color, in Celsius.
+ * Change LED color to green
  */
-void displayTemperatureInLED(int temperature)
-{
-    if (temperature < 30)
-    {
-        PORTE |= _BV(PORTE3);  // GREEN OFF
-        PORTE &= ~_BV(PORTE5); // BLUE ON
-        PORTH |= _BV(PORTH3);  // RED OFF
-    }
-    else if (temperature >= 30 && temperature < 40)
-    {
-        PORTE &= ~_BV(PORTE3); // GREEN ON
-        PORTE |= _BV(PORTE5);  // BLUE OFF
-        PORTH |= _BV(PORTH3);  // RED OFF
-    }
-    // If temperature is equals or higher than 40 degrees
-    else
-    {
-        PORTE |= _BV(PORTE3);  // GREEN OFF
-        PORTE |= _BV(PORTE5);  // BLUE OFF
-        PORTH &= ~_BV(PORTH3); // RED ON
-    }
+void displayGreenLED() {
+	PORTE &= ~_BV(PORTE3); // GREEN ON
+    PORTE |= _BV(PORTE5);  // BLUE OFF
+    PORTH |= _BV(PORTH3);  // RED OFF
 }
+
+/**
+ * Change LED color to Red
+ */
+void displayRedLED() {
+	PORTE |= _BV(PORTE3);  // GREEN OFF
+    PORTE |= _BV(PORTE5);  // BLUE OFF
+    PORTH &= ~_BV(PORTH3); // RED ON	
+}
+
+/**
+ * Change LED color to Blue
+ */
+void displayBlueLED() {
+	PORTE |= _BV(PORTE3);  // GREEN OFF
+	PORTE &= ~_BV(PORTE5); // BLUE ON
+    PORTH |= _BV(PORTH3);  // RED OFF	
+}
+
+/**
+ * Change LED color to white
+ * All colors must be on to obtain the color white
+ */
+void displayWhiteLED() {
+	PORTE &= ~_BV(PORTE3);  // GREEN ON
+	PORTE &= ~_BV(PORTE5); // BLUE ON
+    PORTH &= ~_BV(PORTH3);  // RED ON
+}
+
+/**
+ * Turns off the LED
+ */
+void displayNoLED() {
+	PORTE |= _BV(PORTE3);  // GREEN OFF
+	PORTE |= _BV(PORTE5); // BLUE OFF
+    PORTH |= _BV(PORTH3);  // RED OFF	
+}
+

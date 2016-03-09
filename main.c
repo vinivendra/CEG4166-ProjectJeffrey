@@ -14,6 +14,7 @@
 #include "temperatureTask.h"
 #include "motionTask.h"
 #include "decoderTask.h"
+#include "LEDHandler.h"
 
 /**
  *  main function of the program here
@@ -45,24 +46,30 @@ void vTaskMoveChico(void *pvParameters)
 {
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
+	
+	setupLED();
 
 	motionInit();
 
 	while (1)
 	{
 		motionForward();
+		displayGreenLED();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 
 		motionBackward();
+		displayRedLED();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 
 		motionSpinLeft();
+		displayBlueLED();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 
 		motionSpinRight();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 
 		motionStop();
+		displayWhiteLED();
 		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
 	}
 }

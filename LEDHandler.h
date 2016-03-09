@@ -3,6 +3,10 @@
 #define LEDHANDLER_H_
 
 void setupLED();
-void displayTemperatureInLED(int temperature);
+void displayBlueLED();
+void displayRedLED();
+void displayGreenLED();
+void displayWhiteLED();
+void displayNoLED();
 
 #endif /* LEDHANDLER_H_ */
