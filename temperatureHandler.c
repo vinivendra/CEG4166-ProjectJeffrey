@@ -9,6 +9,15 @@
 #include "i2cMultiMaster.h"
 #include <avr/io.h>
 
+
+int pixelTemperatures[8];
+
+
+void setupTemperature() {
+	I2C_Master_Initialise(0xBA);
+}
+
+
 /**
  * @param index The index of pixel to read the temperature from
  * @return int The temperature value of the pixel in degrees Celcius
@@ -44,18 +53,32 @@ int getPixelTemperature(int index)
  * variable. The `pixelTemperatures` array is also populated with the values
  * returned from the `getPixelTemperature` function calls.
  */
-void getPixelAverageTemperature()
+int getLeftAverageTemperature()
 {
     int pixelTemperatureSum = 0;
 
-    for (int pixel = 0; pixel < 8; pixel++)
+    for (int pixel = 0; pixel < 4; pixel++)
     {
         int pixelTemp = getPixelTemperature(pixel);
         pixelTemperatures[pixel] = pixelTemp;
         pixelTemperatureSum += pixelTemp;
     }
 
-    averageTemperature = (pixelTemperatureSum / 8);
+    return pixelTemperatureSum / 4;
+}
+
+int getRightAverageTemperature()
+{
+    int pixelTemperatureSum = 0;
+
+    for (int pixel = 4; pixel < 8; pixel++)
+    {
+        int pixelTemp = getPixelTemperature(pixel);
+        pixelTemperatures[pixel] = pixelTemp;
+        pixelTemperatureSum += pixelTemp;
+    }
+
+    return pixelTemperatureSum / 4;
 }
 
 /**
@@ -63,7 +86,7 @@ void getPixelAverageTemperature()
  * which contains the abient temperature from the thermal sensor. Then the
  * result is stored in the `ambiantTemperature` variable.
  */
-void getAmbientTemperature()
+int getAmbientTemperature()
 {
     // 1. write address (address of thermal sensor with 0 bit), read register
     // ambient pixel register
@@ -78,7 +101,7 @@ void getAmbientTemperature()
     uint8_t result[2];
     I2C_Master_Get_Data_From_Transceiver(result, sizeof(result)); // read result
 
-    ambiantTemperature = result[1];
+    return result[1];
 }
 
 /**
@@ -87,8 +110,9 @@ void getAmbientTemperature()
  * `averageTemperature` variables, and the individual pixel values stored in the
  * `pixelTemperatures` array.
  */
-void updateTemperatures()
+void updateTemperatures(int *ambientTemperature, int *leftAverageTemperature, int *rightAverageTemperature)
 {
-    getPixelAverageTemperature();
-    getAmbientTemperature();
+    *leftAverageTemperature = getLeftAverageTemperature();
+    *rightAverageTemperature = getRightAverageTemperature();
+    *ambientTemperature = getAmbientTemperature();
 }
