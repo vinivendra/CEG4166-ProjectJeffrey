@@ -88,3 +88,24 @@ void motionStop()
 	motion_servo_stop(MOTION_WHEEL_RIGHT);
 	motion_servo_stop(MOTION_WHEEL_LEFT);
 }
+
+/**
+ * Move the Thermo Sensor to the right
+ */
+void motionThermoSensorRight() {
+	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 1100);
+}
+
+/**
+ * Move the Thermo Sensor to the left
+ */
+void motionThermoSensorLeft() {
+	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 4800);
+}
+
+/**
+ * Stop the Thermo Sensor
+ */
+void motionThermoSensorStop() {
+	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 2560);
+}
