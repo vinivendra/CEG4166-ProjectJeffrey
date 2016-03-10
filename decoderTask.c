@@ -5,7 +5,7 @@
 #include "decoderTask.h"
 #include "LCDHandler.h"
 
-void decoderTask(void *pvParameters)
+void decoderTask()
 {
     setupLCD();
     TickType_t xLastWakeTime;

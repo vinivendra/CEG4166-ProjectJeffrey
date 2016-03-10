@@ -23,7 +23,18 @@
 //    motion_servo_stop(MOTION_WHEEL_LEFT);
 //}
 
-void motionForward(void *pvParameters)
+/**
+ * Initializes motion
+ */
+void motionInit()
+{
+	motion_init();
+}
+
+/**
+ * Move Chico forwards
+ */
+void motionForward()
 {
 	motion_init();
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
@@ -33,9 +44,11 @@ void motionForward(void *pvParameters)
 	motion_servo_start(MOTION_WHEEL_LEFT);
 }
 
-void motionBackward(void *pvParameters)
+/**
+ * Move Chico backwards
+ */
+void motionBackward()
 {
-	motion_init();
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 4800);
 	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 1100);
 
@@ -43,9 +56,11 @@ void motionBackward(void *pvParameters)
 	motion_servo_start(MOTION_WHEEL_LEFT);
 }
 
-void motionSpinLeft(void *pvParameters)
+/**
+ * Spin Chico to the left
+ */
+void motionSpinLeft()
 {
-	motion_init();
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
 	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 1100);
 
@@ -53,10 +68,11 @@ void motionSpinLeft(void *pvParameters)
 	motion_servo_start(MOTION_WHEEL_LEFT);
 }
 
-void motionSpinRight(void *pvParameters)
+/**
+ * Spin Chico to the right
+ */
+void motionSpinRight()
 {
-
-	motion_init();
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 4800);
 	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
 
@@ -64,7 +80,10 @@ void motionSpinRight(void *pvParameters)
 	motion_servo_start(MOTION_WHEEL_LEFT);
 }
 
-void motionStop(void *parameters)
+/**
+ * Stop Chico from moving
+ */
+void motionStop()
 {
 	motion_servo_stop(MOTION_WHEEL_RIGHT);
 	motion_servo_stop(MOTION_WHEEL_LEFT);

@@ -23,6 +23,8 @@
  
  static bool thermoSensorFlag = false; 
 
+void vTaskMoveChico(void *pvParameters);
+
 int main()
 {
 	//xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
@@ -35,7 +37,6 @@ int main()
 
 void vTaskTemperature(void *pvParameters)
 {
-	(void) *pvParameters;
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 
@@ -64,11 +65,12 @@ void vTaskMoveThermoSensor(void *pvParameters) {
 
 void vTaskMoveChico(void *pvParameters)
 {
-	(void) *pvParameters;
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 	
 	setupLED();
+
+	motionInit();
 
 	while (1)
 	{
@@ -97,13 +99,12 @@ void vTaskMoveChico(void *pvParameters)
 
 void vTaskDecoder(void *pvParameters)
 {
-	(void) *pvParameters;
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 
 	while (1)
 	{
-		decoder();
+		decoderTask();
 	}
 }
 
