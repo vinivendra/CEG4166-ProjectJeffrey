@@ -22,37 +22,13 @@ void setupLCD()
                                           portSERIAL_BUFFER_RX);
 }
 
-/**
- * Refresh the LCD screen, then make sure it is clear
- * Print the necessary temperatures to the LCD
- * Flush the commands to the LCD
- */
-void displayTemperatureInLCD()
-{
+void writeToLCD(float speed, float distanceTravelled, int averageTemperature, int leftTemperature, int rightTemperature) {
     avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0xFE); // Refresh display
     avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0x01); // Clear display
 
     // Print the temperature
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("Amb:%2d\r"), ambiantTemperature);
-    for (int i = 0; i < 8; i++)
-    {
-        avrSerialxPrintf_P(&xSerial1Port, PSTR("%2d,"), pixelTemperatures[i]);
-    }
-
-
-    xSerialFlush(&xSerial1Port); // Flush commands to LCD
-}
-
-
-
-
-void displaySpeedInLCD(float leftSpeed, float rightSpeed)
-{
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0xFE); // Refresh display
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0x01); // Clear display
-
-    // Print the temperature
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("Speed: %f"),rightSpeed);
+    avrSerialxPrintf_P(&xSerial1Port, PSTR("S: %2.2f D: %2.2f     "), speed, distanceTravelled);
+    avrSerialxPrintf_P(&xSerial1Port, PSTR("A:%2d L:%2d R:%2d"), averageTemperature, leftTemperature, rightTemperature);
 
     xSerialFlush(&xSerial1Port); // Flush commands to LCD
 }

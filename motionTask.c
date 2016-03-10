@@ -39,9 +39,11 @@ void motionForward()
 	motion_init();
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
 	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
+	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 1400);
 
 	motion_servo_start(MOTION_WHEEL_RIGHT);
 	motion_servo_start(MOTION_WHEEL_LEFT);
+	motion_servo_start(MOTION_SERVO_CENTER);
 }
 
 /**

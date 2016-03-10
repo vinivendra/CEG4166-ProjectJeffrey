@@ -5,37 +5,46 @@
 #include "decoderTask.h"
 #include "LCDHandler.h"
 
-void decoderTask()
+
+#define distancePerRisingEdge 0.0054
+
+
+float distanceTravelled = 0;
+
+
+void decoderTask(int period, float *returnSpeed, float *returnDistanceTravelled)
 {
-    setupLCD();
-    TickType_t xLastWakeTime;
-    xLastWakeTime = xTaskGetTickCount();
+	uint32_t ticksLeft;
+	uint32_t ticksRight;
 
-    uint32_t ticksLeft;
-    uint32_t ticksRight;
+	float leftSpeed = 0;
+	float rightSpeed = 0;
 
-    float leftSpeed = 0;
-    float rightSpeed = 0;
+	int newDataAvailableLeft = motion_enc_read(MOTION_WHEEL_LEFT, &ticksLeft);
+	int newDataAvailableRight = motion_enc_read(MOTION_WHEEL_RIGHT, &ticksRight);
 
-    while(1)
-    {
-    	int newDataAvailableLeft = motion_enc_read(MOTION_WHEEL_LEFT, &ticksLeft);
-    	int newDataAvailableRight = motion_enc_read(MOTION_WHEEL_RIGHT, &ticksRight);
+	if(newDataAvailableLeft)
+	{
+		float timeLeft = ticksLeft*500E-9;
+		leftSpeed = distancePerRisingEdge /timeLeft; // (m/s)
+	}
+	else
+	{
+		leftSpeed = 0;
+	}
 
-    	if(newDataAvailableLeft)
-    	{
-    		float timeLeft = ticksLeft*500*10E-9;
-    		leftSpeed = 0.0054/timeLeft; // (m/s)
-    	}
+	if(newDataAvailableRight)
+	{
+		float timeRight = ticksRight*500E-9;
+		rightSpeed = distancePerRisingEdge /timeRight; // (m/s)
+	}
+	else
+	{
+		rightSpeed = 0;
+	}
 
-    	if(newDataAvailableRight)
-    	{
-    		float timeRight = ticksRight*500*10E-9;
-    		rightSpeed = 0.0054/timeRight; // (m/s)
-    	}
-    	displaySpeedInLCD(leftSpeed, rightSpeed);
-    	vTaskDelayUntil(&xLastWakeTime, (10 / portTICK_PERIOD_MS));
-    }
+	*returnSpeed = (leftSpeed + rightSpeed) / 2;
+
+	*returnDistanceTravelled += leftSpeed * (period / (float)1000);
 }
 
-//0.1728/32 / #ticks/32 * nano second tick
