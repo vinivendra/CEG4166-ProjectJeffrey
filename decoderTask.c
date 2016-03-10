@@ -34,6 +34,8 @@ void decoderTask()
     		rightSpeed = 0.0054/timeRight; // (m/s)
     	}
     	displaySpeedInLCD(leftSpeed, rightSpeed);
-    	vTaskDelayUntil(&xLastWakeTime, (100 / portTICK_PERIOD_MS));
+    	vTaskDelayUntil(&xLastWakeTime, (10 / portTICK_PERIOD_MS));
     }
 }
+
+//0.1728/32 / #ticks/32 * nano second tick

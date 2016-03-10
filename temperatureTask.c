@@ -44,10 +44,10 @@ void temperatureTask()
     {
         // Clear and refresh display of LCD
         // int temperature = getAverageTemperature();
-        updateTemperatures();
+        //updateTemperatures();
 
-        displayTemperatureInLED(averageTemperature);
-        displayTemperatureInLCD();
+        //displayTemperatureInLED(averageTemperature);
+        //displayTemperatureInLCD();
 
         vTaskDelayUntil(&xLastWakeTime, (1000 / portTICK_PERIOD_MS));
     }
