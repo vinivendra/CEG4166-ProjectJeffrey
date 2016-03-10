@@ -1,4 +1,3 @@
-
 #include <avr/io.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -21,7 +20,6 @@
  *  main function of the program here
  *  Creates the task and starts the scheduler
  */
-
 int ambientTemperature, leftTemperature, rightTemperature;
 float speed, distanceTravelled;
 
@@ -36,7 +34,7 @@ int main()
 {
 	xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
 	xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
-//	xTaskCreate(vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, NULL);
+	xTaskCreate(vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, NULL);
 	xTaskCreate(vTaskDecoder, (const portCHAR *)"", 256, NULL, 3, NULL);
 	xTaskCreate(vTaskLCD, (const portCHAR *)"", 256, NULL, 3, NULL);
 
@@ -63,23 +61,27 @@ void vTaskTemperature(void *pvParameters)
 	shutdownLCD();
 }
 
-//void vTaskMoveThermoSensor(void *pvParameters)
-//{
-//
-//	TickType_t xLastWakeTime;
-//	xLastWakeTime = xTaskGetTickCount();
-//
-//	motionInit();
-//
-//	while(thermoSensorFlag) {
-//		motionThermoSensorRight();
-//		//vTaskDelayUntil(&xLastWakeTime, (200 / portTICK_PERIOD_MS));
-//		motionThermoSensorLeft();
-//	}
-//	motionThermoSensorStop();
-//
-//}
+/**
+ * Task to move the Thermo Sensor to the left and right while Chico is moving
+ */
+void vTaskMoveThermoSensor(void *pvParameters)
+{
+	const TickType_t xDelay = (50 / portTICK_PERIOD_MS);
 
+	motionInit();
+
+	while(1) {
+		while(thermoSensorFlag){
+			motionThermoSensor();
+			vTaskDelay(xDelay);
+		}
+		motionThermoSensorStop();
+	}
+}
+
+/**
+ * Task to move Chico foward, backwards, spin right and spin left
+ */
 void vTaskMoveChico(void *pvParameters)
 {
 	TickType_t xLastWakeTime;
@@ -92,25 +94,23 @@ void vTaskMoveChico(void *pvParameters)
 	while (1)
 	{
 		motionForward();
-//		thermoSensorFlag = true;
 		displayGreenLED();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+		vTaskDelay((2000 / portTICK_PERIOD_MS));
 
 		motionBackward();
 		displayRedLED();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+		vTaskDelay((2000 / portTICK_PERIOD_MS));
 
-//		thermoSensorFlag = false;
 		motionSpinLeft();
 		displayBlueLED();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+		vTaskDelay((2000 / portTICK_PERIOD_MS));
 
 		motionSpinRight();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+		vTaskDelay((2000 / portTICK_PERIOD_MS));
 
 		motionStop();
 		displayWhiteLED();
-		vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
+		vTaskDelay((2000 / portTICK_PERIOD_MS));
 	}
 }
 
@@ -147,7 +147,6 @@ void vTaskLCD(void *pvParameters)
 
 	shutdownLCD();
 }
-
 
 /**
  *  This function needs to be here.

@@ -1,27 +1,11 @@
 #include "FreeRTOS.h"
 #include "task.h"
-
 #include "motion.h"
 #include "motionTask.h"
 
-//void motionTask(void *pvParameters)
-//{
-//    TickType_t xLastWakeTime;
-//    xLastWakeTime = xTaskGetTickCount();
-//
-//    motion_init();
-//    motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
-//    motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
-//
-//    motion_servo_start(MOTION_WHEEL_RIGHT);
-//    motion_servo_start(MOTION_WHEEL_LEFT);
-//
-//
-//    vTaskDelayUntil(&xLastWakeTime, (2000 / portTICK_PERIOD_MS));
-//
-//    motion_servo_stop(MOTION_WHEEL_RIGHT);
-//    motion_servo_stop(MOTION_WHEEL_LEFT);
-//}
+bool thermoSensorFlag = false;
+static int thermoLeft = 1;
+static int pulseWidth = 2800;
 
 /**
  * Initializes motion
@@ -36,6 +20,7 @@ void motionInit()
  */
 void motionForward()
 {
+	thermoSensorFlag = true;
 	motion_init();
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
 	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
@@ -51,6 +36,7 @@ void motionForward()
  */
 void motionBackward()
 {
+	thermoSensorFlag = true;
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 4800);
 	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 1100);
 
@@ -63,6 +49,7 @@ void motionBackward()
  */
 void motionSpinLeft()
 {
+	thermoSensorFlag = false;
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
 	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 1100);
 
@@ -75,6 +62,7 @@ void motionSpinLeft()
  */
 void motionSpinRight()
 {
+	thermoSensorFlag = false;
 	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 4800);
 	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
 
@@ -87,27 +75,36 @@ void motionSpinRight()
  */
 void motionStop()
 {
+	thermoSensorFlag = false;
 	motion_servo_stop(MOTION_WHEEL_RIGHT);
 	motion_servo_stop(MOTION_WHEEL_LEFT);
 }
 
 /**
- * Move the Thermo Sensor to the right
+ * Move the Thermo Sensor to the left and right while Chico is moving, and return it to the center
+ * when Chico is not moving
  */
-void motionThermoSensorRight() {
-	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 1100);
-}
-
-/**
- * Move the Thermo Sensor to the left
- */
-void motionThermoSensorLeft() {
-	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 4800);
+void motionThermoSensor() {
+	if(thermoLeft == 1){
+		pulseWidth -= 100;
+		if(pulseWidth <= 1100){
+			thermoLeft = 0;
+		}
+	}else{
+		pulseWidth += 100;
+		if(pulseWidth >= 4800){
+			thermoLeft = 1;
+		}
+	}
+	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, pulseWidth);
+	motion_servo_start(MOTION_SERVO_CENTER);
 }
 
 /**
  * Stop the Thermo Sensor
  */
 void motionThermoSensorStop() {
-	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 2560);
+	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 2800);
+	motion_servo_start(MOTION_SERVO_CENTER);
+	pulseWidth = 2800;
 }

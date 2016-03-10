@@ -1,6 +1,8 @@
-
 #ifndef MOTIONTASK_H_
 #define MOTIONTASK_H_
+#include <stdbool.h>
+
+extern bool thermoSensorFlag;
 
 void motionInit();
 void motionForward();
@@ -8,9 +10,7 @@ void motionBackward();
 void motionSpinLeft();
 void motionSpinRight();
 void motionStop();
-void motionThermoSensorRight();
-void motionThermoSensorLeft();
+void motionThermoSensor();
 void motionThermoSensorStop();
-
 
 #endif /* MOTIONTASK_H_ */
