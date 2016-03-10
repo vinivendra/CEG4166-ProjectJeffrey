@@ -52,9 +52,12 @@ void vTaskTemperature(void *pvParameters)
 	setupLED();
 	setupLCD();
 
+	int period = 100;
+
 	while (1)
 	{
 		updateTemperatures(&ambientTemperature, &leftTemperature, &rightTemperature);
+		vTaskDelay((period / portTICK_PERIOD_MS));
 	}
 
 	shutdownLCD();
@@ -122,7 +125,7 @@ void vTaskDecoder(void *pvParameters)
 	{
 		decoderTask(period, &speed, &distanceTravelled);
 
-		vTaskDelayUntil(&xLastWakeTime, (period / portTICK_PERIOD_MS));
+		vTaskDelay((period / portTICK_PERIOD_MS));
 	}
 }
 
@@ -131,7 +134,7 @@ void vTaskLCD(void *pvParameters)
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 
-	int period = 1000;
+	int period = 500;
 
 	setupLCD();
 
@@ -139,7 +142,7 @@ void vTaskLCD(void *pvParameters)
 	{
 		writeToLCD(speed, distanceTravelled, ambientTemperature, leftTemperature, rightTemperature);
 
-		vTaskDelayUntil(&xLastWakeTime, (period / portTICK_PERIOD_MS));
+		vTaskDelay((period / portTICK_PERIOD_MS));
 	}
 
 	shutdownLCD();

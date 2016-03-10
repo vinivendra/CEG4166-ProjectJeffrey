@@ -27,8 +27,10 @@ void writeToLCD(float speed, float distanceTravelled, int averageTemperature, in
     avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0x01); // Clear display
 
     // Print the temperature
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("S: %2.2f D: %2.2f     "), speed, distanceTravelled);
+
+    avrSerialxPrintf_P(&xSerial1Port, PSTR("S: %2.2f D: %2.2f  "), speed, distanceTravelled);
     avrSerialxPrintf_P(&xSerial1Port, PSTR("A:%2d L:%2d R:%2d"), averageTemperature, leftTemperature, rightTemperature);
+
 
     xSerialFlush(&xSerial1Port); // Flush commands to LCD
 }

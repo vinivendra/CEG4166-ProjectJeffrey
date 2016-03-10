@@ -71,7 +71,7 @@ int getRightAverageTemperature()
 {
     int pixelTemperatureSum = 0;
 
-    for (int pixel = 5; pixel < 8; pixel++)
+    for (int pixel = 4; pixel < 8; pixel++)
     {
         int pixelTemp = getPixelTemperature(pixel);
         pixelTemperatures[pixel] = pixelTemp;
@@ -101,7 +101,6 @@ int getAmbientTemperature()
     uint8_t result[2];
     I2C_Master_Get_Data_From_Transceiver(result, sizeof(result)); // read result
 
-    return 3;
     return result[1];
 }
 
@@ -113,7 +112,7 @@ int getAmbientTemperature()
  */
 void updateTemperatures(int *ambientTemperature, int *leftAverageTemperature, int *rightAverageTemperature)
 {
+    *leftAverageTemperature = getLeftAverageTemperature();
+    *rightAverageTemperature = getRightAverageTemperature();
     *ambientTemperature = getAmbientTemperature();
-    *leftAverageTemperature = 2;
-    *rightAverageTemperature = 2;
 }
