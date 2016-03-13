@@ -1,10 +1,14 @@
 #include "FreeRTOS.h"
-#include "task.h"
 #include "motion.h"
 #include "motionTask.h"
+#include "task.h"
 
+/// Flag used to control the movement of the thermo sensor relative to the
+/// robot's movement.
 bool thermoSensorFlag = false;
+/// Variable used to control the thermo sensor's movement.
 static int thermoLeft = 1;
+/// Value used for calculating the thermo sensor's wave values.
 static int pulseWidth = 2800;
 
 /**
@@ -12,7 +16,7 @@ static int pulseWidth = 2800;
  */
 void motionInit()
 {
-	motion_init();
+    motion_init();
 }
 
 /**
@@ -20,15 +24,15 @@ void motionInit()
  */
 void motionForward()
 {
-	thermoSensorFlag = true;
-	motion_init();
-	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
-	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
-	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 1400);
+    thermoSensorFlag = true;
+    motion_init();
+    motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
+    motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
+    motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 1400);
 
-	motion_servo_start(MOTION_WHEEL_RIGHT);
-	motion_servo_start(MOTION_WHEEL_LEFT);
-	motion_servo_start(MOTION_SERVO_CENTER);
+    motion_servo_start(MOTION_WHEEL_RIGHT);
+    motion_servo_start(MOTION_WHEEL_LEFT);
+    motion_servo_start(MOTION_SERVO_CENTER);
 }
 
 /**
@@ -36,12 +40,12 @@ void motionForward()
  */
 void motionBackward()
 {
-	thermoSensorFlag = true;
-	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 4800);
-	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 1100);
+    thermoSensorFlag = true;
+    motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 4800);
+    motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 1100);
 
-	motion_servo_start(MOTION_WHEEL_RIGHT);
-	motion_servo_start(MOTION_WHEEL_LEFT);
+    motion_servo_start(MOTION_WHEEL_RIGHT);
+    motion_servo_start(MOTION_WHEEL_LEFT);
 }
 
 /**
@@ -49,12 +53,12 @@ void motionBackward()
  */
 void motionSpinLeft()
 {
-	thermoSensorFlag = false;
-	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
-	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 1100);
+    thermoSensorFlag = false;
+    motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 1100);
+    motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 1100);
 
-	motion_servo_start(MOTION_WHEEL_RIGHT);
-	motion_servo_start(MOTION_WHEEL_LEFT);
+    motion_servo_start(MOTION_WHEEL_RIGHT);
+    motion_servo_start(MOTION_WHEEL_LEFT);
 }
 
 /**
@@ -62,12 +66,12 @@ void motionSpinLeft()
  */
 void motionSpinRight()
 {
-	thermoSensorFlag = false;
-	motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 4800);
-	motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
+    thermoSensorFlag = false;
+    motion_servo_set_pulse_width(MOTION_WHEEL_RIGHT, 4800);
+    motion_servo_set_pulse_width(MOTION_WHEEL_LEFT, 4800);
 
-	motion_servo_start(MOTION_WHEEL_RIGHT);
-	motion_servo_start(MOTION_WHEEL_LEFT);
+    motion_servo_start(MOTION_WHEEL_RIGHT);
+    motion_servo_start(MOTION_WHEEL_LEFT);
 }
 
 /**
@@ -75,36 +79,44 @@ void motionSpinRight()
  */
 void motionStop()
 {
-	thermoSensorFlag = false;
-	motion_servo_stop(MOTION_WHEEL_RIGHT);
-	motion_servo_stop(MOTION_WHEEL_LEFT);
+    thermoSensorFlag = false;
+    motion_servo_stop(MOTION_WHEEL_RIGHT);
+    motion_servo_stop(MOTION_WHEEL_LEFT);
 }
 
 /**
- * Move the Thermo Sensor to the left and right while Chico is moving, and return it to the center
+ * Move the Thermo Sensor to the left and right while Chico is moving, and
+ * return it to the center
  * when Chico is not moving
  */
-void motionThermoSensor() {
-	if(thermoLeft == 1){
-		pulseWidth -= 100;
-		if(pulseWidth <= 1100){
-			thermoLeft = 0;
-		}
-	}else{
-		pulseWidth += 100;
-		if(pulseWidth >= 4800){
-			thermoLeft = 1;
-		}
-	}
-	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, pulseWidth);
-	motion_servo_start(MOTION_SERVO_CENTER);
+void motionThermoSensor()
+{
+    if (thermoLeft == 1)
+    {
+        pulseWidth -= 100;
+        if (pulseWidth <= 1100)
+        {
+            thermoLeft = 0;
+        }
+    }
+    else
+    {
+        pulseWidth += 100;
+        if (pulseWidth >= 4800)
+        {
+            thermoLeft = 1;
+        }
+    }
+    motion_servo_set_pulse_width(MOTION_SERVO_CENTER, pulseWidth);
+    motion_servo_start(MOTION_SERVO_CENTER);
 }
 
 /**
  * Stop the Thermo Sensor
  */
-void motionThermoSensorStop() {
-	motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 2800);
-	motion_servo_start(MOTION_SERVO_CENTER);
-	pulseWidth = 2800;
+void motionThermoSensorStop()
+{
+    motion_servo_set_pulse_width(MOTION_SERVO_CENTER, 2800);
+    motion_servo_start(MOTION_SERVO_CENTER);
+    pulseWidth = 2800;
 }
