@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -102,7 +103,8 @@ $(document).ready(function(){initNavTree('main_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">main.c File Reference</div>  </div>
 </div><!--header-->
@@ -116,14 +118,41 @@ $(document).ready(function(){initNavTree('main_8c.html','');});
 <code>#include &quot;queue.h&quot;</code><br />
 <code>#include &quot;semphr.h&quot;</code><br />
 <code>#include &quot;task.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="temperature_task_8h_source.html">temperatureTask.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_l_c_d_handler_8h_source.html">LCDHandler.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_l_e_d_handler_8h_source.html">LEDHandler.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="decoder_task_8h_source.html">decoderTask.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="motion_task_8h_source.html">motionTask.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="temperature_handler_8h_source.html">temperatureHandler.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a7cc20ebcbc6fa61a2d03411401bd6e81"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a7cc20ebcbc6fa61a2d03411401bd6e81">vTaskTemperature</a> (void *pvParameters)</td></tr>
+<tr class="separator:a7cc20ebcbc6fa61a2d03411401bd6e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a197f4ca17f84ebe9ff3e6f3b314e9a69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a197f4ca17f84ebe9ff3e6f3b314e9a69">vTaskMoveThermoSensor</a> (void *pvParameters)</td></tr>
+<tr class="separator:a197f4ca17f84ebe9ff3e6f3b314e9a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd53dd13de540d8f0a5817c3290f8bc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#acd53dd13de540d8f0a5817c3290f8bc0">vTaskMoveChico</a> (void *pvParameters)</td></tr>
+<tr class="separator:acd53dd13de540d8f0a5817c3290f8bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a260534d494b4cf8f9322899cd64312dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a260534d494b4cf8f9322899cd64312dc">vTaskDecoder</a> (void *pvParameters)</td></tr>
+<tr class="separator:a260534d494b4cf8f9322899cd64312dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1df5e6d9819d659cc10452328605cc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ad1df5e6d9819d659cc10452328605cc8">vTaskLCD</a> (void *pvParameters)</td></tr>
+<tr class="separator:ad1df5e6d9819d659cc10452328605cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e0defe473604c1bd4c5a11aed724078"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a2e0defe473604c1bd4c5a11aed724078">vApplicationStackOverflowHook</a> (TaskHandle_t xTask, portCHAR *pcTaskName)</td></tr>
 <tr class="separator:a2e0defe473604c1bd4c5a11aed724078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:acff226fa0a1f8334068317429dcf8519"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#acff226fa0a1f8334068317429dcf8519">ambientTemperature</a></td></tr>
+<tr class="separator:acff226fa0a1f8334068317429dcf8519"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bef3a8af97353cf6750030112845434"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a5bef3a8af97353cf6750030112845434">leftTemperature</a></td></tr>
+<tr class="separator:a5bef3a8af97353cf6750030112845434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e79cf61ef2d577167dcbf70b07c0899"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a2e79cf61ef2d577167dcbf70b07c0899">rightTemperature</a></td></tr>
+<tr class="separator:a2e79cf61ef2d577167dcbf70b07c0899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f7e4724cf57d59513b39c5ecc81adc8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#a7f7e4724cf57d59513b39c5ecc81adc8">speed</a></td></tr>
+<tr class="separator:a7f7e4724cf57d59513b39c5ecc81adc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab560685b00e2516bbe8fae493a3f36ac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8c.html#ab560685b00e2516bbe8fae493a3f36ac">distanceTravelled</a></td></tr>
+<tr class="separator:ab560685b00e2516bbe8fae493a3f36ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
@@ -138,7 +167,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>main function of the program here Creates the task and starts the scheduler </p>
+<p>The program's starting point. This funtion schedules the task and then surrenders control of the system to the scheduler. </p>
 
 </div>
 </div>
@@ -165,14 +194,195 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This function needs to be here.</p>
+<p>Empty function, used only for compatibility with the OS.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">xTask</td><td></td></tr>
-    <tr><td class="paramname">pcTaskName</td><td></td></tr>
+    <tr><td class="paramname">xTask</td><td>Parameter present for compatibility in the function definition. </td></tr>
+    <tr><td class="paramname">pcTaskName</td><td>Parameter present for compatibility in the function definition. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a260534d494b4cf8f9322899cd64312dc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vTaskDecoder </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pvParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The task responsible for reading the robot's movement information and updating it in the <code>speed</code> and <code>distanceTravelled</code> variables.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Used only for function definition compatibility. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad1df5e6d9819d659cc10452328605cc8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vTaskLCD </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pvParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The task responsible for updating the temperature and movement information periodically in the LCD.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Used only for function definition compatibility. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="acd53dd13de540d8f0a5817c3290f8bc0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vTaskMoveChico </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pvParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The task responsible for moving the robot.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Used only for function definition compatibility. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a197f4ca17f84ebe9ff3e6f3b314e9a69"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vTaskMoveThermoSensor </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pvParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The task responsible for moving the thermoSensor.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Used only for function definition compatibility. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a7cc20ebcbc6fa61a2d03411401bd6e81"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vTaskTemperature </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pvParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The task responsible for reading temperature values and updating them whenever possible in the <code>ambientTemperature</code>, <code>rightTemperature</code> and <code>leftTemperature</code> variables.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>Used only for function definition compatibility. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="acff226fa0a1f8334068317429dcf8519"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ambientTemperature</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable that stores the ambient temperature. Created for sharing information between tasks. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab560685b00e2516bbe8fae493a3f36ac"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int distanceTravelled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable that stores the distance travelled so far. Created for sharing information between tasks. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5bef3a8af97353cf6750030112845434"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int leftTemperature</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable that stores the left pixels' temperature. Created for sharing information between tasks. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2e79cf61ef2d577167dcbf70b07c0899"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rightTemperature</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable that stores the right pixels' temperature. Created for sharing information between tasks. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7f7e4724cf57d59513b39c5ecc81adc8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float speed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Global variable that stores the robot's speed. Created for sharing information between tasks. </p>
 
 </div>
 </div>

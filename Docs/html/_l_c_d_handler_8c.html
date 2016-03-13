@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -117,8 +118,8 @@ $(document).ready(function(){initNavTree('_l_c_d_handler_8c.html','');});
 Functions</h2></td></tr>
 <tr class="memitem:a90528caab2c5dc2c32f19333b016ae00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#a90528caab2c5dc2c32f19333b016ae00">setupLCD</a> ()</td></tr>
 <tr class="separator:a90528caab2c5dc2c32f19333b016ae00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aded460328c3e3c0caa0c1c07970abf9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#aded460328c3e3c0caa0c1c07970abf9a">displayTemperatureInLCD</a> ()</td></tr>
-<tr class="separator:aded460328c3e3c0caa0c1c07970abf9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6388f803ece054effd4a4b1e0b363362"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#a6388f803ece054effd4a4b1e0b363362">writeToLCD</a> (float <a class="el" href="main_8c.html#a7f7e4724cf57d59513b39c5ecc81adc8">speed</a>, float <a class="el" href="main_8c.html#ab560685b00e2516bbe8fae493a3f36ac">distanceTravelled</a>, int averageTemperature, int <a class="el" href="main_8c.html#a5bef3a8af97353cf6750030112845434">leftTemperature</a>, int <a class="el" href="main_8c.html#a2e79cf61ef2d577167dcbf70b07c0899">rightTemperature</a>)</td></tr>
+<tr class="separator:a6388f803ece054effd4a4b1e0b363362"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2cbe94416b83db208a58f467df0cb26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#aa2cbe94416b83db208a58f467df0cb26">shutdownLCD</a> ()</td></tr>
 <tr class="separator:aa2cbe94416b83db208a58f467df0cb26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -128,22 +129,6 @@ Variables</h2></td></tr>
 <tr class="separator:a813c27256edbf0c83973a874ddb7f6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aded460328c3e3c0caa0c1c07970abf9a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void displayTemperatureInLCD </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Refresh the LCD screen, then make sure it is clear Print the necessary temperatures to the LCD Flush the commands to the LCD </p>
-
-</div>
-</div>
 <a class="anchor" id="a90528caab2c5dc2c32f19333b016ae00"></a>
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +157,62 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Shuts down the LCD screen and frees the allocated memory </p>
+<p>Shuts down the LCD screen and frees the allocated memory. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6388f803ece054effd4a4b1e0b363362"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void writeToLCD </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>speed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>distanceTravelled</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>averageTemperature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>leftTemperature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rightTemperature</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Updates the LCD with the appropriate values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">speed</td><td>The speed at which the robot's moving, in <code>m/s</code>. </td></tr>
+    <tr><td class="paramname">distanceTravelled</td><td>The distance the robot's travelled so far, in <code>m</code>. </td></tr>
+    <tr><td class="paramname">averageTemperature</td><td>The ambient temperature, in <code>Celsius</code>. </td></tr>
+    <tr><td class="paramname">leftTemperature</td><td>The average temperature of the left pixels, in <code>Celsius</code>. </td></tr>
+    <tr><td class="paramname">rightTemperature</td><td>The average temperature of the right pixels, in <code>Celsius</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

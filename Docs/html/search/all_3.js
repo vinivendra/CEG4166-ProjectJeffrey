@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['lcdhandler_2ec',['LCDHandler.c',['../_l_c_d_handler_8c.html',1,'']]],
-  ['lcdhandler_2eh',['LCDHandler.h',['../_l_c_d_handler_8h.html',1,'']]],
-  ['ledhandler_2ec',['LEDHandler.c',['../_l_e_d_handler_8c.html',1,'']]],
-  ['ledhandler_2eh',['LEDHandler.h',['../_l_e_d_handler_8h.html',1,'']]]
+  ['enc_5fnumber_5fof_5fencoders',['ENC_NUMBER_OF_ENCODERS',['../motion_8c.html#a015d98796368c2aee787eb6b8faf17e9',1,'motion.c']]],
+  ['encoder_5fconfig_5ft',['encoder_config_t',['../motion_8c.html#structencoder__config__t',1,'']]]
 ];

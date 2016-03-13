@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -102,7 +103,8 @@ $(document).ready(function(){initNavTree('temperature_handler_8c.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">temperatureHandler.c File Reference</div>  </div>
 </div><!--header-->
@@ -117,45 +119,56 @@ $(document).ready(function(){initNavTree('temperature_handler_8c.html','');});
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a75bc5bcc4a96c46652ec80a8f7f08ef5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#a75bc5bcc4a96c46652ec80a8f7f08ef5">setupTemperature</a> ()</td></tr>
+<tr class="separator:a75bc5bcc4a96c46652ec80a8f7f08ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc4abf4c3aff6f58b3fb60e0c32a2235"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#afc4abf4c3aff6f58b3fb60e0c32a2235">getPixelTemperature</a> (int index)</td></tr>
 <tr class="separator:afc4abf4c3aff6f58b3fb60e0c32a2235"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a736851e57b063b61f25a47f477d38e19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#a736851e57b063b61f25a47f477d38e19">getPixelAverageTemperature</a> ()</td></tr>
-<tr class="separator:a736851e57b063b61f25a47f477d38e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d7862720702fcd8a6b1e1771cb22e27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#a6d7862720702fcd8a6b1e1771cb22e27">getAmbientTemperature</a> ()</td></tr>
-<tr class="separator:a6d7862720702fcd8a6b1e1771cb22e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8845f0daa44e7ee778246ae2cd214e2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#a8845f0daa44e7ee778246ae2cd214e2d">updateTemperatures</a> ()</td></tr>
-<tr class="separator:a8845f0daa44e7ee778246ae2cd214e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54deaae812813c4ff443b0a579c71f9c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#a54deaae812813c4ff443b0a579c71f9c">getLeftAverageTemperature</a> ()</td></tr>
+<tr class="separator:a54deaae812813c4ff443b0a579c71f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d214cf10be92b83f09b1deab77cecd5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#a6d214cf10be92b83f09b1deab77cecd5">getRightAverageTemperature</a> ()</td></tr>
+<tr class="separator:a6d214cf10be92b83f09b1deab77cecd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a173848562aa0d523532a7d2de79981b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#a173848562aa0d523532a7d2de79981b7">getAmbientTemperature</a> ()</td></tr>
+<tr class="separator:a173848562aa0d523532a7d2de79981b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeba115f1273081260398ff2b31dfdc00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#aeba115f1273081260398ff2b31dfdc00">updateTemperatures</a> (int *<a class="el" href="main_8c.html#acff226fa0a1f8334068317429dcf8519">ambientTemperature</a>, int *leftAverageTemperature, int *rightAverageTemperature)</td></tr>
+<tr class="separator:aeba115f1273081260398ff2b31dfdc00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aafa23f1ed84ba49a435b7149edd941ec"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8c.html#aafa23f1ed84ba49a435b7149edd941ec">pixelTemperatures</a> [8]</td></tr>
+<tr class="separator:aafa23f1ed84ba49a435b7149edd941ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a6d7862720702fcd8a6b1e1771cb22e27"></a>
+<a class="anchor" id="a173848562aa0d523532a7d2de79981b7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void getAmbientTemperature </td>
+          <td class="memname">int getAmbientTemperature </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Send a message to the thermal sensor using <code>I2C</code> to read from register <code>1</code> which contains the abient temperature from the thermal sensor. Then the result is stored in the <code>ambiantTemperature</code> variable. </p>
+<p>Reads the ambient temperature.</p>
+<dl class="section return"><dt>Returns</dt><dd>The current ambient temperature. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a736851e57b063b61f25a47f477d38e19"></a>
+<a class="anchor" id="a54deaae812813c4ff443b0a579c71f9c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void getPixelAverageTemperature </td>
+          <td class="memname">int getLeftAverageTemperature </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Calls the <code>getPixelTemperature</code> function for each pixel, then calculates the average of those values and stores the result in the <code>averageTemperature</code> variable. The <code>pixelTemperatures</code> array is also populated with the values returned from the <code>getPixelTemperature</code> function calls. </p>
+<p>Calculates the average temperature of the 4 pixels on the left based on the values in the shared <code>pixelTemperatures</code> array.</p>
+<dl class="section return"><dt>Returns</dt><dd>The average temperature of the 4 pixels on the left. </dd></dl>
 
 </div>
 </div>
@@ -183,19 +196,90 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8845f0daa44e7ee778246ae2cd214e2d"></a>
+<a class="anchor" id="a6d214cf10be92b83f09b1deab77cecd5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void updateTemperatures </td>
+          <td class="memname">int getRightAverageTemperature </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Calls the <code>getPixelAverageTemperature</code> and <code>getAmbientTemperature</code> functions. This updates the values stored in the <code>ambiantTemperature</code> and <code>averageTemperature</code> variables, and the individual pixel values stored in the <code>pixelTemperatures</code> array. </p>
+<p>Calculates the average temperature of the 4 pixels on the right based on the values in the shared <code>pixelTemperatures</code> array.</p>
+<dl class="section return"><dt>Returns</dt><dd>The average temperature of the 4 pixels on the right. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a75bc5bcc4a96c46652ec80a8f7f08ef5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setupTemperature </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aeba115f1273081260398ff2b31dfdc00"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void updateTemperatures </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>ambientTemperature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>leftAverageTemperature</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>rightAverageTemperature</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Updates the temperature readings and stores the appropriate values in the parameters.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ambientTemperature</td><td>A pointer to an integer in which the ambient temperature will be stored. </td></tr>
+    <tr><td class="paramname">leftAverageTemperature</td><td>A pointer to an integer in which the average left temperature will be stored. </td></tr>
+    <tr><td class="paramname">rightAverageTemperature</td><td>A pointer to an integer in which the average right temperature will be stored. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="aafa23f1ed84ba49a435b7149edd941ec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pixelTemperatures[8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Private array that store temperature information to be shared by the temperature handlers. </p>
 
 </div>
 </div>
