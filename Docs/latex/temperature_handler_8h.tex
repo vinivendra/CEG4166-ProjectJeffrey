@@ -3,37 +3,37 @@
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{temperature_handler_8h_a8845f0daa44e7ee778246ae2cd214e2d}{update\+Temperatures} ()
-\end{DoxyCompactItemize}
-\subsection*{Variables}
-\begin{DoxyCompactItemize}
+void \hyperlink{temperature_handler_8h_a75bc5bcc4a96c46652ec80a8f7f08ef5}{setup\+Temperature} ()
 \item 
-int \hyperlink{temperature_handler_8h_aafa23f1ed84ba49a435b7149edd941ec}{pixel\+Temperatures} \mbox{[}8\mbox{]}
-\item 
-int \hyperlink{temperature_handler_8h_a72a49318bb1a7e909cc968c719da5027}{ambiant\+Temperature}
-\item 
-int \hyperlink{temperature_handler_8h_a72455407df06ed5f9c09683f6a9e5789}{average\+Temperature}
+void \hyperlink{temperature_handler_8h_aeba115f1273081260398ff2b31dfdc00}{update\+Temperatures} (int $\ast$\hyperlink{main_8c_acff226fa0a1f8334068317429dcf8519}{ambient\+Temperature}, int $\ast$left\+Average\+Temperature, int $\ast$right\+Average\+Temperature)
 \end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
-\index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!update\+Temperatures@{update\+Temperatures}}
-\index{update\+Temperatures@{update\+Temperatures}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
-\subsubsection[{\texorpdfstring{update\+Temperatures()}{updateTemperatures()}}]{\setlength{\rightskip}{0pt plus 5cm}void update\+Temperatures (
+\index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!setup\+Temperature@{setup\+Temperature}}
+\index{setup\+Temperature@{setup\+Temperature}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
+\subsubsection[{\texorpdfstring{setup\+Temperature()}{setupTemperature()}}]{\setlength{\rightskip}{0pt plus 5cm}void setup\+Temperature (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\hypertarget{temperature_handler_8h_a8845f0daa44e7ee778246ae2cd214e2d}{}\label{temperature_handler_8h_a8845f0daa44e7ee778246ae2cd214e2d}
-Calls the {\ttfamily get\+Pixel\+Average\+Temperature} and {\ttfamily get\+Ambient\+Temperature} functions. This updates the values stored in the {\ttfamily ambiant\+Temperature} and {\ttfamily average\+Temperature} variables, and the individual pixel values stored in the {\ttfamily pixel\+Temperatures} array. 
+)}\hypertarget{temperature_handler_8h_a75bc5bcc4a96c46652ec80a8f7f08ef5}{}\label{temperature_handler_8h_a75bc5bcc4a96c46652ec80a8f7f08ef5}
+\index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!update\+Temperatures@{update\+Temperatures}}
+\index{update\+Temperatures@{update\+Temperatures}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
+\subsubsection[{\texorpdfstring{update\+Temperatures(int $\ast$ambient\+Temperature, int $\ast$left\+Average\+Temperature, int $\ast$right\+Average\+Temperature)}{updateTemperatures(int *ambientTemperature, int *leftAverageTemperature, int *rightAverageTemperature)}}]{\setlength{\rightskip}{0pt plus 5cm}void update\+Temperatures (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{ambient\+Temperature, }
+\item[{int $\ast$}]{left\+Average\+Temperature, }
+\item[{int $\ast$}]{right\+Average\+Temperature}
+\end{DoxyParamCaption}
+)}\hypertarget{temperature_handler_8h_aeba115f1273081260398ff2b31dfdc00}{}\label{temperature_handler_8h_aeba115f1273081260398ff2b31dfdc00}
+Updates the temperature readings and stores the appropriate values in the parameters.
 
-\subsection{Variable Documentation}
-\index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!ambiant\+Temperature@{ambiant\+Temperature}}
-\index{ambiant\+Temperature@{ambiant\+Temperature}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
-\subsubsection[{\texorpdfstring{ambiant\+Temperature}{ambiantTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int ambiant\+Temperature}\hypertarget{temperature_handler_8h_a72a49318bb1a7e909cc968c719da5027}{}\label{temperature_handler_8h_a72a49318bb1a7e909cc968c719da5027}
-Stores the ambient temperature as read by the last call to the {\ttfamily update\+Temperatures} function. \index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!average\+Temperature@{average\+Temperature}}
-\index{average\+Temperature@{average\+Temperature}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
-\subsubsection[{\texorpdfstring{average\+Temperature}{averageTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int average\+Temperature}\hypertarget{temperature_handler_8h_a72455407df06ed5f9c09683f6a9e5789}{}\label{temperature_handler_8h_a72455407df06ed5f9c09683f6a9e5789}
-Stores the average of the 8 pixel temperatures, as read by the last call to the {\ttfamily update\+Temperatures} function. \index{temperature\+Handler.\+h@{temperature\+Handler.\+h}!pixel\+Temperatures@{pixel\+Temperatures}}
-\index{pixel\+Temperatures@{pixel\+Temperatures}!temperature\+Handler.\+h@{temperature\+Handler.\+h}}
-\subsubsection[{\texorpdfstring{pixel\+Temperatures}{pixelTemperatures}}]{\setlength{\rightskip}{0pt plus 5cm}int pixel\+Temperatures\mbox{[}8\mbox{]}}\hypertarget{temperature_handler_8h_aafa23f1ed84ba49a435b7149edd941ec}{}\label{temperature_handler_8h_aafa23f1ed84ba49a435b7149edd941ec}
-Stores the 8 pixel temperatures as read by the last call to the {\ttfamily update\+Temperatures} function. 
+
+\begin{DoxyParams}{Parameters}
+{\em ambient\+Temperature} & A pointer to an integer in which the ambient temperature will be stored. \\
+\hline
+{\em left\+Average\+Temperature} & A pointer to an integer in which the average left temperature will be stored. \\
+\hline
+{\em right\+Average\+Temperature} & A pointer to an integer in which the average right temperature will be stored. \\
+\hline
+\end{DoxyParams}

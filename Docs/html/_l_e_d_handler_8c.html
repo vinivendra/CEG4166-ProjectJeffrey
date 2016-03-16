@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -115,29 +116,95 @@ $(document).ready(function(){initNavTree('_l_e_d_handler_8c.html','');});
 Functions</h2></td></tr>
 <tr class="memitem:a769d1dacfe53490335b09588ec128c5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_e_d_handler_8c.html#a769d1dacfe53490335b09588ec128c5a">setupLED</a> ()</td></tr>
 <tr class="separator:a769d1dacfe53490335b09588ec128c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cdbd2d40344eac5992c568802420b37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_e_d_handler_8c.html#a2cdbd2d40344eac5992c568802420b37">displayTemperatureInLED</a> (int temperature)</td></tr>
-<tr class="separator:a2cdbd2d40344eac5992c568802420b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39c25d076e2cd9cc46b58e71465d9211"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_e_d_handler_8c.html#a39c25d076e2cd9cc46b58e71465d9211">displayGreenLED</a> ()</td></tr>
+<tr class="separator:a39c25d076e2cd9cc46b58e71465d9211"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5da359e1a11398c8c0d11a76585265b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_e_d_handler_8c.html#a5da359e1a11398c8c0d11a76585265b6">displayRedLED</a> ()</td></tr>
+<tr class="separator:a5da359e1a11398c8c0d11a76585265b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bf297e6f677fbe9c0f8585f800415f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_e_d_handler_8c.html#a0bf297e6f677fbe9c0f8585f800415f3">displayBlueLED</a> ()</td></tr>
+<tr class="separator:a0bf297e6f677fbe9c0f8585f800415f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f89210eb47cf623e6c73c418c630e1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_e_d_handler_8c.html#a7f89210eb47cf623e6c73c418c630e1e">displayWhiteLED</a> ()</td></tr>
+<tr class="separator:a7f89210eb47cf623e6c73c418c630e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a286a21ef83639c8de2ea4a5e3ed21cb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_e_d_handler_8c.html#a286a21ef83639c8de2ea4a5e3ed21cb0">displayNoLED</a> ()</td></tr>
+<tr class="separator:a286a21ef83639c8de2ea4a5e3ed21cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a2cdbd2d40344eac5992c568802420b37"></a>
+<a class="anchor" id="a0bf297e6f677fbe9c0f8585f800415f3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void displayTemperatureInLED </td>
+          <td class="memname">void displayBlueLED </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>temperature</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Changes the color of the LED to reflect the given temperature value. Temperatures less then <code>30</code> cause the LED to be blue; from <code>30</code> to <code>40</code>, green; and from <code>40</code> up, red. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">temperature</td><td>The temperature value to use for changing the LED color, in Celsius. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Change LED color to Blue </p>
+
+</div>
+</div>
+<a class="anchor" id="a39c25d076e2cd9cc46b58e71465d9211"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayGreenLED </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Change LED color to green </p>
+
+</div>
+</div>
+<a class="anchor" id="a286a21ef83639c8de2ea4a5e3ed21cb0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayNoLED </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Turns off the LED </p>
+
+</div>
+</div>
+<a class="anchor" id="a5da359e1a11398c8c0d11a76585265b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayRedLED </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Change LED color to Red </p>
+
+</div>
+</div>
+<a class="anchor" id="a7f89210eb47cf623e6c73c418c630e1e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void displayWhiteLED </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Change LED color to white All colors must be on to obtain the color white </p>
 
 </div>
 </div>

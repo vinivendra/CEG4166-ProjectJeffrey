@@ -22,21 +22,44 @@ void setupLCD()
                                           portSERIAL_BUFFER_RX);
 }
 
-void writeToLCD(float speed, float distanceTravelled, int averageTemperature, int leftTemperature, int rightTemperature) {
+/**
+ *  Updates the LCD with the appropriate values.
+ *
+ *  @param speed              The speed at which the robot's moving, in `m/s`.
+ *  @param distanceTravelled  The distance the robot's travelled so far, in `m`.
+ *  @param averageTemperature The ambient temperature, in `Celsius`.
+ *  @param leftTemperature    The average temperature of the left pixels, in
+ * `Celsius`.
+ *  @param rightTemperature   The average temperature of the right pixels, in
+ * `Celsius`.
+ */
+void writeToLCD(float speed,
+                float distanceTravelled,
+                int averageTemperature,
+                int leftTemperature,
+                int rightTemperature)
+{
     avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0xFE); // Refresh display
     avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0x01); // Clear display
 
     // Print the temperature
 
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("S: %2.2f D: %2.2f  "), speed, distanceTravelled);
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("A:%2d L:%2d R:%2d"), averageTemperature, leftTemperature, rightTemperature);
+    avrSerialxPrintf_P(&xSerial1Port,
+                       PSTR("S: %2.2f D: %2.2f  "),
+                       speed,
+                       distanceTravelled);
+    avrSerialxPrintf_P(&xSerial1Port,
+                       PSTR("A:%2d L:%2d R:%2d"),
+                       averageTemperature,
+                       leftTemperature,
+                       rightTemperature);
 
 
     xSerialFlush(&xSerial1Port); // Flush commands to LCD
 }
 
 /**
- * Shuts down the LCD screen and frees the allocated memory
+ * Shuts down the LCD screen and frees the allocated memory.
  */
 void shutdownLCD()
 {

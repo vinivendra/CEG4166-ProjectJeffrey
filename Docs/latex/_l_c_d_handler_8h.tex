@@ -5,21 +5,14 @@
 \item 
 void \hyperlink{_l_c_d_handler_8h_a90528caab2c5dc2c32f19333b016ae00}{setup\+L\+CD} ()
 \item 
-void \hyperlink{_l_c_d_handler_8h_aded460328c3e3c0caa0c1c07970abf9a}{display\+Temperature\+In\+L\+CD} ()
+void \hyperlink{_l_c_d_handler_8h_a6388f803ece054effd4a4b1e0b363362}{write\+To\+L\+CD} (float \hyperlink{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}, float \hyperlink{main_8c_ab560685b00e2516bbe8fae493a3f36ac}{distance\+Travelled}, int average\+Temperature, int \hyperlink{main_8c_a5bef3a8af97353cf6750030112845434}{left\+Temperature}, int \hyperlink{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}{right\+Temperature})
 \item 
 void \hyperlink{_l_c_d_handler_8h_aa2cbe94416b83db208a58f467df0cb26}{shutdown\+L\+CD} ()
 \end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
-\index{L\+C\+D\+Handler.\+h@{L\+C\+D\+Handler.\+h}!display\+Temperature\+In\+L\+CD@{display\+Temperature\+In\+L\+CD}}
-\index{display\+Temperature\+In\+L\+CD@{display\+Temperature\+In\+L\+CD}!L\+C\+D\+Handler.\+h@{L\+C\+D\+Handler.\+h}}
-\subsubsection[{\texorpdfstring{display\+Temperature\+In\+L\+C\+D()}{displayTemperatureInLCD()}}]{\setlength{\rightskip}{0pt plus 5cm}void display\+Temperature\+In\+L\+CD (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\hypertarget{_l_c_d_handler_8h_aded460328c3e3c0caa0c1c07970abf9a}{}\label{_l_c_d_handler_8h_aded460328c3e3c0caa0c1c07970abf9a}
-Refresh the L\+CD screen, then make sure it is clear Print the necessary temperatures to the L\+CD Flush the commands to the L\+CD \index{L\+C\+D\+Handler.\+h@{L\+C\+D\+Handler.\+h}!setup\+L\+CD@{setup\+L\+CD}}
+\index{L\+C\+D\+Handler.\+h@{L\+C\+D\+Handler.\+h}!setup\+L\+CD@{setup\+L\+CD}}
 \index{setup\+L\+CD@{setup\+L\+CD}!L\+C\+D\+Handler.\+h@{L\+C\+D\+Handler.\+h}}
 \subsubsection[{\texorpdfstring{setup\+L\+C\+D()}{setupLCD()}}]{\setlength{\rightskip}{0pt plus 5cm}void setup\+L\+CD (
 \begin{DoxyParamCaption}
@@ -33,4 +26,29 @@ Initialise the L\+CD screen Set Baud rate to the default (9600bps) Setup the nec
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{_l_c_d_handler_8h_aa2cbe94416b83db208a58f467df0cb26}{}\label{_l_c_d_handler_8h_aa2cbe94416b83db208a58f467df0cb26}
-Shuts down the L\+CD screen and frees the allocated memory 
+Shuts down the L\+CD screen and frees the allocated memory. \index{L\+C\+D\+Handler.\+h@{L\+C\+D\+Handler.\+h}!write\+To\+L\+CD@{write\+To\+L\+CD}}
+\index{write\+To\+L\+CD@{write\+To\+L\+CD}!L\+C\+D\+Handler.\+h@{L\+C\+D\+Handler.\+h}}
+\subsubsection[{\texorpdfstring{write\+To\+L\+C\+D(float speed, float distance\+Travelled, int average\+Temperature, int left\+Temperature, int right\+Temperature)}{writeToLCD(float speed, float distanceTravelled, int averageTemperature, int leftTemperature, int rightTemperature)}}]{\setlength{\rightskip}{0pt plus 5cm}void write\+To\+L\+CD (
+\begin{DoxyParamCaption}
+\item[{float}]{speed, }
+\item[{float}]{distance\+Travelled, }
+\item[{int}]{average\+Temperature, }
+\item[{int}]{left\+Temperature, }
+\item[{int}]{right\+Temperature}
+\end{DoxyParamCaption}
+)}\hypertarget{_l_c_d_handler_8h_a6388f803ece054effd4a4b1e0b363362}{}\label{_l_c_d_handler_8h_a6388f803ece054effd4a4b1e0b363362}
+Updates the L\+CD with the appropriate values.
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & The speed at which the robot\textquotesingle{}s moving, in {\ttfamily m/s}. \\
+\hline
+{\em distance\+Travelled} & The distance the robot\textquotesingle{}s travelled so far, in {\ttfamily m}. \\
+\hline
+{\em average\+Temperature} & The ambient temperature, in {\ttfamily Celsius}. \\
+\hline
+{\em left\+Temperature} & The average temperature of the left pixels, in {\ttfamily Celsius}. \\
+\hline
+{\em right\+Temperature} & The average temperature of the right pixels, in {\ttfamily Celsius}. \\
+\hline
+\end{DoxyParams}

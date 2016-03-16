@@ -9,13 +9,40 @@
 {\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}semphr.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}task.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}temperature\+Task.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}L\+C\+D\+Handler.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}L\+E\+D\+Handler.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}decoder\+Task.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}motion\+Task.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}temperature\+Handler.\+h\char`\"{}}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8c_a7cc20ebcbc6fa61a2d03411401bd6e81}{v\+Task\+Temperature} (void $\ast$pv\+Parameters)
+\item 
+void \hyperlink{main_8c_a197f4ca17f84ebe9ff3e6f3b314e9a69}{v\+Task\+Move\+Thermo\+Sensor} (void $\ast$pv\+Parameters)
+\item 
+void \hyperlink{main_8c_acd53dd13de540d8f0a5817c3290f8bc0}{v\+Task\+Move\+Chico} (void $\ast$pv\+Parameters)
+\item 
+void \hyperlink{main_8c_a260534d494b4cf8f9322899cd64312dc}{v\+Task\+Decoder} (void $\ast$pv\+Parameters)
+\item 
+void \hyperlink{main_8c_ad1df5e6d9819d659cc10452328605cc8}{v\+Task\+L\+CD} (void $\ast$pv\+Parameters)
 \item 
 int \hyperlink{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
 \item 
 void \hyperlink{main_8c_a2e0defe473604c1bd4c5a11aed724078}{v\+Application\+Stack\+Overflow\+Hook} (Task\+Handle\+\_\+t x\+Task, port\+C\+H\+AR $\ast$pc\+Task\+Name)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{main_8c_acff226fa0a1f8334068317429dcf8519}{ambient\+Temperature}
+\item 
+int \hyperlink{main_8c_a5bef3a8af97353cf6750030112845434}{left\+Temperature}
+\item 
+int \hyperlink{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}{right\+Temperature}
+\item 
+float \hyperlink{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}
+\item 
+int \hyperlink{main_8c_ab560685b00e2516bbe8fae493a3f36ac}{distance\+Travelled}
 \end{DoxyCompactItemize}
 
 
@@ -27,7 +54,7 @@ void \hyperlink{main_8c_a2e0defe473604c1bd4c5a11aed724078}{v\+Application\+Stack
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{}\label{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}
-main function of the program here Creates the task and starts the scheduler \index{main.\+c@{main.\+c}!v\+Application\+Stack\+Overflow\+Hook@{v\+Application\+Stack\+Overflow\+Hook}}
+The program\textquotesingle{}s starting point. This funtion schedules the task and then surrenders control of the system to the scheduler. \index{main.\+c@{main.\+c}!v\+Application\+Stack\+Overflow\+Hook@{v\+Application\+Stack\+Overflow\+Hook}}
 \index{v\+Application\+Stack\+Overflow\+Hook@{v\+Application\+Stack\+Overflow\+Hook}!main.\+c@{main.\+c}}
 \subsubsection[{\texorpdfstring{v\+Application\+Stack\+Overflow\+Hook(\+Task\+Handle\+\_\+t x\+Task, port\+C\+H\+A\+R $\ast$pc\+Task\+Name)}{vApplicationStackOverflowHook(TaskHandle_t xTask, portCHAR *pcTaskName)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Application\+Stack\+Overflow\+Hook (
 \begin{DoxyParamCaption}
@@ -35,12 +62,101 @@ main function of the program here Creates the task and starts the scheduler \ind
 \item[{port\+C\+H\+AR $\ast$}]{pc\+Task\+Name}
 \end{DoxyParamCaption}
 )}\hypertarget{main_8c_a2e0defe473604c1bd4c5a11aed724078}{}\label{main_8c_a2e0defe473604c1bd4c5a11aed724078}
-This function needs to be here.
+Empty function, used only for compatibility with the OS.
 
 
 \begin{DoxyParams}{Parameters}
-{\em x\+Task} & \\
+{\em x\+Task} & Parameter present for compatibility in the function definition. \\
 \hline
-{\em pc\+Task\+Name} & \\
+{\em pc\+Task\+Name} & Parameter present for compatibility in the function definition. \\
 \hline
 \end{DoxyParams}
+\index{main.\+c@{main.\+c}!v\+Task\+Decoder@{v\+Task\+Decoder}}
+\index{v\+Task\+Decoder@{v\+Task\+Decoder}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Task\+Decoder(void $\ast$pv\+Parameters)}{vTaskDecoder(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+Decoder (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a260534d494b4cf8f9322899cd64312dc}{}\label{main_8c_a260534d494b4cf8f9322899cd64312dc}
+The task responsible for reading the robot\textquotesingle{}s movement information and updating it in the {\ttfamily speed} and {\ttfamily distance\+Travelled} variables.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Used only for function definition compatibility. \\
+\hline
+\end{DoxyParams}
+\index{main.\+c@{main.\+c}!v\+Task\+L\+CD@{v\+Task\+L\+CD}}
+\index{v\+Task\+L\+CD@{v\+Task\+L\+CD}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Task\+L\+C\+D(void $\ast$pv\+Parameters)}{vTaskLCD(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+L\+CD (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_ad1df5e6d9819d659cc10452328605cc8}{}\label{main_8c_ad1df5e6d9819d659cc10452328605cc8}
+The task responsible for updating the temperature and movement information periodically in the L\+CD.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Used only for function definition compatibility. \\
+\hline
+\end{DoxyParams}
+\index{main.\+c@{main.\+c}!v\+Task\+Move\+Chico@{v\+Task\+Move\+Chico}}
+\index{v\+Task\+Move\+Chico@{v\+Task\+Move\+Chico}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Task\+Move\+Chico(void $\ast$pv\+Parameters)}{vTaskMoveChico(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+Move\+Chico (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_acd53dd13de540d8f0a5817c3290f8bc0}{}\label{main_8c_acd53dd13de540d8f0a5817c3290f8bc0}
+The task responsible for moving the robot.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Used only for function definition compatibility. \\
+\hline
+\end{DoxyParams}
+\index{main.\+c@{main.\+c}!v\+Task\+Move\+Thermo\+Sensor@{v\+Task\+Move\+Thermo\+Sensor}}
+\index{v\+Task\+Move\+Thermo\+Sensor@{v\+Task\+Move\+Thermo\+Sensor}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Task\+Move\+Thermo\+Sensor(void $\ast$pv\+Parameters)}{vTaskMoveThermoSensor(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+Move\+Thermo\+Sensor (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a197f4ca17f84ebe9ff3e6f3b314e9a69}{}\label{main_8c_a197f4ca17f84ebe9ff3e6f3b314e9a69}
+The task responsible for moving the thermo\+Sensor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Used only for function definition compatibility. \\
+\hline
+\end{DoxyParams}
+\index{main.\+c@{main.\+c}!v\+Task\+Temperature@{v\+Task\+Temperature}}
+\index{v\+Task\+Temperature@{v\+Task\+Temperature}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Task\+Temperature(void $\ast$pv\+Parameters)}{vTaskTemperature(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+Temperature (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a7cc20ebcbc6fa61a2d03411401bd6e81}{}\label{main_8c_a7cc20ebcbc6fa61a2d03411401bd6e81}
+The task responsible for reading temperature values and updating them whenever possible in the {\ttfamily ambient\+Temperature}, {\ttfamily right\+Temperature} and {\ttfamily left\+Temperature} variables.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Used only for function definition compatibility. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Variable Documentation}
+\index{main.\+c@{main.\+c}!ambient\+Temperature@{ambient\+Temperature}}
+\index{ambient\+Temperature@{ambient\+Temperature}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{ambient\+Temperature}{ambientTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int ambient\+Temperature}\hypertarget{main_8c_acff226fa0a1f8334068317429dcf8519}{}\label{main_8c_acff226fa0a1f8334068317429dcf8519}
+Global variable that stores the ambient temperature. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!distance\+Travelled@{distance\+Travelled}}
+\index{distance\+Travelled@{distance\+Travelled}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{distance\+Travelled}{distanceTravelled}}]{\setlength{\rightskip}{0pt plus 5cm}int distance\+Travelled}\hypertarget{main_8c_ab560685b00e2516bbe8fae493a3f36ac}{}\label{main_8c_ab560685b00e2516bbe8fae493a3f36ac}
+Global variable that stores the distance travelled so far. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!left\+Temperature@{left\+Temperature}}
+\index{left\+Temperature@{left\+Temperature}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{left\+Temperature}{leftTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int left\+Temperature}\hypertarget{main_8c_a5bef3a8af97353cf6750030112845434}{}\label{main_8c_a5bef3a8af97353cf6750030112845434}
+Global variable that stores the left pixels\textquotesingle{} temperature. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!right\+Temperature@{right\+Temperature}}
+\index{right\+Temperature@{right\+Temperature}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{right\+Temperature}{rightTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int right\+Temperature}\hypertarget{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}{}\label{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}
+Global variable that stores the right pixels\textquotesingle{} temperature. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!speed@{speed}}
+\index{speed@{speed}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{speed}{speed}}]{\setlength{\rightskip}{0pt plus 5cm}float speed}\hypertarget{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}{}\label{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}
+Global variable that stores the robot\textquotesingle{}s speed. Created for sharing information between tasks. 

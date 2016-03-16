@@ -9,12 +9,16 @@
 #include "i2cMultiMaster.h"
 #include <avr/io.h>
 
-
+/**
+ * Private array that store temperature information to be shared by the
+ * temperature handlers.
+ */
 int pixelTemperatures[8];
 
 
-void setupTemperature() {
-	I2C_Master_Initialise(0xBA);
+void setupTemperature()
+{
+    I2C_Master_Initialise(0xBA);
 }
 
 
@@ -48,10 +52,10 @@ int getPixelTemperature(int index)
 }
 
 /**
- * Calls the `getPixelTemperature` function for each pixel, then calculates the
- * average of those values and stores the result in the `averageTemperature`
- * variable. The `pixelTemperatures` array is also populated with the values
- * returned from the `getPixelTemperature` function calls.
+ * Calculates the average temperature of the 4 pixels on the left based on the
+ * values in the shared `pixelTemperatures` array.
+ *
+ * @return The average temperature of the 4 pixels on the left.
  */
 int getLeftAverageTemperature()
 {
@@ -67,6 +71,12 @@ int getLeftAverageTemperature()
     return pixelTemperatureSum / 4;
 }
 
+/**
+ * Calculates the average temperature of the 4 pixels on the right based on the
+ * values in the shared `pixelTemperatures` array.
+ *
+ * @return The average temperature of the 4 pixels on the right.
+ */
 int getRightAverageTemperature()
 {
     int pixelTemperatureSum = 0;
@@ -82,9 +92,9 @@ int getRightAverageTemperature()
 }
 
 /**
- * Send a message to the thermal sensor using `I2C` to read from register `1`
- * which contains the abient temperature from the thermal sensor. Then the
- * result is stored in the `ambiantTemperature` variable.
+ *  Reads the ambient temperature.
+ *
+ *  @return The current ambient temperature.
  */
 int getAmbientTemperature()
 {
@@ -105,12 +115,19 @@ int getAmbientTemperature()
 }
 
 /**
- * Calls the `getPixelAverageTemperature` and `getAmbientTemperature` functions.
- * This updates the values stored in the `ambiantTemperature` and
- * `averageTemperature` variables, and the individual pixel values stored in the
- * `pixelTemperatures` array.
+ * Updates the temperature readings and stores the appropriate values in the
+ * parameters.
+ *
+ * @param ambientTemperature      A pointer to an integer in which the ambient
+ * temperature will be stored.
+ * @param leftAverageTemperature  A pointer to an integer in which the average
+ * left temperature will be stored.
+ * @param rightAverageTemperature A pointer to an integer in which the average
+ * right temperature will be stored.
  */
-void updateTemperatures(int *ambientTemperature, int *leftAverageTemperature, int *rightAverageTemperature)
+void updateTemperatures(int *ambientTemperature,
+                        int *leftAverageTemperature,
+                        int *rightAverageTemperature)
 {
     *leftAverageTemperature = getLeftAverageTemperature();
     *rightAverageTemperature = getRightAverageTemperature();
