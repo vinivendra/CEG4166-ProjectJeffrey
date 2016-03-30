@@ -39,11 +39,18 @@ float distanceTravelled;
 
 void initializeWifi() {
 	taskENABLE_INTERRUPTS();
-	usartOpen(USART_0, BAUD_RATE_115200, 255, 64);
-	usartOpen(USART_2, BAUD_RATE_9600, 255, 64);
-	gs_initialize_module(USART_2, BAUD_RATE_9600, USART_0, BAUD_RATE_115200);
+	int terminalUSART = usartOpen(USART_0, BAUD_RATE_115200, portSERIAL_BUFFER_TX, portSERIAL_BUFFER_RX);
+	int wifiUSART = usartOpen(USART_2, BAUD_RATE_9600, portSERIAL_BUFFER_TX, portSERIAL_BUFFER_RX);
+	gs_initialize_module(wifiUSART, BAUD_RATE_9600, terminalUSART, BAUD_RATE_115200);
 	gs_set_wireless_ssid("chiiiiiiiiiiico");
 	gs_activate_wireless_connection();
+}
+
+void initializeWebServer() {
+	configure_web_page("Chico: The Robot", "! Control Interface !", HTML_DROPDOWN_LIST);
+	add_element_choice('F', "Forward");
+	add_element_choice('B', "Backward");
+	start_web_server();
 }
 
 void vTaskCommandMode(void *pvParameters) {
@@ -75,15 +82,11 @@ void vTaskWebServer(void *pvParameters)
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 
-	configure_web_page("Chico: The Robot", "! Control Interface !", HTML_DROPDOWN_LIST);
-	add_element_choice('F', "Forward");
-	add_element_choice('B', "Backward");
-	start_web_server();
-
 	while (1)
 	{
+		vTaskDelayUntil( &xLastWakeTime, (5500 / portTICK_PERIOD_MS));
 		process_client_request();
-		char client_request = get_next_client_response();
+		//char client_request = get_next_client_response();
 	}
 }
 
@@ -243,6 +246,8 @@ void vTaskControl(void *pvParameters) {
 int main()
 {
 	initializeWifi();
+	initializeWebServer();
+	xTaskCreate(vTaskWebServer, (const portCHAR *)"", 1024, NULL, 3, NULL);
 //    xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(
