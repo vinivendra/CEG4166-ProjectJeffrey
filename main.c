@@ -16,6 +16,10 @@
 #include "motionTask.h"
 #include "temperatureHandler.h"
 
+#include "gainspan_gs1011m.h"
+#include "usart_serial.h"
+#include "web_server.h"
+
 /// Global variable that stores the ambient temperature. Created for sharing
 /// information between tasks.
 int ambientTemperature;
@@ -31,6 +35,58 @@ float speed;
 /// Global variable that stores the distance travelled so far. Created for
 /// sharing information between tasks.
 float distanceTravelled;
+
+
+void initializeWifi() {
+	taskENABLE_INTERRUPTS();
+	usartOpen(USART_0, BAUD_RATE_115200, 255, 64);
+	usartOpen(USART_2, BAUD_RATE_9600, 255, 64);
+	gs_initialize_module(USART_2, BAUD_RATE_9600, USART_0, BAUD_RATE_115200);
+	gs_set_wireless_ssid("chiiiiiiiiiiico");
+	gs_activate_wireless_connection();
+}
+
+void vTaskCommandMode(void *pvParameters) {
+	if(1) {
+		motionForward();
+	}else if(0) {
+		motionBackward();
+	}else if(0) {
+		motionSpinLeft();
+	}else if(0) {
+		motionSpinRight();
+	}else {
+		motionStop();
+	}
+}
+
+void vTaskAttachmentMode(void *pvParameters) {
+	if(1) {
+		motionForward();
+	}else if(0) {
+		motionBackward();
+	}else {
+		motionStop();
+	}
+}
+
+void vTaskWebServer(void *pvParameters)
+{
+	TickType_t xLastWakeTime;
+	xLastWakeTime = xTaskGetTickCount();
+
+	configure_web_page("Chico: The Robot", "! Control Interface !", HTML_DROPDOWN_LIST);
+	add_element_choice('F', "Forward");
+	add_element_choice('B', "Backward");
+	start_web_server();
+
+	while (1)
+	{
+		process_client_request();
+		char client_request = get_next_client_response();
+	}
+}
+
 
 /**
  * The task responsible for reading temperature values and updating them
@@ -170,18 +226,29 @@ void vTaskLCD(void *pvParameters)
     shutdownLCD();
 }
 
+void vTaskControl(void *pvParameters) {
+	if(1) {
+		vTaskSuspend(vTaskAttachmentMode);
+		vTaskResume(vTaskCommandMode);
+	}else {
+		vTaskSuspend(vTaskCommandMode);
+		vTaskResume(vTaskAttachmentMode);
+	}
+}
+
 /**
  * The program's starting point. This funtion schedules the task and then
  * surrenders control of the system to the scheduler.
  */
 int main()
 {
-    xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
-    xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
-    xTaskCreate(
-        vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, NULL);
-    xTaskCreate(vTaskDecoder, (const portCHAR *)"", 256, NULL, 3, NULL);
-    xTaskCreate(vTaskLCD, (const portCHAR *)"", 256, NULL, 3, NULL);
+	initializeWifi();
+//    xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
+//    xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
+//    xTaskCreate(
+//        vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, NULL);
+//    xTaskCreate(vTaskDecoder, (const portCHAR *)"", 256, NULL, 3, NULL);
+//    xTaskCreate(vTaskLCD, (const portCHAR *)"", 256, NULL, 3, NULL);
 
     vTaskStartScheduler();
 }
