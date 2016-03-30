@@ -30,7 +30,7 @@ int rightTemperature;
 float speed;
 /// Global variable that stores the distance travelled so far. Created for
 /// sharing information between tasks.
-int distanceTravelled;
+float distanceTravelled;
 
 /**
  * The task responsible for reading temperature values and updating them

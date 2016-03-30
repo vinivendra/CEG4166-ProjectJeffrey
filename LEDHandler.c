@@ -1,6 +1,5 @@
 #include "FreeRTOS.h"
 #include "LEDHandler.h"
-#include "serial.h"
 
 /**
  * Loads the micro-controller’s registers with associated

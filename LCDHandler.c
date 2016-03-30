@@ -1,13 +1,15 @@
 
 #include "LCDHandler.h"
 #include "i2cMultiMaster.h"
-#include "serial.h"
+#include "usart_serial.h"
 #include "temperatureHandler.h"
 
 /**
  *  Port being used to communicate with the LCD screen
  */
-extern xComPortHandle xSerial1Port;
+//extern xComPortHandle xSerial1Port;
+
+int LCD_USART;
 
 /**
  * Initialise the LCD screen
@@ -16,10 +18,12 @@ extern xComPortHandle xSerial1Port;
  */
 void setupLCD()
 {
-    xSerial1Port = xSerialPortInitMinimal(USART1,
-                                          9600,
-                                          portSERIAL_BUFFER_TX,
-                                          portSERIAL_BUFFER_RX);
+//    xSerial1Port = xSerialPortInitMinimal(USART1,
+//                                          9600,
+//                                          portSERIAL_BUFFER_TX,
+//                                          portSERIAL_BUFFER_RX);
+
+	LCD_USART = usartOpen(USART_1, 9600, portSERIAL_BUFFER_TX, portSERIAL_BUFFER_RX);
 }
 
 /**
@@ -35,27 +39,20 @@ void setupLCD()
  */
 void writeToLCD(float speed,
                 float distanceTravelled,
-                int averageTemperature,
+                int ambientTemperature,
                 int leftTemperature,
                 int rightTemperature)
 {
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0xFE); // Refresh display
-    avrSerialxPrintf_P(&xSerial1Port, PSTR("%c"), 0x01); // Clear display
-
-    // Print the temperature
-
-    avrSerialxPrintf_P(&xSerial1Port,
-                       PSTR("S: %2.2f D: %2.2f  "),
-                       speed,
-                       distanceTravelled);
-    avrSerialxPrintf_P(&xSerial1Port,
-                       PSTR("A:%2d L:%2d R:%2d"),
-                       averageTemperature,
-                       leftTemperature,
-                       rightTemperature);
+	usart_fprintf_P(LCD_USART, PSTR("%c"), 0xFE);
+	usart_fprintf_P(LCD_USART, PSTR("%c"), 0x01);
 
 
-    xSerialFlush(&xSerial1Port); // Flush commands to LCD
+	//usart_fprintf_P(LCD_USART, PSTR("Testing"));
+	usart_fprintf_P(LCD_USART, PSTR("S: %2.2f D: %2.2f "), speed, distanceTravelled);
+	usart_fprintf_P(LCD_USART, PSTR("A:%2d L:%2d R:%2d"), ambientTemperature, leftTemperature, rightTemperature);
+
+//	usart_xflushRx(LCD_USART);
+//    xSerialFlush(&xSerial1Port); // Flush commands to LCD
 }
 
 /**
@@ -63,5 +60,6 @@ void writeToLCD(float speed,
  */
 void shutdownLCD()
 {
-    vSerialClose(&xSerial1Port); // Shutdown and free allocated memory
+    usartClose(LCD_USART);
+//	vSerialClose(&xSerial1Port); // Shutdown and free allocated memory
 }
