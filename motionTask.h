@@ -8,6 +8,7 @@ void motionInit();
 void motionForward();
 void motionBackward();
 void motionSpinLeft();
+void motionSpinLeftSlow();
 void motionSpinRight();
 void motionStop();
 void motionThermoSensor();
