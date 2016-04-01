@@ -16,9 +16,8 @@
 #include "motionTask.h"
 #include "temperatureHandler.h"
 
-#include "gainspan_gs1011m.h"
+#include "wireless_interface.h"
 #include "usart_serial.h"
-#include "web_server.h"
 
 /// Global variable that stores the ambient temperature. Created for sharing
 /// information between tasks.
@@ -36,13 +35,16 @@ float speed;
 /// sharing information between tasks.
 float distanceTravelled;
 
+//
+char clientRequest;
+
 
 void initializeWifi() {
 	taskENABLE_INTERRUPTS();
 	int terminalUSART = usartOpen(USART_0, BAUD_RATE_115200, portSERIAL_BUFFER_TX, portSERIAL_BUFFER_RX);
 	int wifiUSART = usartOpen(USART_2, BAUD_RATE_9600, portSERIAL_BUFFER_TX, portSERIAL_BUFFER_RX);
 	gs_initialize_module(wifiUSART, BAUD_RATE_9600, terminalUSART, BAUD_RATE_115200);
-	gs_set_wireless_ssid("chiiiiiiiiiiico");
+	gs_set_wireless_ssid("TeamJeffChico");
 	gs_activate_wireless_connection();
 }
 
@@ -50,31 +52,107 @@ void initializeWebServer() {
 	configure_web_page("Chico: The Robot", "! Control Interface !", HTML_DROPDOWN_LIST);
 	add_element_choice('F', "Forward");
 	add_element_choice('B', "Backward");
+	add_element_choice('L', "Spin Left");
+	add_element_choice('R', "Spin Right");
+	add_element_choice('S', "Stop");
+	add_element_choice('A', "Attachment");
 	start_web_server();
 }
 
 void vTaskCommandMode(void *pvParameters) {
-	if(1) {
+	motionInit();
+	// Move forward
+	if(clientRequest == 'F') {
 		motionForward();
-	}else if(0) {
+	}
+	// Move backward
+	else if(clientRequest == 'B') {
 		motionBackward();
-	}else if(0) {
+	}
+	// Spin Left
+	else if(clientRequest == 'L') {
 		motionSpinLeft();
-	}else if(0) {
+	}
+	// Spin Right
+	else if(clientRequest == 'R') {
 		motionSpinRight();
-	}else {
+	}
+	// Stop moving
+	else if(clientRequest == 'S') {
 		motionStop();
 	}
+
+	vTaskDelay(100 / portTICK_PERIOD_MS);
 }
 
 void vTaskAttachmentMode(void *pvParameters) {
-	if(1) {
-		motionForward();
-	}else if(0) {
-		motionBackward();
-	}else {
-		motionStop();
+
+	typedef enum {
+		Attached,
+		Searching,
+		Panic
+	} State;
+	State state = Searching;
+	int count = 0;
+	int INCREMENT = 1000;
+	int MAX_COUNT = 10000;
+
+	motionInit();
+	while (1)
+	{
+		int left = getLeft3AvgTemperatures();
+		int center = getCenter4AvgTemperatures();
+		int right = getRight3AvgTemperatures();
+		int ambient = getAmbientTemperature();
+
+//		motionSpinLeftSlow();
+
+		if (state == Searching) {
+			motionSpinLeftSlow();
+			// ensure significant heat source
+			if (left > ambient + 3 || right > ambient + 3 || center > ambient + 3) {
+					state = Attached;
+			}
+		}
+
+		else if(state == Attached) {
+			// ensure significant heat source
+			if (left > ambient + 3 || right > ambient + 3 || center > ambient + 3) {
+				count = 0;
+				// Heat source is to the left
+				if (left > center) {
+					motionSpinLeft();
+				}
+				// Heat source is to the right
+				else if (right > center) {
+					motionSpinRight();
+				}
+				// Heat source is in the center, follow it
+				else {
+					motionStop();
+				}
+			}
+			else {
+				motionStop();
+				count += INCREMENT;
+				if (count >= MAX_COUNT) {
+					count = 0;
+					state = Panic;
+				}
+			}
+
+		} else if(state == Panic) {
+			motionSpinRight();
+			count += INCREMENT;
+			if (count == MAX_COUNT) {
+				count = 0;
+				state = Searching;
+			}
+		}
+
+		vTaskDelay(INCREMENT / portTICK_PERIOD_MS);
 	}
+
 }
 
 void vTaskWebServer(void *pvParameters)
@@ -82,11 +160,14 @@ void vTaskWebServer(void *pvParameters)
 	TickType_t xLastWakeTime;
 	xLastWakeTime = xTaskGetTickCount();
 
+	vTaskDelay(5500 / portTICK_PERIOD_MS);
+
 	while (1)
 	{
-		vTaskDelayUntil( &xLastWakeTime, (5500 / portTICK_PERIOD_MS));
 		process_client_request();
-		//char client_request = get_next_client_response();
+		clientRequest = get_next_client_response();
+		vTaskDelay((5500 / portTICK_PERIOD_MS));
+//		char client_request = get_next_client_response();
 	}
 }
 
@@ -247,13 +328,15 @@ int main()
 {
 	initializeWifi();
 	initializeWebServer();
-	xTaskCreate(vTaskWebServer, (const portCHAR *)"", 1024, NULL, 3, NULL);
+	xTaskCreate(vTaskWebServer, (const portCHAR *)"", 2048, NULL, 3, NULL);
 //    xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(
 //        vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskDecoder, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskLCD, (const portCHAR *)"", 256, NULL, 3, NULL);
+	xTaskCreate(vTaskCommandMode, (const portCHAR *)"", 256, NULL, 3, NULL);
+//	xTaskCreate(vTaskAttachmentMode, (const portCHAR *)"", 256, NULL, 3, NULL);
 
     vTaskStartScheduler();
 }

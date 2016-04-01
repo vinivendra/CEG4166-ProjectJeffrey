@@ -1,13 +1,13 @@
 /*
- * gainspan_gs1011m.c
+ * wireless_interface.c
  *
  *
- *  Created on: Aug 16, 2015
+ *  Created on: Mar 27, 2016
  *      Author: shailendrasingh
  */
 
 /****************************************************************************//*!
- * \defgroup gainspan_gs1011m  Module Gainspan Driver
+ * \defgroup wireless_interface  Module Wireless Interface
  * @{
 ******************************************************************************/
 
@@ -21,28 +21,53 @@
 
 /*(Doxygen help: use \brief to provide short summary and \details command can be used)*/
 
-/*!	\file gainspan_gs1011m.c
+/*!	\file wireless_interface.c
  * 	\brief This file defines and implements the functions responsible for interface with Gainspan GS1011M WiFi
- * 	module.
+ * 	module and Web server to interact with clients connecting over WiFi.
  *
  *
- * \details Defines the functions responsible for interface with WiFi shields based on Gainspan GS1011M module.
- * Provides functions to configure, activate Limited AP hot-spot, and interact or communicate using sockets.
+ * \details
+ * Gainspan GS1011M WiFi: Defines the functions responsible for interface with WiFi shields based on Gainspan
+ * GS1011M module. Provides functions to configure, activate Limited AP hot-spot, and interact or communicate using sockets.
  *
  * \note Module uses \ref usartAsyncModule to communicate with Gainspan GS1011M module over serial communication.
- * It also communicates the progress to serial terminal. Hence, it requires two USARTs, Gainspan and serial
+ * It also communicates the progress to serial terminal. Hence, it requires two USARTs, for Gainspan and serial
  * terminal communication respectively.
  *
  * \note Default: USART0 is for serial terminal and USART2 for Gainspan communication.
  *
- * \warning Ensure to define an unique SSID, to avoid conflict with neighbouring networks.
+ * Web Server : Limited function web server to interact with client connected over Gainspan module based
+ * Wi-Fi network. A simple HTML page with elements such as drop down list (HTML_DROPDOWN_LIST)
+ * or radio buttons (HTML_RADIO_BUTTON) can be created under a menu. Titles for page and menu can be
+ * defined.
  *
- * \note Module takes 4200ms (4.2s) to complete the initialization.
+ * Client response (single character for each event) are stored in a ring buffer, with size of
+ * RING_BUFFER_SIZE.
+ *
+ * \note Web-server can be accessed via default host ip 192.168.3.1 over HTTP i.e. use a web browser
+ * to access the web-page/home page via host ip 192.168.3.1
+ *
+ * \note This module uses \ref usartAsyncModule.
+ *
+ * \note Default network configuration :
+ * 			IP 		- 192.168.3.1
+ * 			Subnet  - 255.255.255.0
+ *			Gateway	- 192.168.3.1
+ *
+ * \note Module takes approximately 4200ms (4.2s) to complete the initialization.
+ *
+ * \warning Ensure interrupts are enable before initializing the module.
+ *
+ * \warning Ensure switch S3 (WiFi USART:SW/HW)	on Hydrogen WiFi Shield is at USART:Sw/HW position.
+ *
+ * \warning Ensure to define an unique SSID, to avoid conflict with neighbouring networks.
  *
  * Usage guide (For "Limited AP" or hot-spot mode):
  *
  * 		=> Set SET_GAINSPAN_TERMINAL_OUTPUT_ON to 1 in "gainspan_gs1011m.h" to get the command response/progress on
  * 			serial terminal.
+ *
+ * 		=> Set SET_WEB_SERVER_TERMINAL_OUTPUT_ON to 1 in "web_server.h" to get server logs on serial terminal.
  *
  * 		=> Initialize USART0 and USART2
  *
@@ -61,7 +86,44 @@
  * 		=> Call gs_activate_wireless_connection(), to activate wireless network with configuration parameters
  *			defined in earlier step. Status will be returned defined by GAINSPAN_ACTIVE, which you can verify.
  *
+ * 		=> Configure web page by providing the page title, menu title and HTML element type
  *
+ * 			call configure_web_page(char *page_title, char *menu_title, HTML_ELEMENT_TYPE element_type)
+ *
+ * 			Example: configure_web_page("Chico: The Robot", "! Control Interface !", HTML_DROPDOWN_LIST);
+ *
+ * 		=> Add elements (drop-down list entries or radio buttons) to the web page and complete the web page.
+ *
+ * 			call add_element_choice(char choice_identifier, char *element_label)
+ *
+ *			Example:
+ *
+ *				add_element_choice('F', "Forward");
+ *
+ *				add_element_choice('R', "Reverse");
+ *
+ * 		=> Start web server - with http port 80 and TCP protocol
+ *
+ * 			call start_web_server();
+ *
+ * 		=> Serve the incoming connection request from clients, ensure to call this function from task with
+ * 			a sufficiently high frequency to serve all the request and avoid time-out for clients.
+ *
+ * 			call process_client_request();
+ *
+ * 		=> Read client response, the response (single character representing choice submission from web-page)
+ * 			is stored in a ring buffer. Ensure to read the responses quick enough, as the ring buffer will be
+ * 			overwritten by incoming responses.
+ *
+ * 			call get_next_client_response(void)
+ *
+ * 			Example: client_request = get_next_client_response();
+ *
+ *	\note To acknowledge and serve the HTTP request from client and read client response from web-page call
+ *	functions process_client_request() and get_next_client_response() repeatedly in your task.
+ *
+ * \warning In case system does not initialize successfully, either reset the hardware or reload the source code
+ * and try again.
  *
  */
 
@@ -86,7 +148,7 @@
 #include <util/delay.h>
 
 /* module includes */
-#include "gainspan_gs1011m.h"				/* module include */
+#include "wireless_interface.h"				/* module include */
 
 
 /******************************************************************************************************************/
@@ -99,9 +161,82 @@
  */
 
 /*Number of characters to be read from response from Gainspan*/
-#define CHARACTERS_TO_READ_FROM_GAINSPAN_RESPONSE 						255				/*!<Number of characters to read from response from Gainspan module*/
+#define CHARACTERS_TO_READ_FROM_GAINSPAN_RESPONSE 						128							/*!<Number of characters to read from response from Gainspan module*/
+#define GENERAL_SIZE 													128							/*!<Number of characters for SSID, ID, and passwords*/
+#define IP_SIZE 														15							/*!<Number of characters for IP, Subnet, gateway*/
 /*Polling interval, after issuing command, to check availability of response from Gainspan*/
-#define COMMAND_RESPONSE_POLLING_INTERVAL_IN_MILLISECONDS				5				/*!<Polling interval, after issuing command, to check availability of response from Gainspan*/
+#define COMMAND_RESPONSE_POLLING_INTERVAL_IN_MILLISECONDS				5							/*!<Polling interval, after issuing command, to check availability of response from Gainspan*/
+
+#define HTML_ELEMENT_LABEL_SIZE 										40							/*!<Label size (characters) for HTML elements on web-page*/
+#define WEB_PAGE_ELEMENTS 												10							/*!<Number of elements on web-page*/
+#define WEB_TITLE_SIZE 													128							/*!<Title size (characters) for web-page/menu-title*/
+#define MIN(X, Y) 														((X) < (Y) ? (X) : (Y)) 	/*!<Min of two numbers*/
+/*!\brief Data structure to hold web-server configuration parameters.
+ *
+ * \details Data structure to hold web-server configuration parameters.
+ *
+ */
+typedef struct _WIFI_SERVER {
+	uint16_t server_port; 													/*!<HTTP port*/
+	uint8_t server_protocol;												/*!<Protocol; default is TCP, valid values are defined by PROTOCOLS*/
+} WIFI_SERVER;
+
+WIFI_SERVER wifi_server;													/*!<Varaible to hold web-server configuration parameter values*/
+
+
+/*!\brief Data structure to client configuration parameters.
+ *
+ * \details Data structure to client configuration parameters.
+ *
+ */
+typedef struct _WIFI_CLIENT {
+	uint8_t client_socket; 													/*!<SOCKET -> 0 to MAX_SOCKET_NUMBER*/
+} WIFI_CLIENT;
+
+WIFI_CLIENT wifi_client;													/*!<Varaible to hold client configuration parameter values*/
+
+/*!
+ * \brief Web server status
+ *
+ *
+ * \details Status of web server active or not.
+ *
+ */
+typedef enum{
+	WEB_SERVER_NOT_ACTIVE												= 0,	/*!<Web server not active*/
+	WEB_SERVER_ACTIVE													= 1		/*!<Web server active*/
+} WEB_SERVER_STATUS;
+
+
+/*!\brief Data structure to hold detail of a HTML element.
+ *
+ * \details Data structure to hold detail of a HTML element.
+ * \note element_identifier - single character, unique for each item; with label to display on webpage.
+ *
+ */
+typedef struct _HTML_ELEMENT_CHOICE {
+	char element_identifier; 												/*!<HTML element/entry identifier, single character. This will be returned via GET method as client choice*/
+	char *element_label;													/*!<HTML element label on web-page*/
+//	char element_label[HTML_ELEMENT_LABEL_SIZE];													/*!<HTML element label on web-page*/
+
+} HTML_ELEMENT_CHOICE;
+
+
+/*!\brief Data structure to hold detail of HTML web-page
+ *
+ * \details Data structure to hold detail of HTML web-page
+ * \note element_identifier - single character, unique for each item; with label to display on web-page.
+ * \warning There can be only one type of element with 10 values. Like, a drop-down list with 10 entries or group of 10 radio buttons.
+ *
+ */
+typedef struct _HTML_WEB_PAGE {
+
+	char *page_title;														/*!<HTML web-page title*/
+	char *menu_title;														/*!<HTML menu title*/
+	HTML_ELEMENT_TYPE element_type;											/*!<HTML element type for the web-page*/
+	HTML_ELEMENT_CHOICE web_page_elements[WEB_PAGE_ELEMENTS];				/*!<HTML elements for web-page*/
+	uint8_t element_count;													/*!<HTML element count added*/
+} HTML_WEB_PAGE;
 
 
 /******************************************************************************************************************/
@@ -241,7 +376,6 @@ typedef struct _GAINSPAN {
 	char *web_server_administrator_id;													/*!<Gainspan web-server authentication: Administrator ID*/
 	char *web_server_administrator_password;											/*!<Gainspan web-server authentication: Administrator Password*/
 
-
 	/*Client connection parameters*/
 	uint8_t server_cid;																	/*!<Socket cid for TCP Server*/
 	SOCKET_TABLE socket_table[MAX_SOCKET_NUMBER];										/*!<Socket Table*/
@@ -263,10 +397,18 @@ typedef struct _GAINSPAN {
  * \brief Gainspan data structure;
  *
  *
- * \details Structure holds Gainspan interface parameter.
+ * \details Structure holds Gainspan interface parameters.
  *
  */
-GAINSPAN gainspan;																		/*Gainspan data structure*/
+GAINSPAN gainspan;																		/*!<Gainspan data structure*/
+
+
+HTML_WEB_PAGE client_web_page; 															/*!<Varaible to hold HTML client web-page*/
+char *client_response_buffer;															/*!<Circular buffer/Variable to hold client response captured. This can be used as needed to initiate specific action/process*/
+uint8_t client_response_buffer_write_pointer = 0;										/*!<Write pointer*/
+uint8_t client_response_buffer_read_pointer = 0;										/*!<Read pointer*/
+WEB_SERVER_STATUS web_server_status = WEB_SERVER_NOT_ACTIVE;							/*!<Web server status*/
+
 
 /******************************************************************************************************************/
 /* CODING STANDARDS
@@ -306,6 +448,8 @@ COMMAND_OUTCOME gs_parse_command_response_tcp(char *gs_command_response, SOCKET_
 void gs_send_command_response_to_serial_terminal(AT_COMMAND at_command, COMMAND_OUTCOME command_result);
 
 void gs_send_activation_status_to_serial_terminal(GAINSPAN_ACTIVE gs_active);
+
+void initialize_web_server(uint16_t port, uint8_t protocol);
 
 uint8_t hex_to_int(char character);
 
@@ -376,9 +520,9 @@ void gs_set_usart(USART_ID target_usart_id, BAUD_RATE target_baud_rate, USART_ID
  *
  */
 void gs_set_network_configuration(NETWORK_PROFILE target_network_profile){
-	gainspan.local_ip_address = target_network_profile.local_ip_address;
-	gainspan.subnet = target_network_profile.subnet;
-	gainspan.gateway = target_network_profile.gateway;
+	strcpy(gainspan.local_ip_address, target_network_profile.local_ip_address);
+	strcpy(gainspan.subnet, target_network_profile.subnet);
+	strcpy(gainspan.gateway, target_network_profile.gateway);
 }
 
 
@@ -395,8 +539,8 @@ void gs_set_network_configuration(NETWORK_PROFILE target_network_profile){
  *
  */
 void gs_set_wireless_configuration(WIRELESS_PROFILE target_wireless_profile){
-	gainspan.ssid = target_wireless_profile.ssid;
-	gainspan.security_key = target_wireless_profile.security_key;
+	strcpy(gainspan.ssid, target_wireless_profile.ssid);
+	strcpy(gainspan.security_key, target_wireless_profile.security_key);
 	gainspan.wireless_mode = target_wireless_profile.wireless_mode;
 	gainspan.authentication_mode = target_wireless_profile.authentication_mode;
 	gainspan.wireless_security_configuration = 	target_wireless_profile.wireless_security_configuration;
@@ -434,8 +578,8 @@ void gs_set_wireless_ssid(char *wireless_ssid){
  *
  */
 void gs_set_webserver_authentication(WEBSERVER_AUTHENTICATION_PROFILE target_webserver_profile){
-	gainspan.web_server_administrator_id = target_webserver_profile.web_server_administrator_id;
-	gainspan.web_server_administrator_password = target_webserver_profile.web_server_administrator_password;
+	strcpy(gainspan.web_server_administrator_id, target_webserver_profile.web_server_administrator_id);
+	strcpy(gainspan.web_server_administrator_password, target_webserver_profile.web_server_administrator_password);
 }
 
 
@@ -602,7 +746,8 @@ GAINSPAN_ACTIVE gs_activate_wireless_connection(void){
 		}
 
 		/*Start DHCP server*/
-		strcpy(gs_command_response, "\0");
+//		strcpy(gs_command_response, "\0");
+		strcpy(gs_command_response, "");
 		gs_send_command(AT_START_DHCP_SERVER_IPV4);
 		number_of_characters_read = gs_get_command_response(gs_command_response, 300);
 		command_result = gs_parse_command_response(gs_command_response);
@@ -851,7 +996,7 @@ SUCCESS_ERROR gs_reset_socket(TCP_SOCKET socket){
 		usart_xfprint(gainspan.usart_id, (uint8_t *) command_buffer);
 
 		/*Reset socket.*/
-		gainspan.socket_table[socket].ip_address = "0.0.0.0";
+		strcpy(gainspan.socket_table[socket].ip_address, "0.0.0.0");
 		gainspan.socket_table[socket].status = SOCKET_STATUS_LISTEN;
 		gainspan.socket_table[socket].protocol = PROTOCOL_TCP;
 		gainspan.socket_table[socket].port = INVALID_PORT;
@@ -896,7 +1041,7 @@ SUCCESS_ERROR gs_disconnect_deactivate_socket(TCP_SOCKET socket){
 			gs_send_command_response_to_serial_terminal(AT_CLOSE_CONNECTION_CID, command_result);
 		#endif
 		if(command_result == COMMAND_OUTCOME_SUCCESS){
-			gainspan.socket_table[socket].ip_address = "0.0.0.0";
+			strcpy(gainspan.socket_table[socket].ip_address, "0.0.0.0");
 			gainspan.socket_table[socket].status = SOCKET_STATUS_CLOSED;
 			gainspan.socket_table[socket].protocol = PROTOCOL_TCP;
 			gainspan.socket_table[socket].port = INVALID_PORT;
@@ -950,7 +1095,8 @@ SUCCESS_ERROR gs_read_data_from_socket(char *data_string){
 	strcpy(data_string, "\0");
 
 	strcpy(gs_command_response, "\0");
-	number_of_characters_read = gs_get_command_response(gs_command_response, 300); //poll for 300 ms
+	//number_of_characters_read = gs_get_command_response(gs_command_response, 50); //50 ms works better
+	number_of_characters_read = gs_get_command_response(gs_command_response, 30);
 
 	if ((strlen(gs_command_response)) <= 0 || (number_of_characters_read <=0)){
 		strcpy(data_string, "\0");
@@ -1005,6 +1151,7 @@ SUCCESS_ERROR gs_read_data_from_socket(char *data_string){
 			}
 		}
 	}
+
 	return process_result;
 }
 
@@ -1066,6 +1213,7 @@ SUCCESS_ERROR gs_get_socket_connection_status(TCP_SOCKET socket){
  */
 void gs_write_data_to_socket(TCP_SOCKET socket, char *data_string){
 	char command_buffer[MAX_TX_BUFFER];
+
 	memset(command_buffer, ' ', MAX_TX_BUFFER);
 
 	strcpy(command_buffer, "\0");
@@ -1129,6 +1277,306 @@ void gs_flush(void){
 }
 
 
+/*!\brief Configure web-page.
+ *
+ * \details Configure web-page with details of web-page title, HTML element type.
+ * Default values are:
+ *	element_type = HTML_DROPDOWN_LIST;;
+ *	page_title = "Client Web Page";
+ *
+ * @param page_title - string defining page title, maximum 127 characters
+ * @param menu_title - string defining menu title, maximum 127 characters
+ * @param element_type - choice of HTML element, drop-down list or radio button. define by HTML_ELEMENT_TYPE
+ *
+ */
+void configure_web_page(char *page_title, char *menu_title, HTML_ELEMENT_TYPE element_type){
+	/*Initialize data structures*/
+	/*Client Web Page*/
+	client_web_page.page_title = (char *)pvPortMalloc( sizeof(char) * WEB_TITLE_SIZE);
+	strcpy(client_web_page.page_title, "");
+	client_web_page.menu_title = (char *)pvPortMalloc( sizeof(char) * WEB_TITLE_SIZE);
+	strcpy(client_web_page.menu_title, "");
+	client_web_page.element_type = HTML_DROPDOWN_LIST ;
+	for (int index = 0; index < WEB_PAGE_ELEMENTS; index++){
+		client_web_page.web_page_elements[index].element_identifier = ' ';
+		client_web_page.web_page_elements[index].element_label = (char *)pvPortMalloc( sizeof(char) * HTML_ELEMENT_LABEL_SIZE);
+		strcpy(client_web_page.web_page_elements[index].element_label, " ");
+	}
+	client_web_page.element_count = 0;
+	/*Client response buffer*/
+	client_response_buffer = (char *)pvPortMalloc( sizeof(char) * RING_BUFFER_SIZE);
+	strcpy(client_response_buffer, "\0");
+
+	/*Set element type*/
+	if (element_type != HTML_DROPDOWN_LIST && element_type != HTML_RADIO_BUTTON){
+		client_web_page.element_type = HTML_DROPDOWN_LIST;
+	}
+	else{
+		client_web_page.element_type = element_type;
+	}
+	/*Set page title*/
+	if (strlen(page_title) < WEB_TITLE_SIZE  && strlen(page_title) > 0){
+		strncpy(client_web_page.page_title, page_title, strlen(page_title));
+	}else if(strlen(page_title) <= 0){
+		strcpy(client_web_page.page_title, "Client Web Page");
+	}else{
+		strncpy(client_web_page.page_title, page_title, WEB_TITLE_SIZE);
+	}
+	/*Set menu title*/
+	if (strlen(menu_title) < WEB_TITLE_SIZE  && strlen(menu_title) > 0){
+		strncpy(client_web_page.menu_title, menu_title, strlen(menu_title));
+	}else if(strlen(menu_title) <= 0){
+		strcpy(client_web_page.menu_title, "Menu/options");
+	}else{
+		strncpy(client_web_page.menu_title, menu_title, WEB_TITLE_SIZE);
+	}
+	client_web_page.element_count = 0;
+	strcpy(client_response_buffer, "");
+	client_response_buffer_write_pointer = 0;
+	client_response_buffer_read_pointer = 0;
+	#if SET_WEB_SERVER_TERMINAL_OUTPUT_ON == 1
+		/*Send message to serial terminal*/
+		usart_xfprint(SERIAL_TERNMINAL, (uint8_t *) "\n\rWeb Page: configured....\n\r");
+	#endif
+}
+
+
+/*!\brief Add an element entry/choice.
+ *
+ * \details Configure web-page with details of web-page title, HTML element type.
+ * Default values are:
+ *	element_type = HTML_DROPDOWN_LIST;;
+ *	page_title = "Client Web Page";
+ *
+ * @param choice_identifier - a single character identifier for element/choice, this will be return value via GET method
+ * @param element_label - label for element/choice, maximum 40 characters
+ *
+ */
+void add_element_choice(char choice_identifier, char *element_label){
+	uint8_t loop_counter = 0, choice_identifier_exists = 0;
+	/*Check if the element already exists*/
+	for(loop_counter = 0; loop_counter < client_web_page.element_count ; loop_counter++){
+		if (choice_identifier == client_web_page.web_page_elements[loop_counter].element_identifier){
+			choice_identifier_exists = 1;
+			break;
+		}
+	}
+	if(choice_identifier_exists == 1){
+		#if SET_WEB_SERVER_TERMINAL_OUTPUT_ON == 1
+			/*Send message to serial terminal*/
+			usart_xfprint(SERIAL_TERNMINAL, (uint8_t *) "\n\rWeb Page: element choice identifier already exists....\n\r");
+		#endif
+	}else{
+		if (client_web_page.element_count <= WEB_PAGE_ELEMENTS){
+			client_web_page.web_page_elements[client_web_page.element_count].element_identifier = choice_identifier;
+			if (strlen(element_label) < HTML_ELEMENT_LABEL_SIZE && strlen(element_label) > 0){
+				strncpy(client_web_page.web_page_elements[client_web_page.element_count].element_label , element_label, strlen(element_label));
+			}else if(strlen(element_label) <= 0){
+				strcpy(client_web_page.web_page_elements[client_web_page.element_count].element_label, "Client choice");
+			}else{
+				strncpy(client_web_page.web_page_elements[client_web_page.element_count].element_label , element_label, HTML_ELEMENT_LABEL_SIZE);
+			}
+			client_web_page.element_count++;
+			if (client_web_page.element_count > WEB_PAGE_ELEMENTS){
+				client_web_page.element_count = WEB_PAGE_ELEMENTS;
+			}
+			#if SET_WEB_SERVER_TERMINAL_OUTPUT_ON == 1
+				/*Send message to serial terminal*/
+				usart_xfprint(SERIAL_TERNMINAL, (uint8_t *) "\n\rWeb Page: element added....\n\r");
+			#endif
+		}else{
+			#if SET_WEB_SERVER_TERMINAL_OUTPUT_ON == 1
+				/*Send message to serial terminal*/
+				usart_xfprint(SERIAL_TERNMINAL, (uint8_t *) "\n\rWeb Page: can't add element, max 10 allowed....\n\r");
+				_delay_ms(5000);
+			#endif
+		}
+	}
+}
+
+
+/*!\brief Start the web-server.
+ *
+ * \details Initializes and start the web-server, web-sever starts to listen to clients
+ * at sockets within range 0 to MAX_SOCKET_NUMBER.
+ * \note Only one socket will be made active at a time.
+ *
+ * Default values are:
+ *	server port = 80;
+ *	server protocol = PROTOCOL_TCP;
+ *
+ * \warning Ensure web-page is configured and required elements are added, before starting/activating sever.
+ *
+ *
+ */
+void start_web_server(void){
+	uint16_t port = SERVER_PORT;
+	uint8_t protocol = SERVER_PROTOCOL;
+
+	if (client_web_page.element_count > 0){
+		/*Initialize the server*/
+		initialize_web_server(port, protocol);
+		/*Search for available socket, activate and start to listen incoming connection*/
+		for (TCP_SOCKET socket  = 0; socket < MAX_SOCKET_NUMBER; socket++){
+			if (gs_get_socket_status(socket) == SOCKET_STATUS_CLOSED){
+				if (wifi_server.server_protocol == PROTOCOL_TCP){
+					gs_configure_socket(socket, wifi_server.server_protocol, wifi_server.server_port);
+					gs_enable_activate_socket(socket);
+					wifi_client.client_socket = socket;
+					#if SET_WEB_SERVER_TERMINAL_OUTPUT_ON == 1
+						/*Send message to serial terminal*/
+						usart_xfprint(SERIAL_TERNMINAL, (uint8_t *) "\n\rWeb Server: Started....\n\r");
+					#endif
+					web_server_status = WEB_SERVER_ACTIVE;
+					break;
+				}
+			}
+		}
+	}else{
+		#if SET_WEB_SERVER_TERMINAL_OUTPUT_ON == 1
+			/*Send message to serial terminal*/
+			usart_xfprint(SERIAL_TERNMINAL, (uint8_t *) "\n\rWeb Server: can't start, web-page empty....\n\r");
+		#endif
+	}
+}
+
+//usart_printf_P(PSTR("\r\n1 Choices-> %u"), client_web_page.element_count);
+
+
+
+/*!\brief Process client request.
+ *
+ * \details accepts incoming connection on socket, sends the web-page and
+ * reads the client response
+ * \warning Ensure web-page is configured and web server is started before calling this routine/function.
+ *
+ *
+ */
+void process_client_request(void){
+
+	char data_string[128] = "\0";
+	char html_string[128] = "\0";
+	char find_GET_in_response[128] = "\0";
+	char client_response = ' ';
+	uint8_t loop_counter = 0;
+
+	if (web_server_status == WEB_SERVER_ACTIVE){
+		if (gs_get_socket_status(wifi_client.client_socket) == SOCKET_STATUS_LISTEN){
+			gs_read_data_from_socket(data_string); //accept connection, get CID
+			/*Extract client request and store in ring buffer*/
+			if(strlen(data_string) > 0){
+				strcpy(find_GET_in_response, strstr(data_string, "GET"));
+				if (*(find_GET_in_response + 5) == '?'){
+					client_response = *(find_GET_in_response + 8);
+
+					/*Add to circular buffer for processing*/
+					client_response_buffer[client_response_buffer_write_pointer] = client_response;
+					client_response_buffer_write_pointer++;
+					if (client_response_buffer_write_pointer >= RING_BUFFER_SIZE){
+						client_response_buffer_write_pointer = 0;
+					}
+				}
+			}
+			if(gs_get_socket_status(wifi_client.client_socket) == SOCKET_STATUS_ESTABLISHED){
+				//HTML header
+				gs_write_data_to_socket(wifi_client.client_socket, "HTTP/1.1 200 OK\n");
+				gs_write_data_to_socket(wifi_client.client_socket, "Content-Type: text/html\n\n");
+				gs_write_data_to_socket(wifi_client.client_socket, "<!DOCTYPE HTML>\n\n");
+				//Send web page HTML script/code
+				gs_write_data_to_socket(wifi_client.client_socket, "<html> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, "<head> \n");
+				/*Page title*/
+				strcpy(html_string, "<title>");
+				strcat(html_string, client_web_page.page_title);
+				strcat(html_string, "</title> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, html_string);
+				gs_write_data_to_socket(wifi_client.client_socket, "</head> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, "<body> \n");
+				/*Page title*/
+				strcpy(html_string, "<center><h1>");
+				strcat(html_string, client_web_page.page_title);
+				strcat(html_string, "</h1> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, html_string);
+				strcpy(html_string, "<center><h3>");
+				strcat(html_string, client_web_page.menu_title);
+				strcat(html_string, "</h3> \n\n");
+				gs_write_data_to_socket(wifi_client.client_socket, html_string);
+				gs_write_data_to_socket(wifi_client.client_socket, "<p> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, "<form method=\"get\" action=\"\"> \n");
+				/*Check for element type*/
+				if (client_web_page.element_type == HTML_DROPDOWN_LIST ){
+					gs_write_data_to_socket(wifi_client.client_socket, "<select name=\"l\"> \n");
+					/*Add the elements*/
+					for (loop_counter = 0; loop_counter < client_web_page.element_count; loop_counter++){
+						strcpy(html_string, "<option value=\"");
+						strncat(html_string, &client_web_page.web_page_elements[loop_counter].element_identifier, 1);
+						strcat(html_string, "\">");
+						strcat(html_string, client_web_page.web_page_elements[loop_counter].element_label);
+						strcat(html_string, "</option> \n");
+						gs_write_data_to_socket(wifi_client.client_socket, html_string);
+					}
+					gs_write_data_to_socket(wifi_client.client_socket, "</select> \n");
+				}else if (client_web_page.element_type == HTML_RADIO_BUTTON){
+					for (loop_counter = 0; loop_counter < client_web_page.element_count; loop_counter++){
+						strcpy(html_string, "<input type=\"radio\" name=\"choice\" value=\"");
+						strncat(html_string, &client_web_page.web_page_elements[loop_counter].element_identifier, 1);
+						strcat(html_string, "\">");
+						strcat(html_string, client_web_page.web_page_elements[loop_counter].element_label);
+						strcat(html_string, " \n");
+						gs_write_data_to_socket(wifi_client.client_socket, html_string);
+					}
+				}else{
+					gs_write_data_to_socket(wifi_client.client_socket, "<center><h3> No valid elements added, please check! </h3> \n\n");
+				}
+				gs_write_data_to_socket(wifi_client.client_socket, "<input type=\"submit\" value=\"Set\"> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, "</form> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, "</p> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, "</center> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, "</body> \n");
+				gs_write_data_to_socket(wifi_client.client_socket, "</html>");
+				gs_write_data_to_socket(wifi_client.client_socket, "");
+				gs_write_data_to_socket(wifi_client.client_socket, " ");
+//				gs_write_data_to_socket(wifi_client.client_socket, "HTTP/1.1 205 Reset Content\n");
+
+				gs_reset_socket(wifi_client.client_socket);
+
+				gs_flush();
+
+				/*Wait for web browser to get refresh*/
+				_delay_ms(100);
+			}
+		}
+	}
+}
+
+
+
+
+/*!\brief Get the client response (next)
+ *
+ * \details reads the buffer and returns the next response of client,
+ * i.e. single character received from web-page of choice.
+ * \note After reading the position, initializes with blank.
+ *
+ * @return - a single character response according to choice of client on web -page.
+ *
+ */
+char get_next_client_response(void){
+	char client_response  = ' ';
+	/*read the current read location from buffer*/
+	client_response = client_response_buffer[client_response_buffer_read_pointer];
+	/*initialize with blank*/
+	client_response_buffer[client_response_buffer_read_pointer] = ' ';
+	/*move the pointer*/
+	client_response_buffer_read_pointer++;
+	/*Ensure remains in bound for circular buffer*/
+	if (client_response_buffer_read_pointer >= RING_BUFFER_SIZE){
+		client_response_buffer_read_pointer = 0;
+	}
+	return client_response;
+}
+
+
 /*---------------------------------------  LOCAL FUNCTIONS  ------------------------------------------------------*/
 /*define your local functions here*/
 
@@ -1179,22 +1627,26 @@ void gs_flush(void){
  */
 void gs_initialize_gainspan(void){
 	TCP_SOCKET socket = 0;
-
 	gainspan.serial_terminal_usart_id = USART_0;
 	gainspan.serial_terminal_baud_rate = BAUD_RATE_9600;
 	gainspan.usart_id = USART_2;
 	gainspan.baud_rate = BAUD_RATE_9600;
 	gainspan.device_connection_status = GAINSPAN_ACTIVE_FALSE;
-	gainspan.ssid = "GAINSPAN";
-	gainspan.security_key = "napsniag";
+	gainspan.ssid = (char *)pvPortMalloc( sizeof(char) * GENERAL_SIZE);
+	strcpy(gainspan.ssid, "GAINSPAN");
+	gainspan.security_key = (char *)pvPortMalloc( sizeof(char) * GENERAL_SIZE);
+	strcpy(gainspan.security_key, "napsniag");
 	gainspan.wireless_mode = WIRELESS_MODE_LIMITEDAP;
 	gainspan.authentication_mode = AUTHENTICATION_MODE_NONE;
 	gainspan.wireless_security_configuration = 	WIRELESS_SECURITY_CONFIGURATION_WPA_PSK_SECURITY;
 	gainspan.transmission_rate = TRANSMISSION_RATE_AUTO;
 	gainspan.wireless_channel = WIRELESS_CHANNEL_11;
-	gainspan.local_ip_address = "192.168.3.1";
-	gainspan.subnet = "255.255.255.0";
-	gainspan.gateway = "192.168.3.1";
+	gainspan.local_ip_address = (char *)pvPortMalloc( sizeof(char) * IP_SIZE);
+	strcpy(gainspan.local_ip_address, "192.168.3.1");
+	gainspan.subnet = (char *)pvPortMalloc( sizeof(char) * IP_SIZE);
+	strcpy(gainspan.subnet, "255.255.255.0");
+	gainspan.gateway = (char *)pvPortMalloc( sizeof(char) * IP_SIZE);
+	strcpy(gainspan.gateway, "192.168.3.1");
 	gainspan.server_protocol = PROTOCOL_TCP;
 	gainspan.server_port = 80;
 	gainspan.server_number_of_connection = 1;
@@ -1203,7 +1655,8 @@ void gs_initialize_gainspan(void){
 	gainspan.device_operation_mode = GAINSPAN_DEVICE_MODE_COMMAND;
 	gainspan.server_cid = INVALID_CID;
 	for (socket = 0; socket < MAX_SOCKET_NUMBER; socket++){
-		gainspan.socket_table[socket].ip_address = "0.0.0.0";
+		gainspan.socket_table[socket].ip_address = (char *)pvPortMalloc( sizeof(char) * IP_SIZE);
+		strcpy(gainspan.socket_table[socket].ip_address, "0.0.0.0");
 		gainspan.socket_table[socket].status = SOCKET_STATUS_CLOSED;
 		gainspan.socket_table[socket].protocol = PROTOCOL_TCP;
 		gainspan.socket_table[socket].port = INVALID_PORT;
@@ -1408,7 +1861,7 @@ void gs_send_command(AT_COMMAND at_command){
  * \details Collect the response from Gainspan WiFi module for the last submitted command. Attempt will
  * be made to collect the response for the polling period. Polling interval is defined by COMMAND_RESPONSE_POLLING_INTERVAL_IN_MILLISECONDS.
  *
- *
+ * \note: returns maximum 128 characters, and rest of the response is discarded.
  *
  * @param gs_command_response - Pointer to string buffer to return the response.
  * @param polling_period_in_milliseconds - Polling period.
@@ -1428,8 +1881,15 @@ uint16_t gs_get_command_response(char *gs_command_response, uint16_t polling_per
 			gs_command_response[string_index] = character_from_response;
 			string_index++;
 			number_of_characters_read++;
+			/*Max limit on characters to be captured from response is 128*/
+			if (number_of_characters_read >= CHARACTERS_TO_READ_FROM_GAINSPAN_RESPONSE){
+				/*Discard the rest of characters from USART buffer*/
+				gs_flush();
+				break;
+			}
 		 }
 	 }
+
 	 gs_command_response[string_index] = '\0';  //terminate string
 
 	 #if SET_GAINSPAN_TERMINAL_OUTPUT_ON == 1
@@ -1659,6 +2119,30 @@ void gs_send_activation_status_to_serial_terminal(GAINSPAN_ACTIVE gs_active){
 }
 
 
+
+/*!\brief Initialize web-server.
+ *
+ * \details Initialize the web-server with default configuration.
+ * Default values are:
+ *	server port = 80;
+ *	server protocol = PROTOCOL_TCP;
+ * \note This function does not start the web-server, it initializes
+ * the configuration parameters
+ *
+ * @param port - HTTP port, default is 80
+ * @param protocol - protocol, default is PROTOCOL_TCP
+ *
+ */
+void initialize_web_server(uint16_t port, uint8_t protocol){
+	wifi_server.server_port = 80;
+	wifi_server.server_protocol = PROTOCOL_TCP;
+	#if SET_WEB_SERVER_TERMINAL_OUTPUT_ON == 1
+		/*Send message to serial terminal*/
+		usart_xfprint(SERIAL_TERNMINAL, (uint8_t *) "\n\rWeb Server: Initialized....\n\r");
+	#endif
+}
+
+
 /*!
  * \brief Convert Hexadecimal to Integer.
  *
@@ -1719,3 +2203,4 @@ char int_to_hex(uint8_t character){
 /*NO ISR's */
 
 /*!@}*/   // end module
+

@@ -51,6 +51,49 @@ int getPixelTemperature(int index)
     return result[1];
 }
 
+int getLeft3AvgTemperatures ()
+{
+	int pixelTemperatureSum = 0;
+
+	    for (int pixel = 0; pixel < 3; pixel++)
+	    {
+	        int pixelTemp = getPixelTemperature(pixel);
+	        pixelTemperatures[pixel] = pixelTemp;
+	        pixelTemperatureSum += pixelTemp;
+	    }
+
+	    return pixelTemperatureSum / 3;
+}
+
+int getCenter4AvgTemperatures ()
+{
+	int pixelTemperatureSum = 0;
+
+	    for (int pixel = 2; pixel < 6; pixel++)
+	    {
+	        int pixelTemp = getPixelTemperature(pixel);
+	        pixelTemperatures[pixel] = pixelTemp;
+	        pixelTemperatureSum += pixelTemp;
+	    }
+
+	    return pixelTemperatureSum / 4;
+}
+
+int getRight3AvgTemperatures ()
+{
+	int pixelTemperatureSum = 0;
+
+	    for (int pixel = 5; pixel < 8; pixel++)
+	    {
+	        int pixelTemp = getPixelTemperature(pixel);
+	        pixelTemperatures[pixel] = pixelTemp;
+	        pixelTemperatureSum += pixelTemp;
+	    }
+
+	    return pixelTemperatureSum / 3;
+}
+
+
 /**
  * Calculates the average temperature of the 4 pixels on the left based on the
  * values in the shared `pixelTemperatures` array.

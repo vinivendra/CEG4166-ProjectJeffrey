@@ -1,13 +1,14 @@
 /*
- * gainspan_gs1011m.h
+ * wireless_interface.h
  *
  *
- *  Created on: Aug 16, 2015
+ *  Created on: Mar 27, 2016
  *      Author: shailendrasingh
  */
 
+
 /****************************************************************************//*!
- * \defgroup gainspan_gs1011m  Module Gainspan Driver
+ * \defgroup wireless_interface  Module Wireless Interface
  * @{
 ******************************************************************************/
 
@@ -23,28 +24,53 @@
 
 /*(Doxygen help: use \brief to provide short summary and \details command can be used)*/
 
-/*!	\file gainspan_gs1011m.h
+/*!	\file wireless_interface.h
  * 	\brief This file defines and implements the functions responsible for interface with Gainspan GS1011M WiFi
- * 	module.
+ * 	module and Web server to interact with clients connecting over WiFi.
  *
  *
- * \details Defines the functions responsible for interface with WiFi shields based on Gainspan GS1011M module.
- * Provides functions to configure, activate Limited AP hot-spot, and interact or communicate using sockets.
+ * \details
+ * Gainsoan GS1011M WiFi: Defines the functions responsible for interface with WiFi shields based on Gainspan
+ * GS1011M module. Provides functions to configure, activate Limited AP hot-spot, and interact or communicate using sockets.
  *
-* \note Module uses \ref usartAsyncModule to communicate with Gainspan GS1011M module over serial communication.
- * It also communicates the progress to serial terminal. Hence, it requires two USARTs, Gainspan and serial
+ * \note Module uses \ref usartAsyncModule to communicate with Gainspan GS1011M module over serial communication.
+ * It also communicates the progress to serial terminal. Hence, it requires two USARTs, for Gainspan and serial
  * terminal communication respectively.
  *
  * \note Default: USART0 is for serial terminal and USART2 for Gainspan communication.
  *
- * \warning Ensure to define an unique SSID, to avoid conflict with neighbouring networks.
+ * Web Server : Limited function web server to interact with client connected over Gainspan module based
+ * Wi-Fi network. A simple HTML page with elements such as drop down list (HTML_DROPDOWN_LIST)
+ * or radio buttons (HTML_RADIO_BUTTON) can be created under a menu. Titles for page and menu can be
+ * defined.
  *
- * \note Module takes 4200ms (4.2s) to complete the initialization.
+ * Client response (single character for each event) are stored in a ring buffer, with size of
+ * RING_BUFFER_SIZE.
+ *
+ * \note Web-server can be accessed via default host ip 192.168.3.1 over HTTP i.e. use a web browser
+ * to access the web-page/home page via host ip 192.168.3.1
+ *
+ * \note This module uses \ref usartAsyncModule.
+ *
+ * \note Default network configuration :
+ * 			IP 		- 192.168.3.1
+ * 			Subnet  - 255.255.255.0
+ *			Gateway	- 192.168.3.1
+ *
+ * \note Module takes approximately 4200ms (4.2s) to complete the initialization.
+ *
+ * \warning Ensure interrupts are enable before initializing the module.
+ *
+ * \warning Ensure switch S3 (WiFi USART:SW/HW)	on Hydrogen WiFi Shield is at USART:Sw/HW position.
+ *
+ * \warning Ensure to define an unique SSID, to avoid conflict with neighbouring networks.
  *
  * Usage guide (For "Limited AP" or hot-spot mode):
  *
  * 		=> Set SET_GAINSPAN_TERMINAL_OUTPUT_ON to 1 in "gainspan_gs1011m.h" to get the command response/progress on
  * 			serial terminal.
+ *
+ * 		=> Set SET_WEB_SERVER_TERMINAL_OUTPUT_ON to 1 in "web_server.h" to get server logs on serial terminal.
  *
  * 		=> Initialize USART0 and USART2
  *
@@ -63,14 +89,51 @@
  * 		=> Call gs_activate_wireless_connection(), to activate wireless network with configuration parameters
  *			defined in earlier step. Status will be returned defined by GAINSPAN_ACTIVE, which you can verify.
  *
+ * 		=> Configure web page by providing the page title, menu title and HTML element type
  *
+ * 			call configure_web_page(char *page_title, char *menu_title, HTML_ELEMENT_TYPE element_type)
+ *
+ * 			Example: configure_web_page("Chico: The Robot", "! Control Interface !", HTML_DROPDOWN_LIST);
+ *
+ * 		=> Add elements (drop-down list entries or radio buttons) to the web page and complete the web page.
+ *
+ * 			call add_element_choice(char choice_identifier, char *element_label)
+ *
+ *			Example:
+ *
+ *				add_element_choice('F', "Forward");
+ *
+ *				add_element_choice('R', "Reverse");
+ *
+ * 		=> Start web server - with http port 80 and TCP protocol
+ *
+ * 			call start_web_server();
+ *
+ * 		=> Serve the incoming connection request from clients, ensure to call this function from task with
+ * 			a sufficiently high frequency to serve all the request and avoid time-out for clients.
+ *
+ * 			call process_client_request();
+ *
+ * 		=> Read client response, the response (single character representing choice submission from web-page)
+ * 			is stored in a ring buffer. Ensure to read the responses quick enough, as the ring buffer will be
+ * 			overwritten by incoming responses.
+ *
+ * 			call get_next_client_response(void)
+ *
+ * 			Example: client_request = get_next_client_response();
+ *
+ *	\note To acknowledge and serve the HTTP request from client and read client response from web-page call
+ *	functions process_client_request() and get_next_client_response() repeatedly in your task.
+ *
+ * \warning In case system does not initialize successfully, either reset the hardware or reload the source code
+ * and try again.
  *
  *
  */
 
 
-#ifndef GAINSPAN_GS1011M_H_
-#define GAINSPAN_GS1011M_H_
+#ifndef WIRELESS_INTERFACE_H_
+#define WIRELESS_INTERFACE_H_
 
 /******************************************************************************************************************/
 /* CODING STANDARDS:
@@ -99,7 +162,8 @@
  */
 
 /*Send commands and respective command response to terminal*/
-#define SET_GAINSPAN_TERMINAL_OUTPUT_ON							1				/*!Default - 0; set to 1 to send the commands and respective response from Gainspan device to serial terminal define in Gainspan data structure gainspan.serial_terminal_usart_id*/
+#define SET_GAINSPAN_TERMINAL_OUTPUT_ON					1				/*!Default - 0; set to 1 to send the commands and respective response from Gainspan device to serial terminal define in Gainspan data structure gainspan.serial_terminal_usart_id*/
+#define SET_WEB_SERVER_TERMINAL_OUTPUT_ON				1				/*!Default - 0; set to 1 to send the commands and respective response from Gainspan device to serial terminal define in Gainspan data structure gainspan.serial_terminal_usart_id*/
 
 /*Serial2WiFi: AT commands*/
 
@@ -170,6 +234,23 @@
 
 /*Maximum buffer length in bytes (characters) for data transmission*/
 #define MAX_TX_BUFFER									128				/*!<Maximum transmission buffer*/
+
+#define SERIAL_TERNMINAL								USART_0			/*!Default - USART0 for serial terminal communication*/
+#define SERVER_PORT										80				/*!Default - web server port*/
+#define SERVER_PROTOCOL									PROTOCOL_TCP	/*!Default - protocol - PROTOCOL_TCP*/
+#define RING_BUFFER_SIZE 								10				/*!Ring buffer size, no of characters*/
+
+/*!
+ * \brief HTML elements
+ *
+ *
+ * \details Valid HTML elements for web-page
+ *
+ */
+typedef enum{
+	HTML_DROPDOWN_LIST												= 0,	/*!<HTML drop down list*/
+	HTML_RADIO_BUTTON												= 1		/*!<HTML radio button*/
+} HTML_ELEMENT_TYPE;
 
 
 /*!
@@ -535,6 +616,8 @@ typedef struct _WEBSERVER_AUTHENTICATION_PROFILE {
 /*---------------------------------------  ENTRY POINTS  ---------------------------------------------------------*/
 /*Declare your entry points here*/
 
+/*Gainspan GS1011M WiFi APIs*/
+
 void gs_initialize_module(USART_ID target_usart_id, BAUD_RATE target_baud_rate, USART_ID target_serial_terminal_usart_id, BAUD_RATE target_serial_terminal_baud_rate);
 
 void gs_set_usart(USART_ID target_usart_id, BAUD_RATE target_baud_rate, USART_ID target_serial_terminal_usart_id, BAUD_RATE target_serial_terminal_baud_rate);
@@ -581,6 +664,19 @@ void gs_write_complete_to_socket(TCP_SOCKET socket);
 
 void gs_flush(void);
 
-#endif /* GAINSPAN_GS1011M_H_ */
+/*Web server APIs*/
+
+void configure_web_page(char *page_title, char *menu_title, HTML_ELEMENT_TYPE element_type);
+
+void add_element_choice(char choice_identifier, char *element_label);
+
+void start_web_server(void);
+
+void process_client_request(void);
+
+char get_next_client_response(void);
+
+#endif /* WIRELESS_INTERFACE_H_ */
+
 
 /*!@}*/   // end module
