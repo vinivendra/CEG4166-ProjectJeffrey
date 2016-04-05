@@ -36,7 +36,7 @@ float speed;
 float distanceTravelled;
 
 //
-char clientRequest;
+char clientRequest = 'S';
 
 
 void initializeWifi() {
@@ -61,28 +61,32 @@ void initializeWebServer() {
 
 void vTaskCommandMode(void *pvParameters) {
 	motionInit();
-	// Move forward
-	if(clientRequest == 'F') {
-		motionForward();
-	}
-	// Move backward
-	else if(clientRequest == 'B') {
-		motionBackward();
-	}
-	// Spin Left
-	else if(clientRequest == 'L') {
-		motionSpinLeft();
-	}
-	// Spin Right
-	else if(clientRequest == 'R') {
-		motionSpinRight();
-	}
-	// Stop moving
-	else if(clientRequest == 'S') {
-		motionStop();
-	}
 
-	vTaskDelay(100 / portTICK_PERIOD_MS);
+	while (1) {
+		//usart_fprintf_P(USART_0, PSTR("COMMAND set too: %c"), clientRequest);
+		// Move forward
+		if(clientRequest == 'F') {
+			motionForward();
+		}
+		// Move backward
+		else if(clientRequest == 'B') {
+			motionBackward();
+		}
+		// Spin Left
+		else if(clientRequest == 'L') {
+			motionSpinLeft();
+		}
+		// Spin Right
+		else if(clientRequest == 'R') {
+			motionSpinRight();
+		}
+		// Stop moving
+		else if(clientRequest == 'S') {
+			motionStop();
+		}
+
+		vTaskDelay(5000 / portTICK_PERIOD_MS);
+	}
 }
 
 void vTaskAttachmentMode(void *pvParameters) {
@@ -94,7 +98,7 @@ void vTaskAttachmentMode(void *pvParameters) {
 	} State;
 	State state = Searching;
 	int count = 0;
-	int INCREMENT = 1000;
+	int INCREMENT = 100;
 	int MAX_COUNT = 10000;
 
 	motionInit();
@@ -157,15 +161,31 @@ void vTaskAttachmentMode(void *pvParameters) {
 
 void vTaskWebServer(void *pvParameters)
 {
-	TickType_t xLastWakeTime;
-	xLastWakeTime = xTaskGetTickCount();
+	vTaskSuspend(vTaskAttachmentMode);
+	//vTaskSuspend(vTaskCommandMode);
 
 	vTaskDelay(5500 / portTICK_PERIOD_MS);
 
 	while (1)
 	{
 		process_client_request();
-		clientRequest = get_next_client_response();
+		char temp = get_next_client_response();
+		if (temp == 'A') {
+			clientRequest = temp;
+			vTaskDelay(100 / portTICK_PERIOD_MS);
+			// Delay to ensure the variable is updated
+			vTaskSuspend(vTaskCommandMode);
+			vTaskResume(vTaskAttachmentMode);
+		}
+		else if (temp == 'F' ||
+				temp == 'B' || temp == 'L' ||
+				temp == 'R' || temp == 'S') {
+			clientRequest = temp;
+			vTaskDelay(100 / portTICK_PERIOD_MS);
+			// Delay to ensure the variable is updated
+			vTaskSuspend(vTaskAttachmentMode);
+			vTaskResume(vTaskCommandMode);
+		}
 		vTaskDelay((5500 / portTICK_PERIOD_MS));
 //		char client_request = get_next_client_response();
 	}
@@ -185,8 +205,6 @@ void vTaskTemperature(void *pvParameters)
     xLastWakeTime = xTaskGetTickCount();
 
     setupTemperature();
-    setupLED();
-    setupLCD();
 
     int period = 100;
 
@@ -220,43 +238,6 @@ void vTaskMoveThermoSensor(void *pvParameters)
             vTaskDelay(xDelay);
         }
         motionThermoSensorStop();
-    }
-}
-
-/**
- * The task responsible for moving the robot.
- *
- * @param pvParameters Used only for function definition compatibility.
- */
-void vTaskMoveChico(void *pvParameters)
-{
-    TickType_t xLastWakeTime;
-    xLastWakeTime = xTaskGetTickCount();
-
-    setupLED();
-
-    motionInit();
-
-    while (1)
-    {
-        motionForward();
-        displayGreenLED();
-        vTaskDelay((2000 / portTICK_PERIOD_MS));
-
-        motionBackward();
-        displayRedLED();
-        vTaskDelay((2000 / portTICK_PERIOD_MS));
-
-        motionSpinLeft();
-        displayBlueLED();
-        vTaskDelay((2000 / portTICK_PERIOD_MS));
-
-        motionSpinRight();
-        vTaskDelay((2000 / portTICK_PERIOD_MS));
-
-        motionStop();
-        displayWhiteLED();
-        vTaskDelay((2000 / portTICK_PERIOD_MS));
     }
 }
 
@@ -328,15 +309,15 @@ int main()
 {
 	initializeWifi();
 	initializeWebServer();
-	xTaskCreate(vTaskWebServer, (const portCHAR *)"", 2048, NULL, 3, NULL);
-//    xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
+	xTaskCreate(vTaskWebServer, (const portCHAR *)"", 1024, NULL, 3, NULL);
+    xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(
 //        vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskDecoder, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskLCD, (const portCHAR *)"", 256, NULL, 3, NULL);
 	xTaskCreate(vTaskCommandMode, (const portCHAR *)"", 256, NULL, 3, NULL);
-//	xTaskCreate(vTaskAttachmentMode, (const portCHAR *)"", 256, NULL, 3, NULL);
+	xTaskCreate(vTaskAttachmentMode, (const portCHAR *)"", 256, NULL, 3, NULL);
 
     vTaskStartScheduler();
 }
