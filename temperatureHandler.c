@@ -51,7 +51,7 @@ int getPixelTemperature(int index)
     return result[1];
 }
 
-int getLeft3AvgTemperatures ()
+int getRight3AvgTemperatures ()
 {
 	int pixelTemperatureSum = 0;
 
@@ -79,7 +79,7 @@ int getCenter4AvgTemperatures ()
 	    return pixelTemperatureSum / 4;
 }
 
-int getRight3AvgTemperatures ()
+int getLeft3AvgTemperatures ()
 {
 	int pixelTemperatureSum = 0;
 
@@ -93,6 +93,20 @@ int getRight3AvgTemperatures ()
 	    return pixelTemperatureSum / 3;
 }
 
+int getSignificantTemperature() {
+	int ambientTemperature = getAmbientTemperature();
+
+    for (int pixel = 0; pixel < 8; pixel++)
+    {
+        int pixelTemp = getPixelTemperature(pixel);
+
+        if(pixelTemp > ambientTemperature + 3) {
+        	return 1;
+        }
+    }
+
+    return 0;
+}
 
 /**
  * Calculates the average temperature of the 4 pixels on the left based on the

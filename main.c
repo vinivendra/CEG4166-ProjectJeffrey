@@ -18,6 +18,8 @@
 
 #include "wireless_interface.h"
 #include "usart_serial.h"
+#include "distanceHandler.h"
+#include "custom_timer.h"
 
 /// Global variable that stores the ambient temperature. Created for sharing
 /// information between tasks.
@@ -107,32 +109,40 @@ void vTaskAttachmentMode(void *pvParameters) {
 		int left = getLeft3AvgTemperatures();
 		int center = getCenter4AvgTemperatures();
 		int right = getRight3AvgTemperatures();
-		int ambient = getAmbientTemperature();
+		//int ambient = getAmbientTemperature();
 
 //		motionSpinLeftSlow();
 
 		if (state == Searching) {
 			motionSpinLeftSlow();
 			// ensure significant heat source
-			if (left > ambient + 3 || right > ambient + 3 || center > ambient + 3) {
-					state = Attached;
+			//if (left > ambient + 3 || right > ambient + 3 || center > ambient + 3) {
+			if(getSignificantTemperature()) {
+				state = Attached;
 			}
 		}
 
 		else if(state == Attached) {
 			// ensure significant heat source
-			if (left > ambient + 3 || right > ambient + 3 || center > ambient + 3) {
+			//if (left > ambient + 3 || right > ambient + 3 || center > ambient + 3) {
+			if(getSignificantTemperature()){
 				count = 0;
 				// Heat source is to the left
-				if (left > center) {
-					motionSpinLeft();
-				}
-				// Heat source is to the right
-				else if (right > center) {
-					motionSpinRight();
-				}
-				// Heat source is in the center, follow it
-				else {
+				int distance = getDistance();
+
+				if(distance > 30) {
+					if (left > center) {
+						motionSpinLeft();
+					}
+					// Heat source is to the right
+					else if (right > center) {
+						motionSpinRight();
+					}
+					// Heat source is in the center, follow it
+					else {
+						motionForward();
+					}
+				}else if(distance > 0){
 					motionStop();
 				}
 			}
@@ -307,9 +317,10 @@ void vTaskControl(void *pvParameters) {
  */
 int main()
 {
+	initialize_module_timer0();
 	initializeWifi();
 	initializeWebServer();
-	xTaskCreate(vTaskWebServer, (const portCHAR *)"", 1024, NULL, 3, NULL);
+	//xTaskCreate(vTaskWebServer, (const portCHAR *)"", 1024, NULL, 3, NULL);
     xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(
@@ -317,7 +328,7 @@ int main()
 //    xTaskCreate(vTaskDecoder, (const portCHAR *)"", 256, NULL, 3, NULL);
 //    xTaskCreate(vTaskLCD, (const portCHAR *)"", 256, NULL, 3, NULL);
 	xTaskCreate(vTaskCommandMode, (const portCHAR *)"", 256, NULL, 3, NULL);
-	xTaskCreate(vTaskAttachmentMode, (const portCHAR *)"", 256, NULL, 3, NULL);
+	xTaskCreate(vTaskAttachmentMode, (const portCHAR *)"", 1024, NULL, 3, NULL);
 
     vTaskStartScheduler();
 }

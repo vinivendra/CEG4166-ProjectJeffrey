@@ -6,6 +6,7 @@ int getLeft3AvgTemperatures();
 int getRight3AvgTemperatures();
 int getCenter4AvgTemperatures();
 int getAmbientTemperature();
+int getSignificantTemperature();
 
 void setupTemperature();
 void updateTemperatures(int *ambientTemperature, int *leftAverageTemperature, int *rightAverageTemperature);
