@@ -2,6 +2,7 @@
 #include "motion.h"
 #include "motionTask.h"
 #include "task.h"
+#include "LEDHandler.h"
 
 /// Flag used to control the movement of the thermo sensor relative to the
 /// robot's movement.
@@ -17,6 +18,7 @@ static int pulseWidth = 2800;
 void motionInit()
 {
     motion_init();
+    setupLED();
 }
 
 /**
@@ -32,6 +34,8 @@ void motionForward()
     motion_servo_start(MOTION_WHEEL_RIGHT);
     motion_servo_start(MOTION_WHEEL_LEFT);
     motion_servo_start(MOTION_SERVO_CENTER);
+    displayGreenLED();
+
 }
 
 /**
@@ -45,6 +49,7 @@ void motionBackward()
 
     motion_servo_start(MOTION_WHEEL_RIGHT);
     motion_servo_start(MOTION_WHEEL_LEFT);
+    displayRedLED();
 }
 
 /**
@@ -58,6 +63,7 @@ void motionSpinLeft()
 
     motion_servo_start(MOTION_WHEEL_RIGHT);
     motion_servo_start(MOTION_WHEEL_LEFT);
+    displayBlueLED();
 }
 
 /**
@@ -71,6 +77,7 @@ void motionSpinLeftSlow()
 
     motion_servo_start(MOTION_WHEEL_RIGHT);
     motion_servo_start(MOTION_WHEEL_LEFT);
+    displayBlueLED();
 }
 
 /**
@@ -84,6 +91,7 @@ void motionSpinRight()
 
     motion_servo_start(MOTION_WHEEL_RIGHT);
     motion_servo_start(MOTION_WHEEL_LEFT);
+    displayBlueLED();
 }
 
 /**
@@ -94,6 +102,7 @@ void motionStop()
     thermoSensorFlag = false;
     motion_servo_stop(MOTION_WHEEL_RIGHT);
     motion_servo_stop(MOTION_WHEEL_LEFT);
+    displayWhiteLED();
 }
 
 /**

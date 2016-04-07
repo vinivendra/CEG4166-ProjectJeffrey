@@ -38,7 +38,13 @@ float speed;
 float distanceTravelled;
 
 //
-char clientRequest = 'S';
+char clientRequest = 'F';
+char previousClientRequest = 'A';
+
+TaskHandle_t xCommandHandler;
+TaskHandle_t xAttachmentHandler;
+TaskHandle_t xThermoSensorHandler;
+int print_USART;
 
 
 void initializeWifi() {
@@ -63,7 +69,7 @@ void initializeWebServer() {
 
 void vTaskCommandMode(void *pvParameters) {
 	motionInit();
-
+	vTaskResume(xThermoSensorHandler);
 	while (1) {
 		//usart_fprintf_P(USART_0, PSTR("COMMAND set too: %c"), clientRequest);
 		// Move forward
@@ -104,6 +110,7 @@ void vTaskAttachmentMode(void *pvParameters) {
 	int MAX_COUNT = 10000;
 
 	motionInit();
+	vTaskSuspend(xThermoSensorHandler);
 	while (1)
 	{
 		int left = getLeft3AvgTemperatures();
@@ -171,33 +178,32 @@ void vTaskAttachmentMode(void *pvParameters) {
 
 void vTaskWebServer(void *pvParameters)
 {
-	vTaskSuspend(vTaskAttachmentMode);
+	//vTaskSuspend(vTaskAttachmentMode);
 	//vTaskSuspend(vTaskCommandMode);
 
 	vTaskDelay(5500 / portTICK_PERIOD_MS);
-
 	while (1)
 	{
 		process_client_request();
-		char temp = get_next_client_response();
-		if (temp == 'A') {
-			clientRequest = temp;
-			vTaskDelay(100 / portTICK_PERIOD_MS);
-			// Delay to ensure the variable is updated
-			vTaskSuspend(vTaskCommandMode);
-			vTaskResume(vTaskAttachmentMode);
+		clientRequest = get_next_client_response();
+		if(clientRequest != previousClientRequest){
+			if (clientRequest == 'A') {
+				vTaskDelay(100 / portTICK_PERIOD_MS);
+				// Delay to ensure the variable is updated
+				//vTaskSuspend(xCommandHandler);
+				//vTaskResume(xAttachmentHandler);
+			}
+			else if (clientRequest == 'F' ||
+				clientRequest == 'B' || clientRequest == 'L' ||
+				clientRequest == 'R' || clientRequest == 'S') {
+				vTaskDelay(100 / portTICK_PERIOD_MS);
+				// Delay to ensure the variable is updated
+				//vTaskSuspend(xAttachmentHandler);
+				vTaskResume(xCommandHandler);
+			}
 		}
-		else if (temp == 'F' ||
-				temp == 'B' || temp == 'L' ||
-				temp == 'R' || temp == 'S') {
-			clientRequest = temp;
-			vTaskDelay(100 / portTICK_PERIOD_MS);
-			// Delay to ensure the variable is updated
-			vTaskSuspend(vTaskAttachmentMode);
-			vTaskResume(vTaskCommandMode);
-		}
+		previousClientRequest = clientRequest;
 		vTaskDelay((5500 / portTICK_PERIOD_MS));
-//		char client_request = get_next_client_response();
 	}
 }
 
@@ -320,16 +326,17 @@ int main()
 	initialize_module_timer0();
 	initializeWifi();
 	initializeWebServer();
-	//xTaskCreate(vTaskWebServer, (const portCHAR *)"", 1024, NULL, 3, NULL);
-    xTaskCreate(vTaskTemperature, (const portCHAR *)"", 256, NULL, 3, NULL);
+	//xTaskCreate(vTaskWebServer, (const portCHAR *)"", 1024, NULL, 1, NULL);
+    xTaskCreate(vTaskTemperature, (const portCHAR *)"", 128, NULL, 3, NULL);
 //    xTaskCreate(vTaskMoveChico, (const portCHAR *)"", 256, NULL, 3, NULL);
-//    xTaskCreate(
-//        vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, NULL);
-//    xTaskCreate(vTaskDecoder, (const portCHAR *)"", 256, NULL, 3, NULL);
-//    xTaskCreate(vTaskLCD, (const portCHAR *)"", 256, NULL, 3, NULL);
-	xTaskCreate(vTaskCommandMode, (const portCHAR *)"", 256, NULL, 3, NULL);
-	xTaskCreate(vTaskAttachmentMode, (const portCHAR *)"", 1024, NULL, 3, NULL);
-
+    xTaskCreate(vTaskMoveThermoSensor, (const portCHAR *)"", 256, NULL, 3, &xThermoSensorHandler);
+    //vTaskSuspend(xThermoSensorHandler);
+    xTaskCreate(vTaskDecoder, (const portCHAR *)"", 128, NULL, 3, NULL);
+    xTaskCreate(vTaskLCD, (const portCHAR *)"", 128, NULL, 3, NULL);
+	xTaskCreate(vTaskCommandMode, (const portCHAR *)"", 128, NULL, 3, &xCommandHandler);
+	//vTaskSuspend(xCommandHandler);
+	//xTaskCreate(vTaskAttachmentMode, (const portCHAR *)"", 256, NULL, 3, &xAttachmentHandler);
+	//vTaskSuspend(xAttachmentHandler);
     vTaskStartScheduler();
 }
 

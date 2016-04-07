@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include "LCDHandler.h"
 #include "i2cMultiMaster.h"
 #include "usart_serial.h"
