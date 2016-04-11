@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -123,6 +124,8 @@ Functions</h2></td></tr>
 <tr class="separator:a24b4fb09f41142b02d89c3a7ce5f9ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f27c8fb26886bfa640fa094f7707446"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motion_task_8h.html#a4f27c8fb26886bfa640fa094f7707446">motionSpinLeft</a> ()</td></tr>
 <tr class="separator:a4f27c8fb26886bfa640fa094f7707446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe49bda8b55fc3f640ad2997c907773a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motion_task_8h.html#abe49bda8b55fc3f640ad2997c907773a">motionSpinLeftSlow</a> ()</td></tr>
+<tr class="separator:abe49bda8b55fc3f640ad2997c907773a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed99ff4bd92f01bc888b83b8a8fba241"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motion_task_8h.html#aed99ff4bd92f01bc888b83b8a8fba241">motionSpinRight</a> ()</td></tr>
 <tr class="separator:aed99ff4bd92f01bc888b83b8a8fba241"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a388ec24a534010ca1b5994676e31fb3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="motion_task_8h.html#a388ec24a534010ca1b5994676e31fb3a">motionStop</a> ()</td></tr>
@@ -150,7 +153,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Move Chico backwards </p>
+<p>Move Chico backwards by setting the pulse width of the left wheel to 1100 and the right wheel to 4800. Also display the red led from the LEDHandler class. </p>
 
 </div>
 </div>
@@ -166,7 +169,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Move Chico forwards </p>
+<p>Move Chico backwards by setting the pulse width of the left wheel to 4800 and the right wheel to 1100. Also display the green led from the LEDHandler class. </p>
 
 </div>
 </div>
@@ -182,7 +185,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initializes motion </p>
+<p>Initializes motion module and also calls the method to set up the led module </p>
 
 </div>
 </div>
@@ -198,7 +201,23 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Spin Chico to the left </p>
+<p>Spin Chico to the left slowly by setting the pulse width on both wheels to 1100 Also display the blue led from the LEDHandler class. </p>
+
+</div>
+</div>
+<a class="anchor" id="abe49bda8b55fc3f640ad2997c907773a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motionSpinLeftSlow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Spin Chico to the left slowly by setting the pulse width on both wheels to 2750 Also display the blue led from the LEDHandler class. </p>
 
 </div>
 </div>
@@ -214,7 +233,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Spin Chico to the right </p>
+<p>Spin Chico to the right by setting both the right and left wheel pulse width to 4800. Also displays the blue led from the LEDHandler class. </p>
 
 </div>
 </div>
@@ -230,7 +249,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Stop Chico from moving </p>
+<p>Stop Chico from moving by stopping both the wheels, also calls the method to display white led from the LEDHandler class. </p>
 
 </div>
 </div>
@@ -262,7 +281,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Stop the Thermo Sensor </p>
+<p>Stop the Thermo Sensor by setting the pulse width to 2800. </p>
 
 </div>
 </div>

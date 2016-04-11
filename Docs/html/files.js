@@ -1,7 +1,12 @@
 var files =
 [
+    [ "bit_definitions.h", "bit__definitions_8h.html", "bit__definitions_8h" ],
+    [ "custom_timer.c", "custom__timer_8c.html", "custom__timer_8c" ],
+    [ "custom_timer.h", "custom__timer_8h.html", "custom__timer_8h" ],
     [ "decoderTask.c", "decoder_task_8c.html", "decoder_task_8c" ],
     [ "decoderTask.h", "decoder_task_8h.html", "decoder_task_8h" ],
+    [ "distanceHandler.c", "distance_handler_8c.html", "distance_handler_8c" ],
+    [ "distanceHandler.h", "distance_handler_8h.html", "distance_handler_8h" ],
     [ "LCDHandler.c", "_l_c_d_handler_8c.html", "_l_c_d_handler_8c" ],
     [ "LCDHandler.h", "_l_c_d_handler_8h.html", "_l_c_d_handler_8h" ],
     [ "LEDHandler.c", "_l_e_d_handler_8c.html", "_l_e_d_handler_8c" ],
@@ -12,5 +17,9 @@ var files =
     [ "motionTask.c", "motion_task_8c.html", "motion_task_8c" ],
     [ "motionTask.h", "motion_task_8h.html", "motion_task_8h" ],
     [ "temperatureHandler.c", "temperature_handler_8c.html", "temperature_handler_8c" ],
-    [ "temperatureHandler.h", "temperature_handler_8h.html", "temperature_handler_8h" ]
+    [ "temperatureHandler.h", "temperature_handler_8h.html", "temperature_handler_8h" ],
+    [ "usart_serial.c", "usart__serial_8c.html", "usart__serial_8c" ],
+    [ "usart_serial.h", "usart__serial_8h.html", "usart__serial_8h" ],
+    [ "wireless_interface.c", "wireless__interface_8c.html", "wireless__interface_8c" ],
+    [ "wireless_interface.h", "wireless__interface_8h.html", "wireless__interface_8h" ]
 ];

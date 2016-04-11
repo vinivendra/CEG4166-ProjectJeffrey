@@ -1,15 +1,25 @@
 var main_8c =
 [
+    [ "initializeWebServer", "main_8c.html#ab4b61010de0271cc0e3bc83b17f087b1", null ],
+    [ "initializeWifi", "main_8c.html#a138f1b09b51030560dc16c3d6f10c70c", null ],
     [ "main", "main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
     [ "vApplicationStackOverflowHook", "main_8c.html#a2e0defe473604c1bd4c5a11aed724078", null ],
+    [ "vTaskAttachmentMode", "main_8c.html#a973f9b2e8f8894e69cfbd134008e2c62", null ],
+    [ "vTaskCommandMode", "main_8c.html#ae4d18962d7439b9973376f31bbf72017", null ],
     [ "vTaskDecoder", "main_8c.html#a260534d494b4cf8f9322899cd64312dc", null ],
     [ "vTaskLCD", "main_8c.html#ad1df5e6d9819d659cc10452328605cc8", null ],
-    [ "vTaskMoveChico", "main_8c.html#acd53dd13de540d8f0a5817c3290f8bc0", null ],
     [ "vTaskMoveThermoSensor", "main_8c.html#a197f4ca17f84ebe9ff3e6f3b314e9a69", null ],
     [ "vTaskTemperature", "main_8c.html#a7cc20ebcbc6fa61a2d03411401bd6e81", null ],
+    [ "vTaskWebServer", "main_8c.html#a572acb1a0aca5b7fa3bbda4b8c8bbf8a", null ],
     [ "ambientTemperature", "main_8c.html#acff226fa0a1f8334068317429dcf8519", null ],
-    [ "distanceTravelled", "main_8c.html#ab560685b00e2516bbe8fae493a3f36ac", null ],
+    [ "clientRequest", "main_8c.html#a667dba90fe1082c90d4326fc05426527", null ],
+    [ "distanceTravelled", "main_8c.html#aed8561007effc8b6a55c49c34f27e363", null ],
     [ "leftTemperature", "main_8c.html#a5bef3a8af97353cf6750030112845434", null ],
+    [ "previousClientRequest", "main_8c.html#a05fc9ab90c5bb0a87dbaf1f4ddb99595", null ],
+    [ "print_USART", "main_8c.html#a151446e1e3d240988973e2b82de55154", null ],
     [ "rightTemperature", "main_8c.html#a2e79cf61ef2d577167dcbf70b07c0899", null ],
-    [ "speed", "main_8c.html#a7f7e4724cf57d59513b39c5ecc81adc8", null ]
+    [ "speed", "main_8c.html#a7f7e4724cf57d59513b39c5ecc81adc8", null ],
+    [ "xAttachmentHandler", "main_8c.html#a5b80ee5cda4f6d2f681f52026a36be5f", null ],
+    [ "xCommandHandler", "main_8c.html#ad63d2e5258a29f9ac6a8ac302ac6263c", null ],
+    [ "xThermoSensorHandler", "main_8c.html#a0dab000da2f513c2f54e1322446740d5", null ]
 ];

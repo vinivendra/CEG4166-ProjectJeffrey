@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['distanceperrisingedge',['distancePerRisingEdge',['../decoder_task_8c.html#a4a9eec52d58af0d9d42ad3e97a34e2dd',1,'decoderTask.c']]]
+  ['check_5fbit_5fstatus',['CHECK_BIT_STATUS',['../distance_handler_8c.html#abe3ffe6bf57a996216bfa6f354e0c6b4',1,'distanceHandler.c']]]
 ];

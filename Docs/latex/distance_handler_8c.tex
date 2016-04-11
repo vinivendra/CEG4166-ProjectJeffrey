@@ -1,0 +1,40 @@
+\hypertarget{distance_handler_8c}{}\section{distance\+Handler.\+c File Reference}
+\label{distance_handler_8c}\index{distance\+Handler.\+c@{distance\+Handler.\+c}}
+{\ttfamily \#include \char`\"{}custom\+\_\+timer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Free\+R\+T\+O\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usart\+\_\+serial.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$util/delay.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{distance_handler_8c_abe3ffe6bf57a996216bfa6f354e0c6b4}{C\+H\+E\+C\+K\+\_\+\+B\+I\+T\+\_\+\+S\+T\+A\+T\+US}(variable,  position)~( (variable) \& (1 $<$$<$ (position)) )
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{distance_handler_8c_abbfc5136e07563b242069f2c368b0365}{get\+Distance} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{distance\+Handler.\+c@{distance\+Handler.\+c}!C\+H\+E\+C\+K\+\_\+\+B\+I\+T\+\_\+\+S\+T\+A\+T\+US@{C\+H\+E\+C\+K\+\_\+\+B\+I\+T\+\_\+\+S\+T\+A\+T\+US}}
+\index{C\+H\+E\+C\+K\+\_\+\+B\+I\+T\+\_\+\+S\+T\+A\+T\+US@{C\+H\+E\+C\+K\+\_\+\+B\+I\+T\+\_\+\+S\+T\+A\+T\+US}!distance\+Handler.\+c@{distance\+Handler.\+c}}
+\subsubsection[{\texorpdfstring{C\+H\+E\+C\+K\+\_\+\+B\+I\+T\+\_\+\+S\+T\+A\+T\+US}{CHECK_BIT_STATUS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+E\+C\+K\+\_\+\+B\+I\+T\+\_\+\+S\+T\+A\+T\+US(
+\begin{DoxyParamCaption}
+\item[{}]{variable, }
+\item[{}]{position}
+\end{DoxyParamCaption}
+)~( (variable) \& (1 $<$$<$ (position)) )}\hypertarget{distance_handler_8c_abe3ffe6bf57a996216bfa6f354e0c6b4}{}\label{distance_handler_8c_abe3ffe6bf57a996216bfa6f354e0c6b4}
+
+
+\subsection{Function Documentation}
+\index{distance\+Handler.\+c@{distance\+Handler.\+c}!get\+Distance@{get\+Distance}}
+\index{get\+Distance@{get\+Distance}!distance\+Handler.\+c@{distance\+Handler.\+c}}
+\subsubsection[{\texorpdfstring{get\+Distance()}{getDistance()}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Distance (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{distance_handler_8c_abbfc5136e07563b242069f2c368b0365}{}\label{distance_handler_8c_abbfc5136e07563b242069f2c368b0365}
+Gets the distance that chico has from an heat source. It sends a sonar signal and calculates the elapsed time between the send of the signal and the time when the signal comes back to chico. It then converts the time into centimeters.
+
+Returns the distance in centimeters. 

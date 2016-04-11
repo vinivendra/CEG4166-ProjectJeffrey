@@ -1,0 +1,78 @@
+\hypertarget{usart__serial_8h}{}\section{usart\+\_\+serial.\+h File Reference}
+\label{usart__serial_8h}\index{usart\+\_\+serial.\+h@{usart\+\_\+serial.\+h}}
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}queue.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}portable.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ring\+Buffer.\+h\char`\"{}}\\*
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} \{ \hyperlink{group__usart_async_module_ggaae3c5ea77a411e5f40e4377f77067b86a4ee9bfd4dd9ae53d762cc046ce72c892}{U\+S\+A\+R\+T\+\_\+0} = 0, 
+\hyperlink{group__usart_async_module_ggaae3c5ea77a411e5f40e4377f77067b86ad268e22914c93f6f39e46cc38ae21b2d}{U\+S\+A\+R\+T\+\_\+1} = 1, 
+\hyperlink{group__usart_async_module_ggaae3c5ea77a411e5f40e4377f77067b86a474c11c7630596744eb30ecfc8731838}{U\+S\+A\+R\+T\+\_\+2} = 2, 
+\hyperlink{group__usart_async_module_ggaae3c5ea77a411e5f40e4377f77067b86a5642c3f3fba0c2854cd263b6d143285c}{U\+S\+A\+R\+T\+\_\+3} = 3
+ \}\begin{DoxyCompactList}\small\item\em U\+S\+A\+RT identifiers Shall be used as indexes into corresponding structure arrays. They play the same role as file identifiers in a Unix/\+Linux operating system. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__usart_async_module_gaa679900a334c7873eb71c86fe52cbf40}{set\+Default\+U\+S\+A\+RT} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id)
+\begin{DoxyCompactList}\small\item\em Update default U\+S\+A\+RT. \end{DoxyCompactList}\item 
+\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} \hyperlink{group__usart_async_module_gae9acc73d962adef7e91a498618ff012f}{usart\+Open} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id, uint32\+\_\+t ul\+Wanted\+Baud, uint16\+\_\+t ux\+Tx\+Queue\+Length, uint16\+\_\+t ux\+Rx\+Queue\+Length)
+\begin{DoxyCompactList}\small\item\em Open a connection on a U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga6343cf3035ec8972e44716a951a29d42}{usart\+Close} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id)
+\begin{DoxyCompactList}\small\item\em Close a connection on a U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga505b60744b81631de13750ca9f5ea1c4}{usart\+\_\+printf} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Standard printf function. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga0441186875e726f93752dd8e0e95f443}{usart\+\_\+printf\+\_\+P} (P\+G\+M\+\_\+P format,...)
+\begin{DoxyCompactList}\small\item\em Standard printf function that uses a formating string stored in memory. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga0f8fdf3d9f7e325fe2297730661facfa}{usart\+\_\+print} (uint8\+\_\+t $\ast$str)
+\begin{DoxyCompactList}\small\item\em Print string on default U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_gae30cd27e2ce82fdb87f06b7460a21b4a}{usart\+\_\+print\+\_\+P} (P\+G\+M\+\_\+P str)
+\begin{DoxyCompactList}\small\item\em Print string stored in program memory on default U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga7429cdd4ac36c036e982817d6750ed34}{usart\+\_\+fprintf} (int usartid, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Standard printf for specified U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga2b66e28588b8e2d1f92b9f3273608964}{usart\+\_\+fprintf\+\_\+P} (int usart\+Id, P\+G\+M\+\_\+P format,...)
+\begin{DoxyCompactList}\small\item\em Standard printf function for specific U\+S\+A\+RT with formating string in program memory. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga5598cc3783a39c313bc27baa10cf9952}{usart\+\_\+fprint} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id, uint8\+\_\+t $\ast$str)
+\begin{DoxyCompactList}\small\item\em Print string to specific U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_gaa376b136593fb6bc0e5e9f7b35473f14}{usart\+\_\+fprint\+\_\+P} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id, P\+G\+M\+\_\+P str)
+\begin{DoxyCompactList}\small\item\em Print a string stored in program memory to specific U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga12dffa6d7df2b7e6049e3bc08b939e07}{usart\+Write} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id, int8\+\_\+t data\+Out)
+\begin{DoxyCompactList}\small\item\em Low level write function (single character). Will delay until usart is ready to accept the 8 bit data. \end{DoxyCompactList}\item 
+int8\+\_\+t \hyperlink{group__usart_async_module_ga152b8198df4c2d75e34547a8c13c7457}{usart\+Read} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id)
+\begin{DoxyCompactList}\small\item\em Low level read function (single character). Delays until data available from the U\+S\+A\+RT. Will check for reception errors. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga9ec472642da5fe42928fb1d81e3115cd}{usart\+\_\+xprintf} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Standard printf (interrupt driven) to default U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_gaf7d0d5b028d30f55439119f42ad7ed69}{usart\+\_\+xprintf\+\_\+P} (P\+G\+M\+\_\+P format,...)
+\begin{DoxyCompactList}\small\item\em Standard printf (interrupt driven) to default U\+S\+A\+RT using formating string stored in program memory. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_gab5e44adf779c82fd1c56fb8bca7bffb7}{usart\+\_\+xprint} (uint8\+\_\+t $\ast$str)
+\begin{DoxyCompactList}\small\item\em Prints a string on the default U\+S\+A\+RT (defined by default\+U\+S\+A\+RT). \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga27ada721bb00993418f8e3ffb1152d52}{usart\+\_\+xprint\+\_\+P} (P\+G\+M\+\_\+P str)
+\begin{DoxyCompactList}\small\item\em Prints a string stored in program memory on the default U\+S\+A\+RT (defined by default\+U\+S\+A\+RT). \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga94601796b62f88f4364afbc1ed037d10}{usart\+\_\+xfprintf} (int usart\+Id, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em Standard printf function for specific U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga8092a20ae9bed598702da288b55c80c6}{usart\+\_\+xfprintf\+\_\+P} (int usart\+Id, P\+G\+M\+\_\+P format,...)
+\begin{DoxyCompactList}\small\item\em Standard printf function for specific U\+S\+A\+RT that uses a formating string stored in program memory. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga7d6d42b48e50bdd87aecab0dc2a9feb6}{usart\+\_\+xfprint} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id, uint8\+\_\+t $\ast$str)
+\begin{DoxyCompactList}\small\item\em Print string to specific U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_gae8212e8aca5b91172440dc3735dd7ba4}{usart\+\_\+xfprint\+\_\+P} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id, P\+G\+M\+\_\+P str)
+\begin{DoxyCompactList}\small\item\em Print string stored in program memory to specific U\+S\+A\+RT. \end{DoxyCompactList}\item 
+void \hyperlink{group__usart_async_module_ga70e50f1bc6f1abd0cb57c53145a0f06e}{usart\+\_\+xflush\+Rx} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id)
+\begin{DoxyCompactList}\small\item\em Flushes all characters in the receive ring buffer (i.\+e. empties the buffer). \end{DoxyCompactList}\item 
+uint16\+\_\+t \hyperlink{group__usart_async_module_gae7ed1c85cf0d965f00c8b8b1adc87621}{usart\+\_\+\+Available\+Char\+Rx} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id)
+\begin{DoxyCompactList}\small\item\em Gives number of bytes in reception ring buffer. \end{DoxyCompactList}\item 
+U\+Base\+Type\+\_\+t \hyperlink{group__usart_async_module_ga3958a2e258e69977428337f1b79b559d}{usart\+\_\+xget\+Char} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id, U\+Base\+Type\+\_\+t $\ast$pc\+Rxed\+Char)
+\begin{DoxyCompactList}\small\item\em Get a character from the reception ring buffer. \end{DoxyCompactList}\item 
+U\+Base\+Type\+\_\+t \hyperlink{group__usart_async_module_ga520a2c4212a37daf9f42e747a7ff420f}{usart\+\_\+xput\+Char} (\hyperlink{group__usart_async_module_gaae3c5ea77a411e5f40e4377f77067b86}{U\+S\+A\+R\+T\+\_\+\+ID} usart\+Id, const U\+Base\+Type\+\_\+t c\+Out\+Char)
+\begin{DoxyCompactList}\small\item\em Drops a character into the transmit ring buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Module\+: U\+S\+A\+RT Async Serial
+
+Description\+: Provides asynchronous serial communication via any of the four U\+S\+A\+R\+TS available in the At\+Mega 2560.
+
+Both interrupt driven and polling functions are available.
+
+Uses free\+R\+T\+OS ring buffers to support interrupt functions. 

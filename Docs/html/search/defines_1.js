@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enc_5fnumber_5fof_5fencoders',['ENC_NUMBER_OF_ENCODERS',['../motion_8c.html#a015d98796368c2aee787eb6b8faf17e9',1,'motion.c']]]
+  ['distanceperrisingedge',['distancePerRisingEdge',['../decoder_task_8c.html#a4a9eec52d58af0d9d42ad3e97a34e2dd',1,'decoderTask.c']]]
 ];

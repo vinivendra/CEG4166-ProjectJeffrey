@@ -12,6 +12,8 @@ void \hyperlink{motion_task_8h_a24b4fb09f41142b02d89c3a7ce5f9ae5}{motion\+Backwa
 \item 
 void \hyperlink{motion_task_8h_a4f27c8fb26886bfa640fa094f7707446}{motion\+Spin\+Left} ()
 \item 
+void \hyperlink{motion_task_8h_abe49bda8b55fc3f640ad2997c907773a}{motion\+Spin\+Left\+Slow} ()
+\item 
 void \hyperlink{motion_task_8h_aed99ff4bd92f01bc888b83b8a8fba241}{motion\+Spin\+Right} ()
 \item 
 void \hyperlink{motion_task_8h_a388ec24a534010ca1b5994676e31fb3a}{motion\+Stop} ()
@@ -35,42 +37,49 @@ bool \hyperlink{motion_task_8h_abf33c5fdfe2abd17fcd05f76c1679d35}{thermo\+Sensor
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{motion_task_8h_a24b4fb09f41142b02d89c3a7ce5f9ae5}{}\label{motion_task_8h_a24b4fb09f41142b02d89c3a7ce5f9ae5}
-Move Chico backwards \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Forward@{motion\+Forward}}
+Move Chico backwards by setting the pulse width of the left wheel to 1100 and the right wheel to 4800. Also display the red led from the L\+E\+D\+Handler class. \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Forward@{motion\+Forward}}
 \index{motion\+Forward@{motion\+Forward}!motion\+Task.\+h@{motion\+Task.\+h}}
 \subsubsection[{\texorpdfstring{motion\+Forward()}{motionForward()}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+Forward (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{motion_task_8h_a31d3f661b9452f3ca6a11aca137a9ace}{}\label{motion_task_8h_a31d3f661b9452f3ca6a11aca137a9ace}
-Move Chico forwards \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Init@{motion\+Init}}
+Move Chico backwards by setting the pulse width of the left wheel to 4800 and the right wheel to 1100. Also display the green led from the L\+E\+D\+Handler class. \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Init@{motion\+Init}}
 \index{motion\+Init@{motion\+Init}!motion\+Task.\+h@{motion\+Task.\+h}}
 \subsubsection[{\texorpdfstring{motion\+Init()}{motionInit()}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+Init (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{motion_task_8h_a686d59011710264ed8831ac6dda51e17}{}\label{motion_task_8h_a686d59011710264ed8831ac6dda51e17}
-Initializes motion \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Spin\+Left@{motion\+Spin\+Left}}
+Initializes motion module and also calls the method to set up the led module \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Spin\+Left@{motion\+Spin\+Left}}
 \index{motion\+Spin\+Left@{motion\+Spin\+Left}!motion\+Task.\+h@{motion\+Task.\+h}}
 \subsubsection[{\texorpdfstring{motion\+Spin\+Left()}{motionSpinLeft()}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+Spin\+Left (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{motion_task_8h_a4f27c8fb26886bfa640fa094f7707446}{}\label{motion_task_8h_a4f27c8fb26886bfa640fa094f7707446}
-Spin Chico to the left \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Spin\+Right@{motion\+Spin\+Right}}
+Spin Chico to the left slowly by setting the pulse width on both wheels to 1100 Also display the blue led from the L\+E\+D\+Handler class. \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Spin\+Left\+Slow@{motion\+Spin\+Left\+Slow}}
+\index{motion\+Spin\+Left\+Slow@{motion\+Spin\+Left\+Slow}!motion\+Task.\+h@{motion\+Task.\+h}}
+\subsubsection[{\texorpdfstring{motion\+Spin\+Left\+Slow()}{motionSpinLeftSlow()}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+Spin\+Left\+Slow (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{motion_task_8h_abe49bda8b55fc3f640ad2997c907773a}{}\label{motion_task_8h_abe49bda8b55fc3f640ad2997c907773a}
+Spin Chico to the left slowly by setting the pulse width on both wheels to 2750 Also display the blue led from the L\+E\+D\+Handler class. \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Spin\+Right@{motion\+Spin\+Right}}
 \index{motion\+Spin\+Right@{motion\+Spin\+Right}!motion\+Task.\+h@{motion\+Task.\+h}}
 \subsubsection[{\texorpdfstring{motion\+Spin\+Right()}{motionSpinRight()}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+Spin\+Right (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{motion_task_8h_aed99ff4bd92f01bc888b83b8a8fba241}{}\label{motion_task_8h_aed99ff4bd92f01bc888b83b8a8fba241}
-Spin Chico to the right \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Stop@{motion\+Stop}}
+Spin Chico to the right by setting both the right and left wheel pulse width to 4800. Also displays the blue led from the L\+E\+D\+Handler class. \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Stop@{motion\+Stop}}
 \index{motion\+Stop@{motion\+Stop}!motion\+Task.\+h@{motion\+Task.\+h}}
 \subsubsection[{\texorpdfstring{motion\+Stop()}{motionStop()}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+Stop (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{motion_task_8h_a388ec24a534010ca1b5994676e31fb3a}{}\label{motion_task_8h_a388ec24a534010ca1b5994676e31fb3a}
-Stop Chico from moving \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Thermo\+Sensor@{motion\+Thermo\+Sensor}}
+Stop Chico from moving by stopping both the wheels, also calls the method to display white led from the L\+E\+D\+Handler class. \index{motion\+Task.\+h@{motion\+Task.\+h}!motion\+Thermo\+Sensor@{motion\+Thermo\+Sensor}}
 \index{motion\+Thermo\+Sensor@{motion\+Thermo\+Sensor}!motion\+Task.\+h@{motion\+Task.\+h}}
 \subsubsection[{\texorpdfstring{motion\+Thermo\+Sensor()}{motionThermoSensor()}}]{\setlength{\rightskip}{0pt plus 5cm}void motion\+Thermo\+Sensor (
 \begin{DoxyParamCaption}
@@ -84,7 +93,7 @@ Move the Thermo Sensor to the left and right while Chico is moving, and return i
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{motion_task_8h_a82e607dd405c4efd5887a37892ca858e}{}\label{motion_task_8h_a82e607dd405c4efd5887a37892ca858e}
-Stop the Thermo Sensor 
+Stop the Thermo Sensor by setting the pulse width to 2800. 
 
 \subsection{Variable Documentation}
 \index{motion\+Task.\+h@{motion\+Task.\+h}!thermo\+Sensor\+Flag@{thermo\+Sensor\+Flag}}

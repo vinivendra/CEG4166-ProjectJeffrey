@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['channel',['channel',['../motion_8c.html#a759cd205c48cbbd49b0722c44d7a6717',1,'motor_registers_s']]]
+  ['baud_5frate',['baud_rate',['../group__wireless__interface.html#a85a97cf094c061b7e7a8ef7007efd3f3',1,'GAINSPAN']]]
 ];

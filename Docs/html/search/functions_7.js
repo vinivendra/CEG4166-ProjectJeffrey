@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['writetolcd',['writeToLCD',['../_l_c_d_handler_8c.html#a6388f803ece054effd4a4b1e0b363362',1,'writeToLCD(float speed, float distanceTravelled, int averageTemperature, int leftTemperature, int rightTemperature):&#160;LCDHandler.c'],['../_l_c_d_handler_8h.html#a6388f803ece054effd4a4b1e0b363362',1,'writeToLCD(float speed, float distanceTravelled, int averageTemperature, int leftTemperature, int rightTemperature):&#160;LCDHandler.c']]]
+  ['process_5fclient_5frequest',['process_client_request',['../group__wireless__interface.html#gae035353439173124e040f4f2e1a870fe',1,'wireless_interface.c']]]
 ];

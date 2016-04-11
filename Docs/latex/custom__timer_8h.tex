@@ -1,0 +1,51 @@
+\hypertarget{custom__timer_8h}{}\section{custom\+\_\+timer.\+h File Reference}
+\label{custom__timer_8h}\index{custom\+\_\+timer.\+h@{custom\+\_\+timer.\+h}}
+
+
+This file declares the custom timer A\+PI functions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__custom__timer_gac2aeae62e4b8528ccd841f63f83a49b4}{initialize\+\_\+module\+\_\+timer0} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the module. \end{DoxyCompactList}\item 
+unsigned long \hyperlink{group__custom__timer_gada8ec2a9d8790c2818e0094855ecdb7e}{time\+\_\+in\+\_\+microseconds} (void)
+\begin{DoxyCompactList}\small\item\em Time ticks in microseconds. \end{DoxyCompactList}\item 
+unsigned long \hyperlink{group__custom__timer_gae3c70f50721e84e6761da58ff419f865}{time\+\_\+in\+\_\+milliseconds} (void)
+\begin{DoxyCompactList}\small\item\em Time ticks in milliseconds. \end{DoxyCompactList}\item 
+void \hyperlink{group__custom__timer_gaa10b6cff287b214da3fe126055ba32a3}{delay\+\_\+milliseconds} (unsigned long milliseconds)
+\begin{DoxyCompactList}\small\item\em Time delay in milliseconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file declares the custom timer A\+PI functions. 
+
+Functions such as providing tick time in microseconds, milliseconds, delay in milliseconds. This module uses T\+I\+M\+E\+R0 of A\+T\+Mega2560 with a pre-\/scale of 64, and fast P\+WM mode.
+
+A\+T\+Mega2560 TC (Timer/\+Counter) is like a clock, and can be used to measure time events. All the timers depends on the system clock of system, the system clock is 16\+M\+Hz for A\+T\+Mega2560. Timer0\+: Timer0 is a 8bit timer, and is capable of counting 2$^\wedge$8 = 256 steps from 0 to 255 (T\+OP). It can operate in normal mode, C\+TC mode or P\+WM mode. T\+I\+M\+E\+R0 is configured with pre-\/scaler 64 at 250 K\+Hz with a resolution of 4μs.
+
+Fast P\+WM Mode\+: The fast Pulse Width Modulation or fast P\+WM mode provides a high frequency P\+WM wave-\/form generation option. The fast P\+WM differs from the other P\+WM option by its single-\/slope operation. The counter counts from B\+O\+T\+T\+OM to T\+OP then restarts from B\+O\+T\+T\+OM. In fast P\+WM mode, the counter is incremented until the counter value matches the T\+OP value. The counter is then cleared at the following timer clock cycle.
+
+Module A\+P\+Is\+:
+\begin{DoxyItemize}
+\item \hyperlink{group__custom__timer_gac2aeae62e4b8528ccd841f63f83a49b4}{initialize\+\_\+module\+\_\+timer0()}\+: initializes T\+I\+M\+E\+R0 in fast P\+WM mode with pre-\/scale of 64, and activates it. Ensure this is called at the beginning of program.
+\item \hyperlink{group__custom__timer_gada8ec2a9d8790c2818e0094855ecdb7e}{time\+\_\+in\+\_\+microseconds()}\+: returns time in microseconds.
+\item \hyperlink{group__custom__timer_gae3c70f50721e84e6761da58ff419f865}{time\+\_\+in\+\_\+milliseconds()}\+: returns time in milliseconds.
+\item \hyperlink{group__custom__timer_gaa10b6cff287b214da3fe126055ba32a3}{delay\+\_\+milliseconds()}\+: accepts milliseconds and introduces required delay.
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+Ensure to initialize the module in the beginning of program.
+\end{DoxyNote}
+Usage guidelines\+:-\/ \begin{DoxyVerb}    => Initialize the module by calling, initialize_module_timer0(). It should be done at
+        the beginning of program.
+
+    => Use time_in_microseconds() or time_in_milliseconds() to get current tick time in respective units
+        of microseconds and milliseconds.
+
+        Example: To capture time elapsed between two events, capture time ticks using time_in_microseconds() or
+        time_in_milliseconds(); and the difference between two values will provide the required time elapsed value.
+
+    => Use delay_milliseconds to introduce a delay in milliseconds. Note that this function does not releases
+        CPU/microprocessor.\end{DoxyVerb}

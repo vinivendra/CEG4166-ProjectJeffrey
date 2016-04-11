@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initial_5fpulse_5fwidth_5fticks',['INITIAL_PULSE_WIDTH_TICKS',['../motion_8h.html#ab76e55952a79c091d8cc83bd1267fee4',1,'motion.h']]]
+  ['enc_5fnumber_5fof_5fencoders',['ENC_NUMBER_OF_ENCODERS',['../motion_8c.html#a015d98796368c2aee787eb6b8faf17e9',1,'motion.c']]]
 ];

@@ -14,6 +14,14 @@ void \hyperlink{temperature_handler_8c_a75bc5bcc4a96c46652ec80a8f7f08ef5}{setup\
 \item 
 int \hyperlink{temperature_handler_8c_afc4abf4c3aff6f58b3fb60e0c32a2235}{get\+Pixel\+Temperature} (int index)
 \item 
+int \hyperlink{temperature_handler_8c_a9d87c9078857a0083947f5db9a3da9e6}{get\+Right3\+Avg\+Temperatures} ()
+\item 
+int \hyperlink{temperature_handler_8c_a4f6b00080277f343bfc7d2d55d842fc8}{get\+Center4\+Avg\+Temperatures} ()
+\item 
+int \hyperlink{temperature_handler_8c_a5bb0adbaab9657cdbe2635ce1bb7af02}{get\+Left3\+Avg\+Temperatures} ()
+\item 
+int \hyperlink{temperature_handler_8c_aef230f2b1eea62637bf42f34d7dc7270}{get\+Significant\+Temperature} ()
+\item 
 int \hyperlink{temperature_handler_8c_a54deaae812813c4ff443b0a579c71f9c}{get\+Left\+Average\+Temperature} ()
 \item 
 int \hyperlink{temperature_handler_8c_a6d214cf10be92b83f09b1deab77cecd5}{get\+Right\+Average\+Temperature} ()
@@ -42,6 +50,26 @@ Reads the ambient temperature.
 \begin{DoxyReturn}{Returns}
 The current ambient temperature. 
 \end{DoxyReturn}
+\index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Center4\+Avg\+Temperatures@{get\+Center4\+Avg\+Temperatures}}
+\index{get\+Center4\+Avg\+Temperatures@{get\+Center4\+Avg\+Temperatures}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
+\subsubsection[{\texorpdfstring{get\+Center4\+Avg\+Temperatures()}{getCenter4AvgTemperatures()}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Center4\+Avg\+Temperatures (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{temperature_handler_8c_a4f6b00080277f343bfc7d2d55d842fc8}{}\label{temperature_handler_8c_a4f6b00080277f343bfc7d2d55d842fc8}
+\begin{DoxyReturn}{Returns}
+int The temperature average value of the 4 center pixels in degrees Celcius This method uses the \hyperlink{temperature_handler_8c_afc4abf4c3aff6f58b3fb60e0c32a2235}{get\+Pixel\+Temperature()} to get the 4 center pixel temperatures Then calculated the average and returns it. 
+\end{DoxyReturn}
+\index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Left3\+Avg\+Temperatures@{get\+Left3\+Avg\+Temperatures}}
+\index{get\+Left3\+Avg\+Temperatures@{get\+Left3\+Avg\+Temperatures}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
+\subsubsection[{\texorpdfstring{get\+Left3\+Avg\+Temperatures()}{getLeft3AvgTemperatures()}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Left3\+Avg\+Temperatures (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{temperature_handler_8c_a5bb0adbaab9657cdbe2635ce1bb7af02}{}\label{temperature_handler_8c_a5bb0adbaab9657cdbe2635ce1bb7af02}
+\begin{DoxyReturn}{Returns}
+int The temperature average value of the last 3 left pixels in degrees Celcius This method uses the \hyperlink{temperature_handler_8c_afc4abf4c3aff6f58b3fb60e0c32a2235}{get\+Pixel\+Temperature()} to get the last 3 left pixel temperatures Then calculated the average and returns it. 
+\end{DoxyReturn}
 \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Left\+Average\+Temperature@{get\+Left\+Average\+Temperature}}
 \index{get\+Left\+Average\+Temperature@{get\+Left\+Average\+Temperature}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
 \subsubsection[{\texorpdfstring{get\+Left\+Average\+Temperature()}{getLeftAverageTemperature()}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Left\+Average\+Temperature (
@@ -69,7 +97,17 @@ The average temperature of the 4 pixels on the left.
 \begin{DoxyReturn}{Returns}
 int The temperature value of the pixel in degrees Celcius
 \end{DoxyReturn}
-Send a message to the thermal sensor using {\ttfamily I2C} to read from the register corresponding to the pixel index. Return the value that is read as an integer. \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Right\+Average\+Temperature@{get\+Right\+Average\+Temperature}}
+Send a message to the thermal sensor using {\ttfamily I2C} to read from the register corresponding to the pixel index. Return the value that is read as an integer. \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Right3\+Avg\+Temperatures@{get\+Right3\+Avg\+Temperatures}}
+\index{get\+Right3\+Avg\+Temperatures@{get\+Right3\+Avg\+Temperatures}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
+\subsubsection[{\texorpdfstring{get\+Right3\+Avg\+Temperatures()}{getRight3AvgTemperatures()}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Right3\+Avg\+Temperatures (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{temperature_handler_8c_a9d87c9078857a0083947f5db9a3da9e6}{}\label{temperature_handler_8c_a9d87c9078857a0083947f5db9a3da9e6}
+\begin{DoxyReturn}{Returns}
+int The temperature average value of the last 3 right pixel in degrees Celcius This method uses the \hyperlink{temperature_handler_8c_afc4abf4c3aff6f58b3fb60e0c32a2235}{get\+Pixel\+Temperature()} to get the 3 last right pixel temperatures Then calculated the average and returns it. 
+\end{DoxyReturn}
+\index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Right\+Average\+Temperature@{get\+Right\+Average\+Temperature}}
 \index{get\+Right\+Average\+Temperature@{get\+Right\+Average\+Temperature}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
 \subsubsection[{\texorpdfstring{get\+Right\+Average\+Temperature()}{getRightAverageTemperature()}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Right\+Average\+Temperature (
 \begin{DoxyParamCaption}
@@ -80,6 +118,16 @@ Calculates the average temperature of the 4 pixels on the right based on the val
 
 \begin{DoxyReturn}{Returns}
 The average temperature of the 4 pixels on the right. 
+\end{DoxyReturn}
+\index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!get\+Significant\+Temperature@{get\+Significant\+Temperature}}
+\index{get\+Significant\+Temperature@{get\+Significant\+Temperature}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}
+\subsubsection[{\texorpdfstring{get\+Significant\+Temperature()}{getSignificantTemperature()}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Significant\+Temperature (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{temperature_handler_8c_aef230f2b1eea62637bf42f34d7dc7270}{}\label{temperature_handler_8c_aef230f2b1eea62637bf42f34d7dc7270}
+\begin{DoxyReturn}{Returns}
+int returns 1 if a temperature with 3 over the ambient temperature is found. Else return 0 This method uses the \hyperlink{temperature_handler_8c_afc4abf4c3aff6f58b3fb60e0c32a2235}{get\+Pixel\+Temperature()} to get all the pixel temperatures If one of them is 3 over the ambient temperature, returns 1. 
 \end{DoxyReturn}
 \index{temperature\+Handler.\+c@{temperature\+Handler.\+c}!setup\+Temperature@{setup\+Temperature}}
 \index{setup\+Temperature@{setup\+Temperature}!temperature\+Handler.\+c@{temperature\+Handler.\+c}}

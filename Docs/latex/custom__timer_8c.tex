@@ -1,0 +1,82 @@
+\hypertarget{custom__timer_8c}{}\section{custom\+\_\+timer.\+c File Reference}
+\label{custom__timer_8c}\index{custom\+\_\+timer.\+c@{custom\+\_\+timer.\+c}}
+
+
+This file defines and implements the custom timer functions including A\+P\+Is.  
+
+
+{\ttfamily \#include $<$avr/io.\+h$>$}\\*
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}custom\+\_\+timer.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{group__custom__timer_structtimer__counter__parameters}{timer\+\_\+counter\+\_\+parameters}
+\begin{DoxyCompactList}\small\item\em Data structure to capture T\+I\+M\+E\+R0 timer values.  \hyperlink{group__custom__timer_structtimer__counter__parameters}{More...}\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{group__custom__timer_gacc909e5f043b5318d641501c53797a90}{C\+L\+E\+A\+R\+\_\+\+B\+IT}(sfr,  bit)~( \+\_\+\+S\+F\+R\+\_\+\+B\+Y\+TE(sfr) \&= $\sim$\+\_\+\+BV(bit) )
+\item 
+\#define \hyperlink{group__custom__timer_ga1f93c89b65418805c2091b08e58afce6}{S\+E\+T\+\_\+\+B\+IT}(sfr,  bit)~( \+\_\+\+S\+F\+R\+\_\+\+B\+Y\+TE(sfr) $\vert$= \+\_\+\+BV(bit) )
+\item 
+\#define \hyperlink{group__custom__timer_gabe3ffe6bf57a996216bfa6f354e0c6b4}{C\+H\+E\+C\+K\+\_\+\+B\+I\+T\+\_\+\+S\+T\+A\+T\+US}(variable,  position)~( (variable) \& (1 $<$$<$ (position)) )
+\item 
+\#define \hyperlink{group__custom__timer_gad0acb4825948dc06e71c3ddca2187b2e}{C\+P\+U\+\_\+\+C\+Y\+C\+L\+E\+S\+\_\+\+I\+N\+\_\+\+O\+N\+E\+\_\+\+M\+I\+C\+R\+O\+S\+E\+C\+O\+ND}()~( F\+\_\+\+C\+PU / 1000000\+L )
+\item 
+\#define \hyperlink{group__custom__timer_gac232252c50728b49e5f0633a3a4569c3}{C\+P\+U\+\_\+\+C\+Y\+C\+Y\+E\+S\+\_\+\+T\+O\+\_\+\+M\+I\+C\+R\+O\+S\+E\+C\+O\+N\+DS}(cpu\+\_\+cycles)~( (cpu\+\_\+cycles) / \hyperlink{group__custom__timer_gad0acb4825948dc06e71c3ddca2187b2e}{C\+P\+U\+\_\+\+C\+Y\+C\+L\+E\+S\+\_\+\+I\+N\+\_\+\+O\+N\+E\+\_\+\+M\+I\+C\+R\+O\+S\+E\+C\+O\+ND}() )
+\item 
+\#define \hyperlink{group__custom__timer_ga5887b9c091480c79bc1f19c0c8eb9b40}{T\+I\+M\+E\+\_\+\+I\+N\+\_\+\+M\+I\+C\+R\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+F\+O\+R\+\_\+\+T\+I\+M\+E\+R0\+\_\+\+O\+V\+E\+R\+F\+L\+OW}~( \hyperlink{group__custom__timer_gac232252c50728b49e5f0633a3a4569c3}{C\+P\+U\+\_\+\+C\+Y\+C\+Y\+E\+S\+\_\+\+T\+O\+\_\+\+M\+I\+C\+R\+O\+S\+E\+C\+O\+N\+DS}(64 $\ast$ 256) )
+\item 
+\#define \hyperlink{group__custom__timer_gad18b0b3ac32d120785d5437328854938}{T\+I\+M\+E\+\_\+\+I\+N\+\_\+\+M\+I\+L\+L\+I\+S\+S\+E\+C\+O\+N\+D\+S\+\_\+\+F\+O\+R\+\_\+\+T\+I\+M\+E\+R0\+\_\+\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+I\+N\+T\+E\+G\+R\+E\+AL}~( \hyperlink{group__custom__timer_ga5887b9c091480c79bc1f19c0c8eb9b40}{T\+I\+M\+E\+\_\+\+I\+N\+\_\+\+M\+I\+C\+R\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+F\+O\+R\+\_\+\+T\+I\+M\+E\+R0\+\_\+\+O\+V\+E\+R\+F\+L\+OW} / 1000 )
+\item 
+\#define \hyperlink{group__custom__timer_gaf093c9ad815d86b24c0f081dceb84737}{T\+I\+M\+E\+\_\+\+I\+N\+\_\+\+M\+I\+L\+L\+I\+S\+S\+E\+C\+O\+N\+D\+S\+\_\+\+F\+O\+R\+\_\+\+T\+I\+M\+E\+R0\+\_\+\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+R\+A\+C\+T\+I\+ON}~( (\hyperlink{group__custom__timer_ga5887b9c091480c79bc1f19c0c8eb9b40}{T\+I\+M\+E\+\_\+\+I\+N\+\_\+\+M\+I\+C\+R\+O\+S\+E\+C\+O\+N\+D\+S\+\_\+\+F\+O\+R\+\_\+\+T\+I\+M\+E\+R0\+\_\+\+O\+V\+E\+R\+F\+L\+OW} \% 1000) $>$$>$ 3 )
+\item 
+\#define \hyperlink{group__custom__timer_ga2322cd9c5ca701585ac9c61123216a67}{T\+I\+M\+E\+\_\+\+I\+N\+\_\+\+M\+I\+L\+L\+I\+S\+S\+E\+C\+O\+N\+D\+S\+\_\+\+F\+O\+R\+\_\+\+T\+I\+M\+E\+R0\+\_\+\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+R\+A\+C\+T\+I\+O\+N\+\_\+\+M\+A\+X\+I\+M\+UM}~( 1000 $>$$>$ 3)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group__custom__timer_gadd2d7cdddfb682dcc0391e60cf42c7d6}{I\+SR} (T\+I\+M\+E\+R0\+\_\+\+O\+V\+F\+\_\+vect)
+\begin{DoxyCompactList}\small\item\em T\+I\+M\+E\+R0 overflow I\+SR (Interrupt Service Routine). \end{DoxyCompactList}\item 
+void \hyperlink{group__custom__timer_gac2aeae62e4b8528ccd841f63f83a49b4}{initialize\+\_\+module\+\_\+timer0} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the module. \end{DoxyCompactList}\item 
+unsigned long \hyperlink{group__custom__timer_gada8ec2a9d8790c2818e0094855ecdb7e}{time\+\_\+in\+\_\+microseconds} (void)
+\begin{DoxyCompactList}\small\item\em Time ticks in microseconds. \end{DoxyCompactList}\item 
+unsigned long \hyperlink{group__custom__timer_gae3c70f50721e84e6761da58ff419f865}{time\+\_\+in\+\_\+milliseconds} (void)
+\begin{DoxyCompactList}\small\item\em Time ticks in milliseconds. \end{DoxyCompactList}\item 
+void \hyperlink{group__custom__timer_gaa10b6cff287b214da3fe126055ba32a3}{delay\+\_\+milliseconds} (unsigned long milliseconds)
+\begin{DoxyCompactList}\small\item\em Time delay in milliseconds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file defines and implements the custom timer functions including A\+P\+Is. 
+
+Defines functions such as providing tick time in microseconds, milliseconds, delay in milliseconds. This module uses T\+I\+M\+E\+R0 of A\+T\+Mega2560 with a pre-\/scale of 64, and fast P\+WM mode.
+
+A\+T\+Mega2560 TC (Timer/\+Counter) is like a clock, and can be used to measure time events. All the timers depends on the system clock of system, the system clock is 16\+M\+Hz for A\+T\+Mega2560. Timer0\+: Timer0 is a 8bit timer, and is capable of counting 2$^\wedge$8 = 256 steps from 0 to 255 (T\+OP). It can operate in normal mode, C\+TC mode or P\+WM mode. T\+I\+M\+E\+R0 is configured with pre-\/scaler 64 at 250 K\+Hz with a resolution of 4μs.
+
+Fast P\+WM Mode\+: The fast Pulse Width Modulation or fast P\+WM mode provides a high frequency P\+WM wave-\/form generation option. The fast P\+WM differs from the other P\+WM option by its single-\/slope operation. The counter counts from B\+O\+T\+T\+OM to T\+OP then restarts from B\+O\+T\+T\+OM. In fast P\+WM mode, the counter is incremented until the counter value matches the T\+OP value. The counter is then cleared at the following timer clock cycle.
+
+Module A\+P\+Is\+:
+\begin{DoxyItemize}
+\item \hyperlink{group__custom__timer_gac2aeae62e4b8528ccd841f63f83a49b4}{initialize\+\_\+module\+\_\+timer0()}\+: initializes T\+I\+M\+E\+R0 in fast P\+WM mode with pre-\/scale of 64, and activates it. Ensure this is called at the beginning of program.
+\item \hyperlink{group__custom__timer_gada8ec2a9d8790c2818e0094855ecdb7e}{time\+\_\+in\+\_\+microseconds()}\+: returns time in microseconds.
+\item \hyperlink{group__custom__timer_gae3c70f50721e84e6761da58ff419f865}{time\+\_\+in\+\_\+milliseconds()}\+: returns time in milliseconds.
+\item \hyperlink{group__custom__timer_gaa10b6cff287b214da3fe126055ba32a3}{delay\+\_\+milliseconds()}\+: accepts milliseconds and introduces required delay.
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+Ensure to initialize the module in the beginning of program.
+\end{DoxyNote}
+Usage guidelines\+:-\/ \begin{DoxyVerb}    => Initialize the module by calling, initialize_module_timer0(). It should be done at
+        the beginning of program.
+
+    => Use time_in_microseconds() or time_in_milliseconds() to get current tick time in respective units
+        of microseconds and milliseconds.
+
+        Example: To capture time elapsed between two events, capture time ticks using time_in_microseconds() or
+        time_in_milliseconds(); and the difference between two values will provide the required time elapsed value.
+
+    => Use delay_milliseconds to introduce a delay in milliseconds. Note that this function does not releases
+        CPU/microprocessor.\end{DoxyVerb}

@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -77,19 +78,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
       <li><a href="globals_vars.html"><span>Variables</span></a></li>
+      <li><a href="globals_type.html"><span>Typedefs</span></a></li>
+      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
+      <li><a href="#index_a"><span>a</span></a></li>
+      <li><a href="#index_c"><span>c</span></a></li>
       <li><a href="#index_d"><span>d</span></a></li>
       <li><a href="#index_g"><span>g</span></a></li>
+      <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
       <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
+      <li><a href="#index_t"><span>t</span></a></li>
       <li><a href="#index_u"><span>u</span></a></li>
       <li><a href="#index_v"><span>v</span></a></li>
-      <li class="current"><a href="#index_w"><span>w</span></a></li>
+      <li><a href="#index_w"><span>w</span></a></li>
+      <li class="current"><a href="#index_x"><span>x</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -124,10 +134,27 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <div class="contents">
 &#160;
 
+<h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
+<li>add_element_choice()
+: <a class="el" href="group__wireless__interface.html#ga9232914e10eaf554254e01125de8bea5">wireless_interface.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>configure_web_page()
+: <a class="el" href="group__wireless__interface.html#ga5fffbf0efe019e42faef3e801c21af7d">wireless_interface.c</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
 <li>decoderTask()
 : <a class="el" href="decoder_task_8c.html#abcf04924e248b5ec1ef39130d20952a5">decoderTask.c</a>
 , <a class="el" href="decoder_task_8h.html#abcf04924e248b5ec1ef39130d20952a5">decoderTask.h</a>
+</li>
+<li>delay_milliseconds()
+: <a class="el" href="group__custom__timer.html#gaa10b6cff287b214da3fe126055ba32a3">custom_timer.c</a>
 </li>
 <li>displayBlueLED()
 : <a class="el" href="_l_e_d_handler_8c.html#a0bf297e6f677fbe9c0f8585f800415f3">LEDHandler.c</a>
@@ -153,8 +180,24 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 
 
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
+<li>get_next_client_response()
+: <a class="el" href="group__wireless__interface.html#ga2100585c30b1024f988075494c0a7b88">wireless_interface.c</a>
+</li>
 <li>getAmbientTemperature()
 : <a class="el" href="temperature_handler_8c.html#a173848562aa0d523532a7d2de79981b7">temperatureHandler.c</a>
+, <a class="el" href="temperature_handler_8h.html#a173848562aa0d523532a7d2de79981b7">temperatureHandler.h</a>
+</li>
+<li>getCenter4AvgTemperatures()
+: <a class="el" href="temperature_handler_8c.html#a4f6b00080277f343bfc7d2d55d842fc8">temperatureHandler.c</a>
+, <a class="el" href="temperature_handler_8h.html#a4f6b00080277f343bfc7d2d55d842fc8">temperatureHandler.h</a>
+</li>
+<li>getDistance()
+: <a class="el" href="distance_handler_8c.html#abbfc5136e07563b242069f2c368b0365">distanceHandler.c</a>
+, <a class="el" href="distance_handler_8h.html#ac2d1fbd7214cb8a5ce08083bb9a8adf2">distanceHandler.h</a>
+</li>
+<li>getLeft3AvgTemperatures()
+: <a class="el" href="temperature_handler_8c.html#a5bb0adbaab9657cdbe2635ce1bb7af02">temperatureHandler.c</a>
+, <a class="el" href="temperature_handler_8h.html#a5bb0adbaab9657cdbe2635ce1bb7af02">temperatureHandler.h</a>
 </li>
 <li>getLeftAverageTemperature()
 : <a class="el" href="temperature_handler_8c.html#a54deaae812813c4ff443b0a579c71f9c">temperatureHandler.c</a>
@@ -162,15 +205,137 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <li>getPixelTemperature()
 : <a class="el" href="temperature_handler_8c.html#afc4abf4c3aff6f58b3fb60e0c32a2235">temperatureHandler.c</a>
 </li>
+<li>getRight3AvgTemperatures()
+: <a class="el" href="temperature_handler_8c.html#a9d87c9078857a0083947f5db9a3da9e6">temperatureHandler.c</a>
+, <a class="el" href="temperature_handler_8h.html#a9d87c9078857a0083947f5db9a3da9e6">temperatureHandler.h</a>
+</li>
 <li>getRightAverageTemperature()
 : <a class="el" href="temperature_handler_8c.html#a6d214cf10be92b83f09b1deab77cecd5">temperatureHandler.c</a>
+</li>
+<li>getSignificantTemperature()
+: <a class="el" href="temperature_handler_8c.html#aef230f2b1eea62637bf42f34d7dc7270">temperatureHandler.c</a>
+, <a class="el" href="temperature_handler_8h.html#aef230f2b1eea62637bf42f34d7dc7270">temperatureHandler.h</a>
+</li>
+<li>gs_activate_socket()
+: <a class="el" href="group__wireless__interface.html#gabc31d81e6c01f7906a21f41e7aa4a42f">wireless_interface.c</a>
+</li>
+<li>gs_activate_wireless_connection()
+: <a class="el" href="group__wireless__interface.html#ga880dacf1b386b927ddea018919b6b600">wireless_interface.c</a>
+</li>
+<li>gs_configure_socket()
+: <a class="el" href="group__wireless__interface.html#ga0bd5c458ea6b7b093774e1a4ac19f134">wireless_interface.c</a>
+</li>
+<li>gs_disconnect_deactivate_socket()
+: <a class="el" href="group__wireless__interface.html#ga2e35088a7ecd803f403b6e0afa21b179">wireless_interface.c</a>
+</li>
+<li>gs_enable_activate_socket()
+: <a class="el" href="group__wireless__interface.html#ga4e5e8f55a064c7537a8398df1d7da8e0">wireless_interface.c</a>
+</li>
+<li>gs_flush()
+: <a class="el" href="group__wireless__interface.html#ga69ea911394dd51594235998ab6433948">wireless_interface.c</a>
+</li>
+<li>gs_get_active_socket()
+: <a class="el" href="group__wireless__interface.html#gadd2796299c188849e984ee47eb651af0">wireless_interface.c</a>
+</li>
+<li>gs_get_command_response()
+: <a class="el" href="group__wireless__interface.html#gaa828081a3f6e8a45985ae2cb55fa420e">wireless_interface.c</a>
+</li>
+<li>gs_get_data_on_socket_status()
+: <a class="el" href="group__wireless__interface.html#gac5f323b546815b3b0a9ac0fcdc59a3ca">wireless_interface.c</a>
+</li>
+<li>gs_get_socket_connection_status()
+: <a class="el" href="group__wireless__interface.html#ga833f4a56971310092186e8973687d1c9">wireless_interface.c</a>
+</li>
+<li>gs_get_socket_having_active_connection_and_data()
+: <a class="el" href="group__wireless__interface.html#ga6daf26ca8217fba4d59bacb17ce81698">wireless_interface.c</a>
+</li>
+<li>gs_get_socket_port()
+: <a class="el" href="group__wireless__interface.html#ga5f0003ed79a9930162bff98358394517">wireless_interface.c</a>
+</li>
+<li>gs_get_socket_protocol()
+: <a class="el" href="group__wireless__interface.html#ga79400124912ba504565f5fa3a1a86f98">wireless_interface.c</a>
+</li>
+<li>gs_get_socket_status()
+: <a class="el" href="group__wireless__interface.html#ga8734bea20a2f6ea1e7b6d24e0b5a3508">wireless_interface.c</a>
+</li>
+<li>gs_initialize_gainspan()
+: <a class="el" href="group__wireless__interface.html#ga0c19ab3a13d7f9277a818c80a3a3ca48">wireless_interface.c</a>
+</li>
+<li>gs_initialize_module()
+: <a class="el" href="group__wireless__interface.html#gadd81da265cd8d3519ec4ac9759064849">wireless_interface.c</a>
+</li>
+<li>gs_parse_command_response()
+: <a class="el" href="group__wireless__interface.html#ga9da6bbc665d9662b6e33a264ad477b18">wireless_interface.c</a>
+</li>
+<li>gs_parse_command_response_tcp()
+: <a class="el" href="group__wireless__interface.html#ga24ed385355f777402430ae15fef18344">wireless_interface.c</a>
+</li>
+<li>gs_read_data_from_socket()
+: <a class="el" href="group__wireless__interface.html#gaf95271b91205e3289d959e4e1ce4c6c3">wireless_interface.c</a>
+</li>
+<li>gs_reset_socket()
+: <a class="el" href="group__wireless__interface.html#gac877437386a7198c2fe889ca2c13a16a">wireless_interface.c</a>
+</li>
+<li>gs_send_activation_status_to_serial_terminal()
+: <a class="el" href="group__wireless__interface.html#gac1bd431c75381b77fadd0df01280ed57">wireless_interface.c</a>
+</li>
+<li>gs_send_command()
+: <a class="el" href="group__wireless__interface.html#ga0cc6ad36a0579e034ffb389c1d2b9962">wireless_interface.c</a>
+</li>
+<li>gs_send_command_response_to_serial_terminal()
+: <a class="el" href="group__wireless__interface.html#gab14afdb0319dfc1020c5b71a7261c094">wireless_interface.c</a>
+</li>
+<li>gs_set_network_configuration()
+: <a class="el" href="group__wireless__interface.html#ga9d2e2414919271a9031b843a6c9c7cea">wireless_interface.c</a>
+</li>
+<li>gs_set_usart()
+: <a class="el" href="group__wireless__interface.html#ga0137ec7b150b3a5b08c21d5ca5294891">wireless_interface.c</a>
+</li>
+<li>gs_set_webserver_authentication()
+: <a class="el" href="group__wireless__interface.html#gababe539199e257225dc592210b7488c1">wireless_interface.c</a>
+</li>
+<li>gs_set_wireless_configuration()
+: <a class="el" href="group__wireless__interface.html#ga1a44d81b83d52c48266bb00597a38429">wireless_interface.c</a>
+</li>
+<li>gs_set_wireless_ssid()
+: <a class="el" href="group__wireless__interface.html#gaf865756bf94aa3102d6409a85fbd0f48">wireless_interface.c</a>
+</li>
+<li>gs_write_complete_to_socket()
+: <a class="el" href="group__wireless__interface.html#ga14c6fc8c97a0d85dcddf40f93e27fb84">wireless_interface.h</a>
+</li>
+<li>gs_write_data_to_socket()
+: <a class="el" href="group__wireless__interface.html#ga30139e0be00fb40524fcda595da58802">wireless_interface.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
+<li>hex_to_int()
+: <a class="el" href="group__wireless__interface.html#ga3bee5fd668cac8e57bf74dd50460053e">wireless_interface.c</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>initialize_module_timer0()
+: <a class="el" href="group__custom__timer.html#gac2aeae62e4b8528ccd841f63f83a49b4">custom_timer.c</a>
+</li>
+<li>initialize_web_server()
+: <a class="el" href="group__wireless__interface.html#gac6496e86569ad26b1df8045b14eb0b71">wireless_interface.c</a>
+</li>
+<li>initializeWebServer()
+: <a class="el" href="main_8c.html#ab4b61010de0271cc0e3bc83b17f087b1">main.c</a>
+</li>
+<li>initializeWifi()
+: <a class="el" href="main_8c.html#a138f1b09b51030560dc16c3d6f10c70c">main.c</a>
+</li>
+<li>int_to_hex()
+: <a class="el" href="group__wireless__interface.html#gac6ffcd32b33eedd6fc20775b3c18b044">wireless_interface.c</a>
+</li>
 <li>ISR()
-: <a class="el" href="motion_8c.html#a33c40fdd48fd7bb540f034e5c489a38b">motion.c</a>
+: <a class="el" href="group__custom__timer.html#gadd2d7cdddfb682dcc0391e60cf42c7d6">custom_timer.c</a>
+, <a class="el" href="motion_8c.html#a33c40fdd48fd7bb540f034e5c489a38b">motion.c</a>
+, <a class="el" href="group__usart_async_module.html#ga084f0a9cf05b1877bd8a71a90dae7ff8">usart_serial.c</a>
 </li>
 </ul>
 
@@ -219,6 +384,10 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="motion_task_8c.html#a4f27c8fb26886bfa640fa094f7707446">motionTask.c</a>
 , <a class="el" href="motion_task_8h.html#a4f27c8fb26886bfa640fa094f7707446">motionTask.h</a>
 </li>
+<li>motionSpinLeftSlow()
+: <a class="el" href="motion_task_8c.html#abe49bda8b55fc3f640ad2997c907773a">motionTask.c</a>
+, <a class="el" href="motion_task_8h.html#abe49bda8b55fc3f640ad2997c907773a">motionTask.h</a>
+</li>
 <li>motionSpinRight()
 : <a class="el" href="motion_task_8c.html#aed99ff4bd92f01bc888b83b8a8fba241">motionTask.c</a>
 , <a class="el" href="motion_task_8h.html#aed99ff4bd92f01bc888b83b8a8fba241">motionTask.h</a>
@@ -238,7 +407,17 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 </ul>
 
 
+<h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
+<li>process_client_request()
+: <a class="el" href="group__wireless__interface.html#gae035353439173124e040f4f2e1a870fe">wireless_interface.c</a>
+</li>
+</ul>
+
+
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>setDefaultUSART()
+: <a class="el" href="group__usart_async_module.html#gaa679900a334c7873eb71c86fe52cbf40">usart_serial.c</a>
+</li>
 <li>setupLCD()
 : <a class="el" href="_l_c_d_handler_8c.html#a90528caab2c5dc2c32f19333b016ae00">LCDHandler.c</a>
 , <a class="el" href="_l_c_d_handler_8h.html#a90528caab2c5dc2c32f19333b016ae00">LCDHandler.h</a>
@@ -255,6 +434,19 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="_l_c_d_handler_8c.html#aa2cbe94416b83db208a58f467df0cb26">LCDHandler.c</a>
 , <a class="el" href="_l_c_d_handler_8h.html#aa2cbe94416b83db208a58f467df0cb26">LCDHandler.h</a>
 </li>
+<li>start_web_server()
+: <a class="el" href="group__wireless__interface.html#ga199824a067b165e6f58d54f4deba7cf5">wireless_interface.c</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
+<li>time_in_microseconds()
+: <a class="el" href="group__custom__timer.html#gada8ec2a9d8790c2818e0094855ecdb7e">custom_timer.c</a>
+</li>
+<li>time_in_milliseconds()
+: <a class="el" href="group__custom__timer.html#gae3c70f50721e84e6761da58ff419f865">custom_timer.c</a>
+</li>
 </ul>
 
 
@@ -263,6 +455,102 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 : <a class="el" href="temperature_handler_8c.html#aeba115f1273081260398ff2b31dfdc00">temperatureHandler.c</a>
 , <a class="el" href="temperature_handler_8h.html#aeba115f1273081260398ff2b31dfdc00">temperatureHandler.h</a>
 </li>
+<li>usart_AvailableCharRx()
+: <a class="el" href="group__usart_async_module.html#gae7ed1c85cf0d965f00c8b8b1adc87621">usart_serial.c</a>
+</li>
+<li>usart_fprint()
+: <a class="el" href="group__usart_async_module.html#ga5598cc3783a39c313bc27baa10cf9952">usart_serial.c</a>
+</li>
+<li>usart_fprint_P()
+: <a class="el" href="group__usart_async_module.html#gaa376b136593fb6bc0e5e9f7b35473f14">usart_serial.c</a>
+</li>
+<li>usart_fprintf()
+: <a class="el" href="group__usart_async_module.html#ga7429cdd4ac36c036e982817d6750ed34">usart_serial.c</a>
+</li>
+<li>usart_fprintf_arg()
+: <a class="el" href="group__usart_async_module.html#gad3cf1cbb614711dcb8b73f7b7066cc24">usart_serial.c</a>
+</li>
+<li>usart_fprintf_P()
+: <a class="el" href="group__usart_async_module.html#ga2b66e28588b8e2d1f92b9f3273608964">usart_serial.c</a>
+</li>
+<li>usart_fprintf_P_arg()
+: <a class="el" href="group__usart_async_module.html#ga8b9e6d432ec75ce20fd8225d02cd8340">usart_serial.c</a>
+</li>
+<li>usart_print()
+: <a class="el" href="group__usart_async_module.html#ga0f8fdf3d9f7e325fe2297730661facfa">usart_serial.c</a>
+</li>
+<li>usart_print_P()
+: <a class="el" href="group__usart_async_module.html#gae30cd27e2ce82fdb87f06b7460a21b4a">usart_serial.c</a>
+</li>
+<li>usart_printf()
+: <a class="el" href="group__usart_async_module.html#ga505b60744b81631de13750ca9f5ea1c4">usart_serial.c</a>
+</li>
+<li>usart_printf_P()
+: <a class="el" href="group__usart_async_module.html#ga0441186875e726f93752dd8e0e95f443">usart_serial.c</a>
+</li>
+<li>usart_rx_isr()
+: <a class="el" href="group__usart_async_module.html#ga6e2b4d1b6f5bd3b8cf8a9ad223ad348f">usart_serial.c</a>
+</li>
+<li>usart_tx_isr()
+: <a class="el" href="group__usart_async_module.html#gacc2987796aa72246682121ad6686c67b">usart_serial.c</a>
+</li>
+<li>usart_xflushRx()
+: <a class="el" href="group__usart_async_module.html#ga70e50f1bc6f1abd0cb57c53145a0f06e">usart_serial.c</a>
+</li>
+<li>usart_xfprint()
+: <a class="el" href="group__usart_async_module.html#ga7d6d42b48e50bdd87aecab0dc2a9feb6">usart_serial.c</a>
+</li>
+<li>usart_xfprint_P()
+: <a class="el" href="group__usart_async_module.html#gae8212e8aca5b91172440dc3735dd7ba4">usart_serial.c</a>
+</li>
+<li>usart_xfprintf()
+: <a class="el" href="group__usart_async_module.html#ga94601796b62f88f4364afbc1ed037d10">usart_serial.c</a>
+</li>
+<li>usart_xfprintf_arg()
+: <a class="el" href="group__usart_async_module.html#ga7f6efaab6a3c0a43d34bcce2f45a9062">usart_serial.c</a>
+</li>
+<li>usart_xfprintf_P()
+: <a class="el" href="group__usart_async_module.html#ga8092a20ae9bed598702da288b55c80c6">usart_serial.c</a>
+</li>
+<li>usart_xfprintf_P_arg()
+: <a class="el" href="group__usart_async_module.html#ga33e17cf0120f57e061a736a8eeb93fce">usart_serial.c</a>
+</li>
+<li>usart_xgetChar()
+: <a class="el" href="group__usart_async_module.html#ga3958a2e258e69977428337f1b79b559d">usart_serial.c</a>
+</li>
+<li>usart_xprint()
+: <a class="el" href="group__usart_async_module.html#gab5e44adf779c82fd1c56fb8bca7bffb7">usart_serial.c</a>
+</li>
+<li>usart_xprint_P()
+: <a class="el" href="group__usart_async_module.html#ga27ada721bb00993418f8e3ffb1152d52">usart_serial.c</a>
+</li>
+<li>usart_xprintf()
+: <a class="el" href="group__usart_async_module.html#ga9ec472642da5fe42928fb1d81e3115cd">usart_serial.c</a>
+</li>
+<li>usart_xprintf_P()
+: <a class="el" href="group__usart_async_module.html#gaf7d0d5b028d30f55439119f42ad7ed69">usart_serial.c</a>
+</li>
+<li>usart_xputChar()
+: <a class="el" href="group__usart_async_module.html#ga520a2c4212a37daf9f42e747a7ff420f">usart_serial.c</a>
+</li>
+<li>usartCheckRxComplete()
+: <a class="el" href="group__usart_async_module.html#ga590146f26805ddb1810fe874188aa10d">usart_serial.c</a>
+</li>
+<li>usartCheckTxReady()
+: <a class="el" href="group__usart_async_module.html#gaaab3f24aac455dad2295e72f6dff7bb5">usart_serial.c</a>
+</li>
+<li>usartClose()
+: <a class="el" href="group__usart_async_module.html#ga6343cf3035ec8972e44716a951a29d42">usart_serial.c</a>
+</li>
+<li>usartOpen()
+: <a class="el" href="group__usart_async_module.html#gae9acc73d962adef7e91a498618ff012f">usart_serial.c</a>
+</li>
+<li>usartRead()
+: <a class="el" href="group__usart_async_module.html#ga152b8198df4c2d75e34547a8c13c7457">usart_serial.c</a>
+</li>
+<li>usartWrite()
+: <a class="el" href="group__usart_async_module.html#ga12dffa6d7df2b7e6049e3bc08b939e07">usart_serial.c</a>
+</li>
 </ul>
 
 
@@ -270,14 +558,17 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <li>vApplicationStackOverflowHook()
 : <a class="el" href="main_8c.html#a2e0defe473604c1bd4c5a11aed724078">main.c</a>
 </li>
+<li>vTaskAttachmentMode()
+: <a class="el" href="main_8c.html#a973f9b2e8f8894e69cfbd134008e2c62">main.c</a>
+</li>
+<li>vTaskCommandMode()
+: <a class="el" href="main_8c.html#ae4d18962d7439b9973376f31bbf72017">main.c</a>
+</li>
 <li>vTaskDecoder()
 : <a class="el" href="main_8c.html#a260534d494b4cf8f9322899cd64312dc">main.c</a>
 </li>
 <li>vTaskLCD()
 : <a class="el" href="main_8c.html#ad1df5e6d9819d659cc10452328605cc8">main.c</a>
-</li>
-<li>vTaskMoveChico()
-: <a class="el" href="main_8c.html#acd53dd13de540d8f0a5817c3290f8bc0">main.c</a>
 </li>
 <li>vTaskMoveThermoSensor()
 : <a class="el" href="main_8c.html#a197f4ca17f84ebe9ff3e6f3b314e9a69">main.c</a>
@@ -285,13 +576,26 @@ $(document).ready(function(){initNavTree('globals_func.html','');});
 <li>vTaskTemperature()
 : <a class="el" href="main_8c.html#a7cc20ebcbc6fa61a2d03411401bd6e81">main.c</a>
 </li>
+<li>vTaskWebServer()
+: <a class="el" href="main_8c.html#a572acb1a0aca5b7fa3bbda4b8c8bbf8a">main.c</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
 <li>writeToLCD()
-: <a class="el" href="_l_c_d_handler_8c.html#a6388f803ece054effd4a4b1e0b363362">LCDHandler.c</a>
+: <a class="el" href="_l_c_d_handler_8c.html#ad4b05c323028f6c3f56613fb034ae2eb">LCDHandler.c</a>
 , <a class="el" href="_l_c_d_handler_8h.html#a6388f803ece054effd4a4b1e0b363362">LCDHandler.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_x"></a>- x -</h3><ul>
+<li>xmitInterrupt_Off()
+: <a class="el" href="group__usart_async_module.html#ga47ace99c93e8f4b284443b758cab1523">usart_serial.c</a>
+</li>
+<li>xmitInterrupt_On()
+: <a class="el" href="group__usart_async_module.html#gaddeaba370b80a1dd990f7f713ba7303f">usart_serial.c</a>
 </li>
 </ul>
 </div><!-- contents -->

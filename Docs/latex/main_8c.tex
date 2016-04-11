@@ -14,14 +14,26 @@
 {\ttfamily \#include \char`\"{}decoder\+Task.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}motion\+Task.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}temperature\+Handler.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wireless\+\_\+interface.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usart\+\_\+serial.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}distance\+Handler.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}custom\+\_\+timer.\+h\char`\"{}}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8c_a138f1b09b51030560dc16c3d6f10c70c}{initialize\+Wifi} ()
+\item 
+void \hyperlink{main_8c_ab4b61010de0271cc0e3bc83b17f087b1}{initialize\+Web\+Server} ()
+\item 
+void \hyperlink{main_8c_ae4d18962d7439b9973376f31bbf72017}{v\+Task\+Command\+Mode} (void $\ast$pv\+Parameters)
+\item 
+void \hyperlink{main_8c_a973f9b2e8f8894e69cfbd134008e2c62}{v\+Task\+Attachment\+Mode} (void $\ast$pv\+Parameters)
+\item 
+void \hyperlink{main_8c_a572acb1a0aca5b7fa3bbda4b8c8bbf8a}{v\+Task\+Web\+Server} (void $\ast$pv\+Parameters)
 \item 
 void \hyperlink{main_8c_a7cc20ebcbc6fa61a2d03411401bd6e81}{v\+Task\+Temperature} (void $\ast$pv\+Parameters)
 \item 
 void \hyperlink{main_8c_a197f4ca17f84ebe9ff3e6f3b314e9a69}{v\+Task\+Move\+Thermo\+Sensor} (void $\ast$pv\+Parameters)
-\item 
-void \hyperlink{main_8c_acd53dd13de540d8f0a5817c3290f8bc0}{v\+Task\+Move\+Chico} (void $\ast$pv\+Parameters)
 \item 
 void \hyperlink{main_8c_a260534d494b4cf8f9322899cd64312dc}{v\+Task\+Decoder} (void $\ast$pv\+Parameters)
 \item 
@@ -42,12 +54,38 @@ int \hyperlink{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}{right\+Temperature}
 \item 
 float \hyperlink{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}
 \item 
-int \hyperlink{main_8c_ab560685b00e2516bbe8fae493a3f36ac}{distance\+Travelled}
+float \hyperlink{main_8c_aed8561007effc8b6a55c49c34f27e363}{distance\+Travelled}
+\item 
+char \hyperlink{main_8c_a667dba90fe1082c90d4326fc05426527}{client\+Request} = \textquotesingle{}F\textquotesingle{}
+\item 
+char \hyperlink{main_8c_a05fc9ab90c5bb0a87dbaf1f4ddb99595}{previous\+Client\+Request} = \textquotesingle{}A\textquotesingle{}
+\item 
+Task\+Handle\+\_\+t \hyperlink{main_8c_ad63d2e5258a29f9ac6a8ac302ac6263c}{x\+Command\+Handler}
+\item 
+Task\+Handle\+\_\+t \hyperlink{main_8c_a5b80ee5cda4f6d2f681f52026a36be5f}{x\+Attachment\+Handler}
+\item 
+Task\+Handle\+\_\+t \hyperlink{main_8c_a0dab000da2f513c2f54e1322446740d5}{x\+Thermo\+Sensor\+Handler}
+\item 
+int \hyperlink{main_8c_a151446e1e3d240988973e2b82de55154}{print\+\_\+\+U\+S\+A\+RT}
 \end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
-\index{main.\+c@{main.\+c}!main@{main}}
+\index{main.\+c@{main.\+c}!initialize\+Web\+Server@{initialize\+Web\+Server}}
+\index{initialize\+Web\+Server@{initialize\+Web\+Server}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{initialize\+Web\+Server()}{initializeWebServer()}}]{\setlength{\rightskip}{0pt plus 5cm}void initialize\+Web\+Server (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_ab4b61010de0271cc0e3bc83b17f087b1}{}\label{main_8c_ab4b61010de0271cc0e3bc83b17f087b1}
+This method initializes the web server by using the wireless\+\_\+interface class. It first configure the web page by setting a page title, and a type of component into it (dropdown list) Then it adds the choices in that dropdown list. After this, it calls the method start\+\_\+web\+\_\+server from the wireless\+\_\+interface class so the server will be able to process the client request and responses. \index{main.\+c@{main.\+c}!initialize\+Wifi@{initialize\+Wifi}}
+\index{initialize\+Wifi@{initialize\+Wifi}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{initialize\+Wifi()}{initializeWifi()}}]{\setlength{\rightskip}{0pt plus 5cm}void initialize\+Wifi (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a138f1b09b51030560dc16c3d6f10c70c}{}\label{main_8c_a138f1b09b51030560dc16c3d6f10c70c}
+This method initializes the wifi module by using the wireless\+\_\+interface class. Opens the usart port for both the terminal (U\+S\+A\+R\+T\+\_\+0), and the wifi (U\+S\+A\+R\+T\+\_\+2). Then it sets the wireless S\+S\+ID. Finally it activates the wireless connection using the wireless\+\_\+interface class. \index{main.\+c@{main.\+c}!main@{main}}
 \index{main@{main}!main.\+c@{main.\+c}}
 \subsubsection[{\texorpdfstring{main()}{main()}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
 \begin{DoxyParamCaption}
@@ -69,6 +107,34 @@ Empty function, used only for compatibility with the OS.
 {\em x\+Task} & Parameter present for compatibility in the function definition. \\
 \hline
 {\em pc\+Task\+Name} & Parameter present for compatibility in the function definition. \\
+\hline
+\end{DoxyParams}
+\index{main.\+c@{main.\+c}!v\+Task\+Attachment\+Mode@{v\+Task\+Attachment\+Mode}}
+\index{v\+Task\+Attachment\+Mode@{v\+Task\+Attachment\+Mode}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Task\+Attachment\+Mode(void $\ast$pv\+Parameters)}{vTaskAttachmentMode(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+Attachment\+Mode (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a973f9b2e8f8894e69cfbd134008e2c62}{}\label{main_8c_a973f9b2e8f8894e69cfbd134008e2c62}
+The task handles the attachment mode of chico, it initializes the motion module and then handles the three modes possible in this mode (Searching, Panic, Attached). These three mode analyzes the tempreature, move the robot according to the mode it is in. In attached, chico follows an heat source that he found. In the searching modes it searches an heatsource by turning slowly. In the panic mode, it spins fast to then come back in searching mode.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Used only for function definition compatibility. \\
+\hline
+\end{DoxyParams}
+\index{main.\+c@{main.\+c}!v\+Task\+Command\+Mode@{v\+Task\+Command\+Mode}}
+\index{v\+Task\+Command\+Mode@{v\+Task\+Command\+Mode}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Task\+Command\+Mode(void $\ast$pv\+Parameters)}{vTaskCommandMode(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+Command\+Mode (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_ae4d18962d7439b9973376f31bbf72017}{}\label{main_8c_ae4d18962d7439b9973376f31bbf72017}
+The task handles the command mode of chico, it initializes the motion module and the thermo\+Sensor module to mode the head when going forward or backward. Then according to the client request set in the web server task, chico will either go forward (F), backward (B), spin left (L), spin right (R) or stop (S). This task uses the motion module to move the robot.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Used only for function definition compatibility. \\
 \hline
 \end{DoxyParams}
 \index{main.\+c@{main.\+c}!v\+Task\+Decoder@{v\+Task\+Decoder}}
@@ -93,20 +159,6 @@ The task responsible for reading the robot\textquotesingle{}s movement informati
 \end{DoxyParamCaption}
 )}\hypertarget{main_8c_ad1df5e6d9819d659cc10452328605cc8}{}\label{main_8c_ad1df5e6d9819d659cc10452328605cc8}
 The task responsible for updating the temperature and movement information periodically in the L\+CD.
-
-
-\begin{DoxyParams}{Parameters}
-{\em pv\+Parameters} & Used only for function definition compatibility. \\
-\hline
-\end{DoxyParams}
-\index{main.\+c@{main.\+c}!v\+Task\+Move\+Chico@{v\+Task\+Move\+Chico}}
-\index{v\+Task\+Move\+Chico@{v\+Task\+Move\+Chico}!main.\+c@{main.\+c}}
-\subsubsection[{\texorpdfstring{v\+Task\+Move\+Chico(void $\ast$pv\+Parameters)}{vTaskMoveChico(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+Move\+Chico (
-\begin{DoxyParamCaption}
-\item[{void $\ast$}]{pv\+Parameters}
-\end{DoxyParamCaption}
-)}\hypertarget{main_8c_acd53dd13de540d8f0a5817c3290f8bc0}{}\label{main_8c_acd53dd13de540d8f0a5817c3290f8bc0}
-The task responsible for moving the robot.
 
 
 \begin{DoxyParams}{Parameters}
@@ -141,22 +193,53 @@ The task responsible for reading temperature values and updating them whenever p
 {\em pv\+Parameters} & Used only for function definition compatibility. \\
 \hline
 \end{DoxyParams}
+\index{main.\+c@{main.\+c}!v\+Task\+Web\+Server@{v\+Task\+Web\+Server}}
+\index{v\+Task\+Web\+Server@{v\+Task\+Web\+Server}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{v\+Task\+Web\+Server(void $\ast$pv\+Parameters)}{vTaskWebServer(void *pvParameters)}}]{\setlength{\rightskip}{0pt plus 5cm}void v\+Task\+Web\+Server (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8c_a572acb1a0aca5b7fa3bbda4b8c8bbf8a}{}\label{main_8c_a572acb1a0aca5b7fa3bbda4b8c8bbf8a}
+The task handles the webserver and is responsible for handling both the process request from the client and to get the client response to the suspend and resume either the command mode or task mode depending on the client response.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & Used only for function definition compatibility. \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Variable Documentation}
 \index{main.\+c@{main.\+c}!ambient\+Temperature@{ambient\+Temperature}}
 \index{ambient\+Temperature@{ambient\+Temperature}!main.\+c@{main.\+c}}
 \subsubsection[{\texorpdfstring{ambient\+Temperature}{ambientTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int ambient\+Temperature}\hypertarget{main_8c_acff226fa0a1f8334068317429dcf8519}{}\label{main_8c_acff226fa0a1f8334068317429dcf8519}
-Global variable that stores the ambient temperature. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!distance\+Travelled@{distance\+Travelled}}
+Global variable that stores the ambient temperature. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!client\+Request@{client\+Request}}
+\index{client\+Request@{client\+Request}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{client\+Request}{clientRequest}}]{\setlength{\rightskip}{0pt plus 5cm}char client\+Request = \textquotesingle{}F\textquotesingle{}}\hypertarget{main_8c_a667dba90fe1082c90d4326fc05426527}{}\label{main_8c_a667dba90fe1082c90d4326fc05426527}
+\index{main.\+c@{main.\+c}!distance\+Travelled@{distance\+Travelled}}
 \index{distance\+Travelled@{distance\+Travelled}!main.\+c@{main.\+c}}
-\subsubsection[{\texorpdfstring{distance\+Travelled}{distanceTravelled}}]{\setlength{\rightskip}{0pt plus 5cm}int distance\+Travelled}\hypertarget{main_8c_ab560685b00e2516bbe8fae493a3f36ac}{}\label{main_8c_ab560685b00e2516bbe8fae493a3f36ac}
+\subsubsection[{\texorpdfstring{distance\+Travelled}{distanceTravelled}}]{\setlength{\rightskip}{0pt plus 5cm}float distance\+Travelled}\hypertarget{main_8c_aed8561007effc8b6a55c49c34f27e363}{}\label{main_8c_aed8561007effc8b6a55c49c34f27e363}
 Global variable that stores the distance travelled so far. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!left\+Temperature@{left\+Temperature}}
 \index{left\+Temperature@{left\+Temperature}!main.\+c@{main.\+c}}
 \subsubsection[{\texorpdfstring{left\+Temperature}{leftTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int left\+Temperature}\hypertarget{main_8c_a5bef3a8af97353cf6750030112845434}{}\label{main_8c_a5bef3a8af97353cf6750030112845434}
-Global variable that stores the left pixels\textquotesingle{} temperature. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!right\+Temperature@{right\+Temperature}}
+Global variable that stores the left pixels\textquotesingle{} temperature. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!previous\+Client\+Request@{previous\+Client\+Request}}
+\index{previous\+Client\+Request@{previous\+Client\+Request}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{previous\+Client\+Request}{previousClientRequest}}]{\setlength{\rightskip}{0pt plus 5cm}char previous\+Client\+Request = \textquotesingle{}A\textquotesingle{}}\hypertarget{main_8c_a05fc9ab90c5bb0a87dbaf1f4ddb99595}{}\label{main_8c_a05fc9ab90c5bb0a87dbaf1f4ddb99595}
+\index{main.\+c@{main.\+c}!print\+\_\+\+U\+S\+A\+RT@{print\+\_\+\+U\+S\+A\+RT}}
+\index{print\+\_\+\+U\+S\+A\+RT@{print\+\_\+\+U\+S\+A\+RT}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{print\+\_\+\+U\+S\+A\+RT}{print_USART}}]{\setlength{\rightskip}{0pt plus 5cm}int print\+\_\+\+U\+S\+A\+RT}\hypertarget{main_8c_a151446e1e3d240988973e2b82de55154}{}\label{main_8c_a151446e1e3d240988973e2b82de55154}
+\index{main.\+c@{main.\+c}!right\+Temperature@{right\+Temperature}}
 \index{right\+Temperature@{right\+Temperature}!main.\+c@{main.\+c}}
 \subsubsection[{\texorpdfstring{right\+Temperature}{rightTemperature}}]{\setlength{\rightskip}{0pt plus 5cm}int right\+Temperature}\hypertarget{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}{}\label{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}
 Global variable that stores the right pixels\textquotesingle{} temperature. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!speed@{speed}}
 \index{speed@{speed}!main.\+c@{main.\+c}}
 \subsubsection[{\texorpdfstring{speed}{speed}}]{\setlength{\rightskip}{0pt plus 5cm}float speed}\hypertarget{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}{}\label{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}
-Global variable that stores the robot\textquotesingle{}s speed. Created for sharing information between tasks. 
+Global variable that stores the robot\textquotesingle{}s speed. Created for sharing information between tasks. \index{main.\+c@{main.\+c}!x\+Attachment\+Handler@{x\+Attachment\+Handler}}
+\index{x\+Attachment\+Handler@{x\+Attachment\+Handler}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Attachment\+Handler}{xAttachmentHandler}}]{\setlength{\rightskip}{0pt plus 5cm}Task\+Handle\+\_\+t x\+Attachment\+Handler}\hypertarget{main_8c_a5b80ee5cda4f6d2f681f52026a36be5f}{}\label{main_8c_a5b80ee5cda4f6d2f681f52026a36be5f}
+\index{main.\+c@{main.\+c}!x\+Command\+Handler@{x\+Command\+Handler}}
+\index{x\+Command\+Handler@{x\+Command\+Handler}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Command\+Handler}{xCommandHandler}}]{\setlength{\rightskip}{0pt plus 5cm}Task\+Handle\+\_\+t x\+Command\+Handler}\hypertarget{main_8c_ad63d2e5258a29f9ac6a8ac302ac6263c}{}\label{main_8c_ad63d2e5258a29f9ac6a8ac302ac6263c}
+\index{main.\+c@{main.\+c}!x\+Thermo\+Sensor\+Handler@{x\+Thermo\+Sensor\+Handler}}
+\index{x\+Thermo\+Sensor\+Handler@{x\+Thermo\+Sensor\+Handler}!main.\+c@{main.\+c}}
+\subsubsection[{\texorpdfstring{x\+Thermo\+Sensor\+Handler}{xThermoSensorHandler}}]{\setlength{\rightskip}{0pt plus 5cm}Task\+Handle\+\_\+t x\+Thermo\+Sensor\+Handler}\hypertarget{main_8c_a0dab000da2f513c2f54e1322446740d5}{}\label{main_8c_a0dab000da2f513c2f54e1322446740d5}

@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -109,24 +110,25 @@ $(document).ready(function(){initNavTree('_l_c_d_handler_8c.html','');});
 <div class="title">LCDHandler.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_l_c_d_handler_8h_source.html">LCDHandler.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="_l_c_d_handler_8h_source.html">LCDHandler.h</a>&quot;</code><br />
 <code>#include &quot;i2cMultiMaster.h&quot;</code><br />
-<code>#include &quot;serial.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="usart__serial_8h_source.html">usart_serial.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="temperature_handler_8h_source.html">temperatureHandler.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a90528caab2c5dc2c32f19333b016ae00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#a90528caab2c5dc2c32f19333b016ae00">setupLCD</a> ()</td></tr>
 <tr class="separator:a90528caab2c5dc2c32f19333b016ae00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6388f803ece054effd4a4b1e0b363362"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#a6388f803ece054effd4a4b1e0b363362">writeToLCD</a> (float <a class="el" href="main_8c.html#a7f7e4724cf57d59513b39c5ecc81adc8">speed</a>, float <a class="el" href="main_8c.html#ab560685b00e2516bbe8fae493a3f36ac">distanceTravelled</a>, int averageTemperature, int <a class="el" href="main_8c.html#a5bef3a8af97353cf6750030112845434">leftTemperature</a>, int <a class="el" href="main_8c.html#a2e79cf61ef2d577167dcbf70b07c0899">rightTemperature</a>)</td></tr>
-<tr class="separator:a6388f803ece054effd4a4b1e0b363362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4b05c323028f6c3f56613fb034ae2eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#ad4b05c323028f6c3f56613fb034ae2eb">writeToLCD</a> (float <a class="el" href="main_8c.html#a7f7e4724cf57d59513b39c5ecc81adc8">speed</a>, float <a class="el" href="main_8c.html#aed8561007effc8b6a55c49c34f27e363">distanceTravelled</a>, int <a class="el" href="main_8c.html#acff226fa0a1f8334068317429dcf8519">ambientTemperature</a>, int <a class="el" href="main_8c.html#a5bef3a8af97353cf6750030112845434">leftTemperature</a>, int <a class="el" href="main_8c.html#a2e79cf61ef2d577167dcbf70b07c0899">rightTemperature</a>)</td></tr>
+<tr class="separator:ad4b05c323028f6c3f56613fb034ae2eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2cbe94416b83db208a58f467df0cb26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#aa2cbe94416b83db208a58f467df0cb26">shutdownLCD</a> ()</td></tr>
 <tr class="separator:aa2cbe94416b83db208a58f467df0cb26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a813c27256edbf0c83973a874ddb7f6e3"><td class="memItemLeft" align="right" valign="top">xComPortHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#a813c27256edbf0c83973a874ddb7f6e3">xSerial1Port</a></td></tr>
-<tr class="separator:a813c27256edbf0c83973a874ddb7f6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f4639e9b2b53860de8cdc5187af8946"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_l_c_d_handler_8c.html#a1f4639e9b2b53860de8cdc5187af8946">LCD_USART</a></td></tr>
+<tr class="separator:a1f4639e9b2b53860de8cdc5187af8946"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a90528caab2c5dc2c32f19333b016ae00"></a>
@@ -161,7 +163,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6388f803ece054effd4a4b1e0b363362"></a>
+<a class="anchor" id="ad4b05c323028f6c3f56613fb034ae2eb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -181,7 +183,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>averageTemperature</em>, </td>
+          <td class="paramname"><em>ambientTemperature</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -217,12 +219,12 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="a813c27256edbf0c83973a874ddb7f6e3"></a>
+<a class="anchor" id="a1f4639e9b2b53860de8cdc5187af8946"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">xComPortHandle xSerial1Port</td>
+          <td class="memname">int LCD_USART</td>
         </tr>
       </table>
 </div><div class="memdoc">

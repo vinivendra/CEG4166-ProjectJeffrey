@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['motor_5fregisters_5fs',['motor_registers_s',['../motion_8c.html#structmotor__registers__s',1,'']]]
+  ['gainspan',['GAINSPAN',['../group__wireless__interface.html#struct_g_a_i_n_s_p_a_n',1,'']]]
 ];

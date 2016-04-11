@@ -1,22 +1,23 @@
 \hypertarget{_l_c_d_handler_8c}{}\section{L\+C\+D\+Handler.\+c File Reference}
 \label{_l_c_d_handler_8c}\index{L\+C\+D\+Handler.\+c@{L\+C\+D\+Handler.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
 {\ttfamily \#include \char`\"{}L\+C\+D\+Handler.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}i2c\+Multi\+Master.\+h\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}serial.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}usart\+\_\+serial.\+h\char`\"{}}\\*
 {\ttfamily \#include \char`\"{}temperature\+Handler.\+h\char`\"{}}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{_l_c_d_handler_8c_a90528caab2c5dc2c32f19333b016ae00}{setup\+L\+CD} ()
 \item 
-void \hyperlink{_l_c_d_handler_8c_a6388f803ece054effd4a4b1e0b363362}{write\+To\+L\+CD} (float \hyperlink{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}, float \hyperlink{main_8c_ab560685b00e2516bbe8fae493a3f36ac}{distance\+Travelled}, int average\+Temperature, int \hyperlink{main_8c_a5bef3a8af97353cf6750030112845434}{left\+Temperature}, int \hyperlink{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}{right\+Temperature})
+void \hyperlink{_l_c_d_handler_8c_ad4b05c323028f6c3f56613fb034ae2eb}{write\+To\+L\+CD} (float \hyperlink{main_8c_a7f7e4724cf57d59513b39c5ecc81adc8}{speed}, float \hyperlink{main_8c_aed8561007effc8b6a55c49c34f27e363}{distance\+Travelled}, int \hyperlink{main_8c_acff226fa0a1f8334068317429dcf8519}{ambient\+Temperature}, int \hyperlink{main_8c_a5bef3a8af97353cf6750030112845434}{left\+Temperature}, int \hyperlink{main_8c_a2e79cf61ef2d577167dcbf70b07c0899}{right\+Temperature})
 \item 
 void \hyperlink{_l_c_d_handler_8c_aa2cbe94416b83db208a58f467df0cb26}{shutdown\+L\+CD} ()
 \end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-x\+Com\+Port\+Handle \hyperlink{_l_c_d_handler_8c_a813c27256edbf0c83973a874ddb7f6e3}{x\+Serial1\+Port}
+int \hyperlink{_l_c_d_handler_8c_a1f4639e9b2b53860de8cdc5187af8946}{L\+C\+D\+\_\+\+U\+S\+A\+RT}
 \end{DoxyCompactItemize}
 
 
@@ -37,15 +38,15 @@ Initialise the L\+CD screen Set Baud rate to the default (9600bps) Setup the nec
 )}\hypertarget{_l_c_d_handler_8c_aa2cbe94416b83db208a58f467df0cb26}{}\label{_l_c_d_handler_8c_aa2cbe94416b83db208a58f467df0cb26}
 Shuts down the L\+CD screen and frees the allocated memory. \index{L\+C\+D\+Handler.\+c@{L\+C\+D\+Handler.\+c}!write\+To\+L\+CD@{write\+To\+L\+CD}}
 \index{write\+To\+L\+CD@{write\+To\+L\+CD}!L\+C\+D\+Handler.\+c@{L\+C\+D\+Handler.\+c}}
-\subsubsection[{\texorpdfstring{write\+To\+L\+C\+D(float speed, float distance\+Travelled, int average\+Temperature, int left\+Temperature, int right\+Temperature)}{writeToLCD(float speed, float distanceTravelled, int averageTemperature, int leftTemperature, int rightTemperature)}}]{\setlength{\rightskip}{0pt plus 5cm}void write\+To\+L\+CD (
+\subsubsection[{\texorpdfstring{write\+To\+L\+C\+D(float speed, float distance\+Travelled, int ambient\+Temperature, int left\+Temperature, int right\+Temperature)}{writeToLCD(float speed, float distanceTravelled, int ambientTemperature, int leftTemperature, int rightTemperature)}}]{\setlength{\rightskip}{0pt plus 5cm}void write\+To\+L\+CD (
 \begin{DoxyParamCaption}
 \item[{float}]{speed, }
 \item[{float}]{distance\+Travelled, }
-\item[{int}]{average\+Temperature, }
+\item[{int}]{ambient\+Temperature, }
 \item[{int}]{left\+Temperature, }
 \item[{int}]{right\+Temperature}
 \end{DoxyParamCaption}
-)}\hypertarget{_l_c_d_handler_8c_a6388f803ece054effd4a4b1e0b363362}{}\label{_l_c_d_handler_8c_a6388f803ece054effd4a4b1e0b363362}
+)}\hypertarget{_l_c_d_handler_8c_ad4b05c323028f6c3f56613fb034ae2eb}{}\label{_l_c_d_handler_8c_ad4b05c323028f6c3f56613fb034ae2eb}
 Updates the L\+CD with the appropriate values.
 
 
@@ -64,7 +65,7 @@ Updates the L\+CD with the appropriate values.
 
 
 \subsection{Variable Documentation}
-\index{L\+C\+D\+Handler.\+c@{L\+C\+D\+Handler.\+c}!x\+Serial1\+Port@{x\+Serial1\+Port}}
-\index{x\+Serial1\+Port@{x\+Serial1\+Port}!L\+C\+D\+Handler.\+c@{L\+C\+D\+Handler.\+c}}
-\subsubsection[{\texorpdfstring{x\+Serial1\+Port}{xSerial1Port}}]{\setlength{\rightskip}{0pt plus 5cm}x\+Com\+Port\+Handle x\+Serial1\+Port}\hypertarget{_l_c_d_handler_8c_a813c27256edbf0c83973a874ddb7f6e3}{}\label{_l_c_d_handler_8c_a813c27256edbf0c83973a874ddb7f6e3}
+\index{L\+C\+D\+Handler.\+c@{L\+C\+D\+Handler.\+c}!L\+C\+D\+\_\+\+U\+S\+A\+RT@{L\+C\+D\+\_\+\+U\+S\+A\+RT}}
+\index{L\+C\+D\+\_\+\+U\+S\+A\+RT@{L\+C\+D\+\_\+\+U\+S\+A\+RT}!L\+C\+D\+Handler.\+c@{L\+C\+D\+Handler.\+c}}
+\subsubsection[{\texorpdfstring{L\+C\+D\+\_\+\+U\+S\+A\+RT}{LCD_USART}}]{\setlength{\rightskip}{0pt plus 5cm}int L\+C\+D\+\_\+\+U\+S\+A\+RT}\hypertarget{_l_c_d_handler_8c_a1f4639e9b2b53860de8cdc5187af8946}{}\label{_l_c_d_handler_8c_a1f4639e9b2b53860de8cdc5187af8946}
 Port being used to communicate with the L\+CD screen 

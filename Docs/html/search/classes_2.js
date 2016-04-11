@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['tc_5fmodule_5fregisters',['tc_module_registers',['../motion_8c.html#structtc__module__registers',1,'']]]
+  ['html_5felement_5fchoice',['HTML_ELEMENT_CHOICE',['../group__wireless__interface.html#struct_h_t_m_l___e_l_e_m_e_n_t___c_h_o_i_c_e',1,'']]],
+  ['html_5fweb_5fpage',['HTML_WEB_PAGE',['../group__wireless__interface.html#struct_h_t_m_l___w_e_b___p_a_g_e',1,'']]]
 ];

@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -113,12 +114,103 @@ $(document).ready(function(){initNavTree('temperature_handler_8h.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a5bb0adbaab9657cdbe2635ce1bb7af02"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8h.html#a5bb0adbaab9657cdbe2635ce1bb7af02">getLeft3AvgTemperatures</a> ()</td></tr>
+<tr class="separator:a5bb0adbaab9657cdbe2635ce1bb7af02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d87c9078857a0083947f5db9a3da9e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8h.html#a9d87c9078857a0083947f5db9a3da9e6">getRight3AvgTemperatures</a> ()</td></tr>
+<tr class="separator:a9d87c9078857a0083947f5db9a3da9e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f6b00080277f343bfc7d2d55d842fc8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8h.html#a4f6b00080277f343bfc7d2d55d842fc8">getCenter4AvgTemperatures</a> ()</td></tr>
+<tr class="separator:a4f6b00080277f343bfc7d2d55d842fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a173848562aa0d523532a7d2de79981b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8h.html#a173848562aa0d523532a7d2de79981b7">getAmbientTemperature</a> ()</td></tr>
+<tr class="separator:a173848562aa0d523532a7d2de79981b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef230f2b1eea62637bf42f34d7dc7270"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8h.html#aef230f2b1eea62637bf42f34d7dc7270">getSignificantTemperature</a> ()</td></tr>
+<tr class="separator:aef230f2b1eea62637bf42f34d7dc7270"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75bc5bcc4a96c46652ec80a8f7f08ef5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8h.html#a75bc5bcc4a96c46652ec80a8f7f08ef5">setupTemperature</a> ()</td></tr>
 <tr class="separator:a75bc5bcc4a96c46652ec80a8f7f08ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeba115f1273081260398ff2b31dfdc00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temperature_handler_8h.html#aeba115f1273081260398ff2b31dfdc00">updateTemperatures</a> (int *<a class="el" href="main_8c.html#acff226fa0a1f8334068317429dcf8519">ambientTemperature</a>, int *leftAverageTemperature, int *rightAverageTemperature)</td></tr>
 <tr class="separator:aeba115f1273081260398ff2b31dfdc00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a173848562aa0d523532a7d2de79981b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getAmbientTemperature </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reads the ambient temperature.</p>
+<dl class="section return"><dt>Returns</dt><dd>The current ambient temperature. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4f6b00080277f343bfc7d2d55d842fc8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getCenter4AvgTemperatures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>int The temperature average value of the 4 center pixels in degrees Celcius This method uses the <a class="el" href="temperature_handler_8c.html#afc4abf4c3aff6f58b3fb60e0c32a2235">getPixelTemperature()</a> to get the 4 center pixel temperatures Then calculated the average and returns it. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5bb0adbaab9657cdbe2635ce1bb7af02"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getLeft3AvgTemperatures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>int The temperature average value of the last 3 left pixels in degrees Celcius This method uses the <a class="el" href="temperature_handler_8c.html#afc4abf4c3aff6f58b3fb60e0c32a2235">getPixelTemperature()</a> to get the last 3 left pixel temperatures Then calculated the average and returns it. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9d87c9078857a0083947f5db9a3da9e6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getRight3AvgTemperatures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>int The temperature average value of the last 3 right pixel in degrees Celcius This method uses the <a class="el" href="temperature_handler_8c.html#afc4abf4c3aff6f58b3fb60e0c32a2235">getPixelTemperature()</a> to get the 3 last right pixel temperatures Then calculated the average and returns it. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aef230f2b1eea62637bf42f34d7dc7270"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getSignificantTemperature </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>int returns 1 if a temperature with 3 over the ambient temperature is found. Else return 0 This method uses the <a class="el" href="temperature_handler_8c.html#afc4abf4c3aff6f58b3fb60e0c32a2235">getPixelTemperature()</a> to get all the pixel temperatures If one of them is 3 over the ambient temperature, returns 1. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a75bc5bcc4a96c46652ec80a8f7f08ef5"></a>
 <div class="memitem">
 <div class="memproto">

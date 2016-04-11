@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['decodertask_2ec',['decoderTask.c',['../decoder_task_8c.html',1,'']]],
-  ['decodertask_2eh',['decoderTask.h',['../decoder_task_8h.html',1,'']]]
+  ['bit_5fdefinitions_2eh',['bit_definitions.h',['../bit__definitions_8h.html',1,'']]]
 ];
