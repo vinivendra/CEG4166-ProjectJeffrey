@@ -51,6 +51,11 @@ int getPixelTemperature(int index)
     return result[1];
 }
 
+/**
+ * @return int The temperature average value of the last 3 right pixel in degrees Celcius
+ * This method uses the getPixelTemperature() to get the 3 last right pixel temperatures
+ * Then calculated the average and returns it.
+ */
 int getRight3AvgTemperatures ()
 {
 	int pixelTemperatureSum = 0;
@@ -65,6 +70,11 @@ int getRight3AvgTemperatures ()
 	    return pixelTemperatureSum / 3;
 }
 
+/**
+ * @return int The temperature average value of the 4 center pixels in degrees Celcius
+ * This method uses the getPixelTemperature() to get the 4 center pixel temperatures
+ * Then calculated the average and returns it.
+ */
 int getCenter4AvgTemperatures ()
 {
 	int pixelTemperatureSum = 0;
@@ -79,6 +89,11 @@ int getCenter4AvgTemperatures ()
 	    return pixelTemperatureSum / 4;
 }
 
+/**
+ * @return int The temperature average value of the last 3 left pixels in degrees Celcius
+ * This method uses the getPixelTemperature() to get the last 3 left pixel temperatures
+ * Then calculated the average and returns it.
+ */
 int getLeft3AvgTemperatures ()
 {
 	int pixelTemperatureSum = 0;
@@ -93,6 +108,11 @@ int getLeft3AvgTemperatures ()
 	    return pixelTemperatureSum / 3;
 }
 
+/**
+ * @return int returns 1 if a temperature with 3 over the ambient temperature is found. Else return 0
+ * This method uses the getPixelTemperature() to get all the pixel temperatures
+ * If one of them is 3 over the ambient temperature, returns 1.
+ */
 int getSignificantTemperature() {
 	int ambientTemperature = getAmbientTemperature();
 

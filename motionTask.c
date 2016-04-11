@@ -13,7 +13,7 @@ static int thermoLeft = 1;
 static int pulseWidth = 2800;
 
 /**
- * Initializes motion
+ * Initializes motion module and also calls the method to set up the led module
  */
 void motionInit()
 {
@@ -22,7 +22,9 @@ void motionInit()
 }
 
 /**
- * Move Chico forwards
+ * Move Chico backwards by setting the pulse width of the left wheel to 4800
+ * and the right wheel to 1100.
+ * Also display the green led from the LEDHandler class.
  */
 void motionForward()
 {
@@ -39,7 +41,9 @@ void motionForward()
 }
 
 /**
- * Move Chico backwards
+ * Move Chico backwards by setting the pulse width of the left wheel to 1100
+ * and the right wheel to 4800.
+ * Also display the red led from the LEDHandler class.
  */
 void motionBackward()
 {
@@ -53,7 +57,8 @@ void motionBackward()
 }
 
 /**
- * Spin Chico to the left
+ * Spin Chico to the left slowly by setting the pulse width on both wheels to 1100
+ * Also display the blue led from the LEDHandler class.
  */
 void motionSpinLeft()
 {
@@ -67,7 +72,8 @@ void motionSpinLeft()
 }
 
 /**
- * Spin Chico to the left slowly
+ * Spin Chico to the left slowly by setting the pulse width on both wheels to 2750
+ * Also display the blue led from the LEDHandler class.
  */
 void motionSpinLeftSlow()
 {
@@ -81,7 +87,8 @@ void motionSpinLeftSlow()
 }
 
 /**
- * Spin Chico to the right
+ * Spin Chico to the right by setting both the right and left wheel pulse width to 4800.
+ * Also displays the blue led from the LEDHandler class.
  */
 void motionSpinRight()
 {
@@ -95,7 +102,8 @@ void motionSpinRight()
 }
 
 /**
- * Stop Chico from moving
+ * Stop Chico from moving by stopping both the wheels, also calls the method to display white led
+ * from the LEDHandler class.
  */
 void motionStop()
 {
@@ -133,7 +141,7 @@ void motionThermoSensor()
 }
 
 /**
- * Stop the Thermo Sensor
+ * Stop the Thermo Sensor by setting the pulse width to 2800.
  */
 void motionThermoSensorStop()
 {

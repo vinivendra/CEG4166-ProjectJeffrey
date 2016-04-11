@@ -5,7 +5,13 @@
 
 #define CHECK_BIT_STATUS(variable, position) 							( (variable) & (1 << (position)) )
 
-
+/**
+ * Gets the distance that chico has from an heat source.  It sends a sonar signal and calculates
+ * the elapsed time between the send of the signal and the time when the signal comes back to chico.
+ * It then converts the time into centimeters.
+ *
+ * Returns the distance in centimeters.
+ */
 int getDistance() {
 	DDRA |= 0b00000001; //output
 	PORTA &= 0b11111110;  // make sure pin A0 is LOW

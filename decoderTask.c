@@ -11,7 +11,16 @@
 
 float distanceTravelled = 0;
 
-
+/**
+ * Calculates the speed and the distance travelled of chico. It calculates the
+ * speed of both the right and left wheel.  Then does the average to return the speed.
+ * Then it calculates the distance travelled using the left wheel speed and the period.
+ *
+ * @param period      Represents the period of that the calculation is done.
+ * @param returnSpeed  A pointer to a float in which the speed will be stored.
+ * @param returnDistanceTravelled A pointer to a float in which the distance
+ * travelled will be stored.
+ */
 void decoderTask(int period, float *returnSpeed, float *returnDistanceTravelled)
 {
 	uint32_t ticksLeft;

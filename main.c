@@ -46,7 +46,11 @@ TaskHandle_t xAttachmentHandler;
 TaskHandle_t xThermoSensorHandler;
 int print_USART;
 
-
+/**
+ * This method initializes the wifi module by using the wireless_interface class.  Opens the
+ * usart port for both the terminal (USART_0), and the wifi (USART_2).  Then it sets the wireless SSID.
+ * Finally it activates the wireless connection using the wireless_interface class.
+ */
 void initializeWifi() {
 	taskENABLE_INTERRUPTS();
 	int terminalUSART = usartOpen(USART_0, BAUD_RATE_115200, portSERIAL_BUFFER_TX, portSERIAL_BUFFER_RX);
@@ -56,6 +60,12 @@ void initializeWifi() {
 	gs_activate_wireless_connection();
 }
 
+/**
+ * This method initializes the web server by using the wireless_interface class.  It first
+ * configure the web page by setting a page title, and a type of component into it (dropdown list)
+ * Then it adds the choices in that dropdown list. After this, it calls the method start_web_server from
+ * the wireless_interface class so the server will be able to process the client request and responses.
+ */
 void initializeWebServer() {
 	configure_web_page("Chico: The Robot", "! Control Interface !", HTML_DROPDOWN_LIST);
 	add_element_choice('F', "Forward");
@@ -67,6 +77,15 @@ void initializeWebServer() {
 	start_web_server();
 }
 
+/**
+ * The task handles the command mode of chico, it initializes the motion module and
+ * the thermoSensor module to mode the head when going forward or backward. Then
+ * according to the client request set in the web server task, chico will either go
+ * forward (F), backward (B), spin left (L), spin right (R) or stop (S).  This task uses the
+ * motion module to move the robot.
+ *
+ * @param pvParameters Used only for function definition compatibility.
+ */
 void vTaskCommandMode(void *pvParameters) {
 	motionInit();
 	vTaskResume(xThermoSensorHandler);
@@ -97,6 +116,15 @@ void vTaskCommandMode(void *pvParameters) {
 	}
 }
 
+/**
+ * The task handles the attachment mode of chico, it initializes the motion module and then
+ * handles the three modes possible in this mode (Searching, Panic, Attached). These three mode
+ * analyzes the tempreature, move the robot according to the mode it is in.  In attached, chico
+ * follows an heat source that he found.  In the searching modes it searches an heatsource by turning slowly.
+ * In the panic mode, it spins fast to then come back in searching mode.
+ *
+ * @param pvParameters Used only for function definition compatibility.
+ */
 void vTaskAttachmentMode(void *pvParameters) {
 
 	typedef enum {
@@ -176,6 +204,13 @@ void vTaskAttachmentMode(void *pvParameters) {
 
 }
 
+/**
+ * The task handles the webserver and is responsible for handling both the process request from the client and to get the
+ * client response to the suspend and resume either the command mode or task mode depending on
+ * the client response.
+ *
+ * @param pvParameters Used only for function definition compatibility.
+ */
 void vTaskWebServer(void *pvParameters)
 {
 	//vTaskSuspend(vTaskAttachmentMode);
@@ -305,16 +340,6 @@ void vTaskLCD(void *pvParameters)
     }
 
     shutdownLCD();
-}
-
-void vTaskControl(void *pvParameters) {
-	if(1) {
-		vTaskSuspend(vTaskAttachmentMode);
-		vTaskResume(vTaskCommandMode);
-	}else {
-		vTaskSuspend(vTaskCommandMode);
-		vTaskResume(vTaskAttachmentMode);
-	}
 }
 
 /**
